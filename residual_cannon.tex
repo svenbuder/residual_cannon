@@ -153,14 +153,14 @@ We further require finite values of both $E(B-V)$ and $A_\mathrm{K_S}$ and expos
 We do not remove spectra with emission-line signatures or binary flags, because such spectra provide relevant tests of whether non-stellar or poorly modelled spectral structure is recovered by the residual analysis.
 These criteria leave a baseline sample of 7087 spectra. Each spectrum is from a unique star and no repeat observations are taken across the nights.
 
-The distribution of this sample in the Kiel diagram is shown in Fig.~\ref{fig:labels_teff_logg_feh_baseline}. The sample covers the main stellar types observed by GALAH, spanning approximately $3000 < T_\mathrm{eff}/\mathrm{K} < 8000$, $0 < \log(g/\mathrm{cm\,s^{-2}}) < 5.5$, and $-1.5 < \mathrm{[Fe/H]} < 0.75$. \SB{coverage of EBV and AKS and typical SNR ranges?}
+The distribution of this sample in the Kiel diagram is shown in Fig.~\ref{fig:labels_m1_teff_logg_feh}. The sample covers the main stellar types observed by GALAH, spanning approximately $3000 < T_\mathrm{eff}/\mathrm{K} < 8000$, $0 < \log(g/\mathrm{cm\,s^{-2}}) < 5.5$, and $-1.5 < \mathrm{[Fe/H]} < 0.75$. \SB{coverage of EBV and AKS and typical SNR ranges?}
 This broad coverage allows us to test whether residual structure is associated with the main stellar labels, rather than only with a narrow region of parameter space.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{figures/labels_teff_logg_feh_baseline.png}
+    \includegraphics[width=\columnwidth]{figures/labels_m1_teff_logg_feh.png}
     \caption{Distribution of the representative GALAH DR4 sample in the Kiel diagram, colour-coded by iron abundance. The sample covers the main stellar types observed by GALAH and is used to construct the residual matrices analysed in this work.}
-    \label{fig:labels_teff_logg_feh_baseline}
+    \label{fig:labels_m1_teff_logg_feh}
 \end{figure}
 
 For the representative sample, we construct a shared wavelength grid separately for each HERMES arm. We define each grid using the largest starting wavelength, the median wavelength dispersion, and the smallest final wavelength among the selected spectra. This gives common wavelength ranges of
@@ -209,9 +209,9 @@ Ideally, we would want to also include the r-process enrichment pattern. However
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{figures/labels_teff_logg_feh_abundance.png}
+    \includegraphics[width=\linewidth]{figures/labels_m2_teff_logg_feh_xfe.png}
     \caption{Caption}
-    \label{fig:labels_teff_logg_feh_abundance}
+    \label{fig:labels_m2_teff_logg_feh_xfe}
 \end{figure}
 
 \SB{If we want to include [Eu/Fe], we could try to use the golden sample of 54068 stars from the VAC with [Eu/H] by \citet{Kane2026}. That would, however require an adjustment of all sample selections and be limited to giants. So I would avoid this if we already get something interesting out of this abundance sample.}
@@ -223,12 +223,12 @@ With a third sample, we aim to explore how well we can predict stellar activity.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{figures/labels_teff_logg_logrhk.png}
+    \includegraphics[width=\linewidth]{figures/labels_m4_teff_logg_logrhk.png}
     \caption{Kiel diagram with histogram of logRHK inset}
-    \label{fig:labels_teff_logg_logrhk}
+    \label{fig:labels_m4_teff_logg_logrhk}
 \end{figure}
 
-\SB{Figure of Kiel diagram with histogram of logRHK inset in Fig.~\ref{fig:labels_teff_logg_logrhk}}
+\SB{Figure of Kiel diagram with histogram of logRHK inset in Fig.~\ref{fig:labels_m4_teff_logg_logrhk}}
 
 \SB{We could also imagine additional information, such as X-ray luminosity?}
 
@@ -289,6 +289,8 @@ We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016
 
 \subsubsection{Model 4: Correlations of residuals with stellar parameters and stellar activity}
 -> Use Activity Sample
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
