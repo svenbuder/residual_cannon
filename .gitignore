@@ -1,5 +1,5 @@
 .DS_Store
-models/
+models/*.npz
 data/
 spectra/
 .ipynb_checkpoints/
