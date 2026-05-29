@@ -28,7 +28,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-\title{Reading Between the Lines:\\Learning from Mismatches of Synthetic and Observed Stellar Spectra}
+\title{Reading Between the Lines:\\Learning from Residuals between Observed and Synthetic Stellar Spectra}
 
 \author{\vspace{-1.5cm}Sven Buder$^{1,*}$\orcidlink{0000-0002-4031-8553}}
 \author{David W. Hogg$^{2,3,4}$\orcidlink{0000-0002-4031-8553}}
@@ -141,9 +141,11 @@ We also make use of auxiliary quantities reported by GALAH DR4. These include ex
 
 % This paper is a first systematic audit, not yet a full survey-wide residual decomposition.
 % Representative GALAH nights provides a compact, computationally manageable training set.
-% Another model that also includes groups of abundances?
+% There are other ways to create samples to probe residuals (e.g. from crossmatches with specific literature sources whose parameters such as logR'HK or X-ray luminosity one could probe for), but we will use one of the simplest approaches.
 
 For this pilot study, we select spectra observed during three consecutive GALAH survey nights between 10 and 12 July 2017. This choice provides a compact but representative test set of ordinary GALAH targets, rather than a sample selected directly by stellar parameters, abundance quality, or residual behaviour. The selected fields are restricted to 22 pointings of nominal GALAH fields, where stars are selected randomly within a magnitude range (3 bright fields with $9 < V~/~\mathrm{mag} < 12$, 19 main fields with $12 < V~/~\mathrm{mag} < 12$, and one faint field with $9 < V~/~\mathrm{mag} < 14.3$) and therefore provide a useful first data set for testing whether systematic residual structure can be recovered across the typical stellar-parameter space of the survey. Across the three nights, 7627 observations of unique stars have been taken without repeated pointing at the same star.
+
+In the following subsections, we describe how we create three separate samples as input for our residual analysis: a \textit{baseline} sample (Sec.~\ref{sec:sample_baseline}) with some quality cuts, an \textit{abundance} sample with additional requirements for quality and abundance measurements (Sec.~\ref{sec:sample_abundance}), and finally an \textit{activity} sample for which we select only sources with available activity indicators from a literature source (Sec.~\ref{sec:sample_activity}).
 
 \subsubsection{Baseline Sample}
 \label{sec:sample_baseline}
@@ -174,11 +176,15 @@ for the blue, green, red, and near-infrared arms, respectively. We interpolate t
 
 We define the residual spectrum as the difference between the observed and best-fitting synthetic flux,
 \begin{equation}
-    \Delta f_\lambda = f_{\lambda,\mathrm{obs}} - f_{\lambda,\mathrm{model}},
+    \Delta f_\lambda = f_{\lambda,\mathrm{obs}} - f_{\lambda,\mathrm{model}}, \label{eq:def_residuals}
 \end{equation}
-and use the reported flux uncertainties to construct inverse-variance weights,
+and use the reported flux uncertainties $\sigma_{f,\lambda}$ to calculate a residual significance,
 \begin{equation}
-    w_\lambda = \sigma_{f,\lambda}^{-2}.
+    s_\lambda = \frac{\vert \Delta f_\lambda \vert}{\sigma_{f,\lambda}}, \label{eq:def_significance}
+\end{equation}
+and to construct inverse-variance weights,
+\begin{equation}
+    w_\lambda = \sigma_{f,\lambda}^{-2}. \label{eq:def_ivar}
 \end{equation}
 After requiring finite interpolated fluxes and uncertainties across the common wavelength grid, the final matrix contains 5314 spectra and 13927 wavelength pixels. This residual matrix forms the input to the data-driven models analysed in the following sections.
 
@@ -200,10 +206,10 @@ M4 &  226 & $\times$ & $\times$ & $\times$ & -- & -- & -- & -- &  --  & $\times$
 \end{tabular}
 \end{table*}
 
-\subsection{Abundance Sample}
+\subsubsection{Abundance Sample}
 \label{sec:sample_abundance}
 
-Based on chemical evolution \citep{Kobayashi2020}, we know that the chemical enhancement of several elements is strongly correlated due to their similar nucleosynthetic origin. As a result, the absorption lines of these elements are also expected to be strongly correlated. We will use this correlation to use representative elements of the nucleosynthesis or element groups to search for residual lines who are correlated with these enrichment patterns. In particular, we use Mg to represent core-collapse supernovae-dominated elements, Mn to represent supernovae Ia-dominated elements, Na to represent the behaviour of several odd-Z elements, and Ba to represent asymptotic giant branch star-dominated neutron-capture elements. For all of these, we only use spectra with $\texttt{flag\_x\_fe} = 0$ for $\texttt{x} \in \mathrm{[Na, Mg, Mn, Ba]}$. As we are specifically concerned with the tracing of element lines, we further restrict ourself to slow-enough rotators ($\texttt{vsini} < 15\,\mathrm{km\,s^{-1}}$) and further cut a few dozen stars (less than 1\%) when enforcing $T_\mathrm{eff} < 6500\,\mathrm{K}$.
+Based on chemical evolution studies \citep[e.g.][]{Kobayashi2020}, we know that the chemical enhancement of several elements is strongly correlated due to their similar nucleosynthetic origins. As a result, the absorption lines of these elements are also expected to be strongly correlated. We will use this insight and representative elements of a range of nucleosynthesis or element groups to search for residual lines who are correlated with these enrichment patterns. In particular, we use Mg to represent core-collapse supernovae-dominated elements, Mn to represent supernovae Ia-dominated elements, Na to represent the behaviour of several odd-Z elements, and Ba to represent asymptotic giant branch star-dominated neutron-capture elements. We only select spectra from the \textit{baseline} sample which also fulfil $\texttt{flag\_x\_fe} = 0$ for $\texttt{x} \in \mathrm{[Na, Mg, Mn, Ba]}$. As we are searching for possibly smaller signals, our changes are higher, if we restrict ourselves to stars with typically narrow absorption lines, where most of the absorption is focussed in one or at least few pixels of our GALAH spectra. We thus further restrict this sample to slow-rotating stars ($\texttt{vsini} < 15\,\mathrm{km\,s^{-1}}$) and also cut a few dozen stars (less than 1\%) when enforcing $T_\mathrm{eff} < 6500\,\mathrm{K}$ to a final \textit{abundance} sample of 3826 spectra (see Fig.~\ref{fig:labels_m2_teff_logg_feh_xfe}.
 
 Ideally, we would want to also include the r-process enrichment pattern. However, Eu, as the sole element in the GALAH range known to be strongly dominated by this enrichment patter, is not well modelled in GALAH DR4. Similary, Sm, as the next most dominated element is not detected often enough. And Nd, as the third most dominated element is already showing a very similar pattern to the remaining s-process elements, and would decrease the useful training set from 3826 to 2663 spectra (a decrease of 30 percent). We hence do not attempt to search for correlations of spectrum residuals with this pattern.
 
@@ -216,10 +222,10 @@ Ideally, we would want to also include the r-process enrichment pattern. However
 
 \SB{If we want to include [Eu/Fe], we could try to use the golden sample of 54068 stars from the VAC with [Eu/H] by \citet{Kane2026}. That would, however require an adjustment of all sample selections and be limited to giants. So I would avoid this if we already get something interesting out of this abundance sample.}
 
-\subsection{Activity Sample}
+\subsubsection{Activity Sample}
 \label{sec:sample_activity}
 
-With a third sample, we aim to explore how well we can predict stellar activity. These features are typically estimated from activity indicators such as the Ca H and K lines (REF), which are not covered by the GALAH wavelength range. We found a large\footnote{Overlaps with dedicated activity studies only yielded small overlaps with the studies by \citet[][83 stars]{BoroSaikia2018}, \citet[][51]{Brown2022}, \citet[][40]{GomesDaSilva2021}, and \citet[][1]{LorenzoOliveira2018}.} overlap with the study of G and K-type dwarf stars by \citet{Zhang2024} using $\log R'_\mathrm{HK}$ indices from LAMOST spectra \citep{Zhao2012}. Their sample is restricted to stars between $4800 < T_\mathrm{eff}~/~\mathrm{K} < 6250$ as well as $\log(g~/~\mathrm{cm\,s^{-2}) > 3.8}$. The overlap with all of GALAH DR4 for this study was 34\,672 observations (including repeat observations with different activities), and 226 spectra of our baseline sample from Sec.~\ref{sec:sample_baseline}. This allowed us to build narrower models M4A and M4E to predict stellar activity with the labels (see Tab.~\ref{tab:residual_models}).
+With a third \textit{activity} sample, we aim to explore how well we can predict stellar activity. These features are typically estimated from sensitive chromospheric activity indicators such as the Ca H and K lines \SB{(REF)}, which are not covered by the GALAH wavelength range. We found a large\footnote{Overlaps with dedicated activity studies only yielded small overlaps with the studies by \citet[][83 stars]{BoroSaikia2018}, \citet[][51]{Brown2022}, \citet[][40]{GomesDaSilva2021}, and \citet[][1]{LorenzoOliveira2018}.} overlap with the study of G and K-type dwarf stars by \citet{Zhang2024} using $\log R'_\mathrm{HK}$ indices from LAMOST spectra \citep{Zhao2012}. Although their sample is restricted to stars between $4800 < T_\mathrm{eff}~/~\mathrm{K} < 6250$ as well as $\log(g~/~\mathrm{cm\,s^{-2}) > 3.8}$, it offers a significant overlap with our GALAH DR4 spectra of 34\,672 entries (including repeat observations with different activities), and 226 spectra of our \textit{baseline} sample from Sec.~\ref{sec:sample_baseline}, which we will use as \textit{activity} sample (see Fig.~\ref{fig:labels_m4_teff_logg_logrhk}).
 
 \begin{figure}
     \centering
@@ -236,7 +242,7 @@ With a third sample, we aim to explore how well we can predict stellar activity.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analysis} \label{sec:analysis}
 
-\subsection{How significant are the residuals?}
+\subsection{How significant are the residuals and where?}
 \label{sec:analysis_significance}
 
 Two things are important to consider: How significant is a residual with respect to the underlying noise? What is the sign of a significant residual?
@@ -245,23 +251,26 @@ If the observed model has a stronger absorption than what is modelled ($\Delta f
 
 So we will quantify at the following with our baseline sample:
 \begin{itemize}
-    \item How large are residuals typically across the wavelength range? For each pixel, calculate the 16/50/84th percentiles of absolute residual and plot it across the 7087 spectra (Fig.~\ref{fig:residual_statistics}a). Also add a histogram and/or CDF and state the median (absolute) residual, the median significance of residuals, the percentage of residuals above 1/2/3 sigma significance (Fig.~\ref{fig:residual_statistics}b).
-    \item How significant are residuals typically across the wavelength range? For each pixel, calculate the 16/50/84th percentiles of residual/uncertainty and plot it across the 7087 spectra (Fig.~\ref{fig:residual_statistics}c). Also add a histogram and/or CDF (Fig.~\ref{fig:residual_statistics}d).
-    \item Where do we tend to over-/underestimate flux? For each pixel plot the percent of residuals above $1 \sigma$ (show the percentage of positive residuals in blue and the negative residuals in red in Fig.~\ref{fig:residual_statistics}e) and the CDF in Fig.~\ref{fig:residual_statistics}f.
+    \item What is the distribution of residuals $\Delta f_\lambda$ across the wavelength range, both median residuals and 16th-84th percentiles? For each pixel, we calculate the 16/50/84th percentiles of residual and plot it across the 7087 spectra (Fig.~\ref{fig:residual_statistics} top).
+    \item How significant are these residuals typically across the wavelength range? For each pixel, we calculate the 16/50/84th percentiles of the significance $s_{\lambda}$ (Fig.~\ref{fig:residual_statistics} middle).
+    \item How often are residuals significant for a given pixel? For each pixel, we calculate the percentage of residuals above/below 1, 2, and $3\sigma$ significance. We show this distribution in Fig.~\ref{fig:residual_statistics} (bottom) with blue regions showing how often the observation are more than $2\sigma$ shallower and red regions showing how often the observations are more than $2\sigma$ deeper (We attach the same panels for $1\sigma$ and $3\sigma$ in Fig.~\ref{fig:percentage_residuals_1_and_3_sigma}).
+    \item To get a quantitative feeling, for how often residuals are significant (and how large their are for typical GALAH observations), we show cumulative distribution functions of the significance of residuals (both median as well as 16th and 84th percentile) in Fig.~\ref{fig:cdf_significance_residual_flux_percentiles_m1}, with an inset of the cumulative distribution of absolute residuals.
 \end{itemize}
 
 \begin{figure*}
-    \centering
-    \includegraphics[width=\linewidth]{figures/absolute_residual_flux_percentiles_m1.png}
-    \includegraphics[width=\linewidth]{figures/significance_residual_flux_percentiles_m1.png}
+    % \centering
+    \raggedleft
+    \includegraphics[width=0.985\linewidth]{figures/residual_flux_percentiles_m1.png}
+    % \includegraphics[width=\linewidth]{figures/absolute_residual_flux_percentiles_m1.png} % Excluded, because it is actually not provided additional information to the other plots.
+    \includegraphics[width=0.978\linewidth]{figures/significance_residual_flux_percentiles_m1.png}
     \includegraphics[width=\linewidth]{figures/percentage_2sigma_residual_flux_percentiles_m1.png}
-    \caption{Different visualisations of residual statistics across the four GALAH wavelength bands (columns). As a function of wavelength, we show the distribution of absolute residuals (top), their typical significance (middle), as well as the frequency which which synthetic fluxes are significantly (more than $2 \sigma$) over- (red) and under-estimated across the 7087 spectra (bottom).}
+    \caption{Different visualisations of residual statistics across the four GALAH wavelength bands (columns). As a function of wavelength, we show the distribution of residuals (top), their typical significance (middle), as well as the frequency with which observed fluxes remain significantly (more than $2 \sigma$) shallower (red) or deeper (blue) than the synthesis across the 7087 spectra (bottom).}
     \label{fig:residual_statistics}
 \end{figure*}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/cdf_significance_residual_flux_percentiles_m1.png}
+    \includegraphics[width=\linewidth]{figures/cdf_significance_residual_flux_percentiles_m1.png}
     \caption{Cumulative distribution functions of residual significance. We show both the median residual significance (black) as well as the 16th (orange) and 84th percentiles (red). And inset shows the cumulative distribution of absolute residuals.}
     \label{fig:cdf_significance_residual_flux_percentiles_m1}
 \end{figure}
@@ -326,7 +335,7 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
 \section{Additional Material}
 
 \begin{itemize}
-    \item Fig.~\ref{fig:percentage_residuals_1_and_3_sigma} to supplement Fig.~\ref{Fig.~\ref{fig:residual_statistics}} (bottom).
+    \item Fig.~\ref{fig:percentage_residuals_1_and_3_sigma} to supplement Fig.~\ref{fig:residual_statistics} (bottom).
 \end{itemize}
 
 \begin{figure*}
