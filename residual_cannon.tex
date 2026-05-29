@@ -42,12 +42,12 @@
 
 \begin{abstract}
 What if we could fit 100 percent of a stellar spectrum?
-Modern spectroscopic surveys infer stellar parameters and chemical abundances by comparing observed spectra to synthetic models, yet even state-of-the-art 1D LTE/NLTE analyses leave structured residuals behind.
+Modern spectroscopic surveys infer stellar parameters and chemical abundances by comparing observed spectra to synthetic models, yet even state-of-the-art 1D LTE/non-LTE analyses leave structured residuals behind.
 In this work, we treat these residuals not as nuisance noise, but as a diagnostic of the information that current spectral models do not yet capture.
 Using a representative one-night sample from the GALAH survey, we compare observed spectra to their best-fitting synthetic spectra and analyse the resulting signed residuals, separating over-predicted and under-predicted spectral features.
 We first quantify the significance of the residuals relative to the observational uncertainties.
 We then use data-driven models to test how much information about fitted stellar labels, abundance patterns, extinction, and stellar activity remains in the residual spectra alone.
-Finally, we identify residual features associated with known physical and modelling limitations, including missing or inaccurate line data, activity-sensitive lines, and possible 1D LTE/NLTE modelling shortcomings.
+Finally, we identify residual features associated with known physical and modelling limitations, including missing or inaccurate line data, activity-sensitive lines, and possible 1D LTE/non-LTE modelling shortcomings.
 This systematic residual audit provides a practical route to prioritising spectral regions where improved line lists, additional nuisance labels, or data-driven corrections to physical models would most increase the information extracted from stellar spectra.
 
 % What if we could model 100\% of a spectrum? Here, we investigate the diagnostic power of spectral residuals - the difference between observed and best-fit model stellar spectra - as a source of information on stellar and interstellar phenomena not captured by current best-fit spectral syntheses. By fitting a data-driven model to these residuals, we demonstrate that fundamental stellar parameters can be recovered to surprising precision ($\Delta T_\mathrm{eff} < 350\,\mathrm{K}$, $\Delta \log g < 0.4$, and $\Delta\mathrm{[Fe/H]} < 0.1$), indicating that significant parameter-dependent structure remains in the residuals. This unmodelled information likely includes physical effects such as 3-dimensional atmosphere effects (not covered by 1-dimensional synthesis), stellar activity (e.g. linked to X-ray luminosity or indices like $\log R_{HK}$), and interstellar absorption features like diffuse interstellar bands (DIBs) and KI lines. 
@@ -79,7 +79,7 @@ The modelling of stellar spectra has advanced substantially over the last decade
 Despite this progress, no current survey analysis reproduces every observed pixel at the level implied by the observational uncertainties. Residuals can arise from several broad classes of effects: incomplete input physics, such as uncertain atomic and molecular data, missing blends, or incomplete hyperfine-structure treatment \citep{Heiter2021}; analysis choices, such as imperfect continuum normalisation \citep{Jofre2017}; fixed abundance-pattern assumptions, such as adopting solar-scaled abundance mixtures or fixed isotopic ratios despite their effect on line profiles \citep[e.g.][]{Coelho2007, Yong2004, Masseron2021}; missing stellar physics, such as limitations of 1-dimensional LTE or approximate non-LTE line formation, chromospheric activity, and spots \citep{Amarsi2018, Masseron2021, Lind2024, Lisogorskyi2019, Spina2020, Wilson2023b, Nordlander2024}; and non-stellar contaminants, such as interstellar absorption, telluric absorption, and sky subtraction residuals \citep{Saydjari2023, Casey2026}. This list is far from complete and does not even include one of the major unresolved complications in stellar spectroscopy: unresolved stellar multiplicity, where residuals from a single-star model can be further amplified by the unmodelled spectral contribution of one or more unresolved companions \citep{ElBadry2018, Merle2024}, which we acknowledge but bracket out of the present single-star residual audit. Regardless of their origin, positive and negative residuals provide more than a measure of fit quality: they provide an empirical map of the information that remains after the adopted model has been applied. An insightful example is the exploration of molecular C2 and CN features in the GALAH wavelength range. Originally not expected to be measureable as part of GALAH \citep{DeSilva2015}, probes of strongly carbon-enhanced stars \citep{Cotar2019b} proved fruitful for the rollout of C and N measurements for a significant portion of stars with less strong C2 and CN features \citep{Buder2025b}.
 
 % Method idea: apply data-driven models to residuals.
-Data-driven spectral models provide a natural way to test whether residuals contain structured information. \textit{The Cannon} \citep{Ness2015, Casey2016}, as one of the most widely used data-driven fitting approaches, learns the dependence of continuum-normalised flux on stellar labels directly from a reference set, and its application to high-dimensional abundance space showed that learned spectral derivatives can recover known line sensitivities and identify previously unrecognised abundance-sensitive features \citep[e.g.][]{Buder2018}. More broadly, \citet{Ness2026b} emphasised that residual analyses can uncover non-stellar signals and open a discovery space, while also stressing that data-driven models do not replace theoretical models. In this work, we apply this logic to residual spectra rather than to the observed spectra themselves. The goal is not to replace the physical synthesis, but to ask which label-dependent information remains after the synthesis has already been subtracted.
+Data-driven spectral models provide a natural way to test whether residuals contain structured information. \textsc{The Cannon} \citep{Ness2015, Casey2016}, as one of the most widely used data-driven fitting approaches, learns the dependence of continuum-normalised flux on stellar labels directly from a reference set, and its application to high-dimensional abundance space showed that learned spectral derivatives can recover known line sensitivities and identify previously unrecognised abundance-sensitive features \citep[e.g.][]{Buder2018}. More broadly, \citet{Ness2026b} emphasised that residual analyses can uncover non-stellar signals and open a discovery space, while also stressing that data-driven models do not replace theoretical models. In this work, we apply this logic to residual spectra rather than to the observed spectra themselves. The goal is not to replace the physical synthesis, but to ask which label-dependent information remains after the synthesis has already been subtracted.
 
 % Prior work and scope: residuals have been used before, but here for a stellar-rest-frame audit.
 Residual and component-separation approaches have already proved powerful for non-stellar spectral structure. Data-driven methods have recovered extinction and diffuse interstellar band information from large stellar spectroscopic data sets, including in LAMOST and GALAH spectra \citep[e.g.][]{Ho2017, Buder2018, Vogrincic2023}. Recent component-separation models, such as \textsc{MADGICS}, explicitly separate stellar, dust, sky, instrumental, and residual components in large spectroscopic data sets \citep{Saydjari2023}. These studies demonstrate that residuals can contain astrophysically useful information of different classes of sources. As we aim to audit residuals with an empirical data-driven approach, we deliberately keep the residuals in the stellar rest frame and ask what a stellar-spectroscopy residual audit reveals about fitted labels, abundance patterns, extinction, activity, and model limitations.
@@ -128,7 +128,7 @@ In using these products, we retain the GALAH DR4 masking of the strongly telluri
 
 The GALAH DR4 stellar labels were inferred from a hybrid spectrum-synthesis workflow. The synthetic spectra were computed with \textsc{Spectroscopy Made Easy} \citep[SME;][]{Valenti1996, Piskunov2017} and one-dimensional MARCS model atmospheres \citep{Gustafsson2008}, using the GALAH line list developed from the compilation of \citet{Heiter2021}. To make the analysis feasible across the full GALAH wavelength range, GALAH DR4 trains neural-network interpolators on synthetic spectra in local regions of $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ parameter space. These interpolators enable the simultaneous optimisation of global stellar parameters and elemental abundances across most of the observed wavelength range, including broad molecular C$_2$ and CN absorption features. The optimisation was done using up to 94\% of the pixels, with several pixels being excluded by default after initial tests indicated overall bad fit qualities for them \citep[for more details see Sec.~4.3.2 of][]{Buder2025b}. The 6\% of spectra that were synthesised but not used for optimisation are particularly interesting for this work and indicated as grey shaded regions in Fig.~\ref{fig:example_spectrum_170710003201361}.
 
-The synthetic spectra include one-dimensional NLTE line formation for atomic lines where available. In GALAH DR4, this treatment is implemented through departure-coefficient grids from the BALDER/Multi3D framework and associated model atoms for H, Li, C, N, O, Na, Mg, Al, Si, K, Ca, Mn, Fe, and Ba \citep[e.g.][]{Amarsi2020b, Amarsi2022}. Other atomic transitions and molecular features are treated in one-dimensional LTE. This distinction is important for the interpretation of residuals: although GALAH DR4 models the broad C$_2$ and CN absorption that affected earlier analyses, these molecular features do not yet have the same NLTE treatment as the listed atomic transitions.
+The synthetic spectra include one-dimensional non-LTE line formation for atomic lines where available. In GALAH DR4, this treatment is implemented through departure-coefficient grids from the BALDER/Multi3D framework and associated model atoms for H, Li, C, N, O, Na, Mg, Al, Si, K, Ca, Mn, Fe, and Ba \citep[e.g.][]{Amarsi2020b, Amarsi2022}. Other atomic transitions and molecular features are treated in one-dimensional LTE. This distinction is important for the interpretation of residuals: although GALAH DR4 models the broad C$_2$ and CN absorption that affected earlier analyses, these molecular features do not yet have the same non-LTE treatment as the listed atomic transitions.
 
 We use the GALAH DR4 labels as reference quantities against which residual structure can be tested. The main fitted stellar labels include the global stellar parameters $T_\mathrm{eff}$, $\log g$, $[\mathrm{Fe/H}]$, microturbulence velocity $v_\mathrm{mic}$, projected rotational velocity $v\sin i$, and radial velocity $v_\mathrm{rad}$. We also use the reported elemental abundances for Li, C, N, O, Na, Mg, Al, Si, K, Ca, Sc, Ti, V, Cr, Mn, Fe, Co, Ni, Cu, Zn, Rb, Sr, Y, Zr, Mo, Ru, Ba, La, Ce, Nd, Sm, and Eu. These are reported as $[\mathrm{X/Fe}]$ for most elements, with lithium reported as $A(\mathrm{Li})$. We use the associated abundance flags to distinguish reliable detections from upper limits, non-detections, and measurements affected by optimisation or boundary issues.
 
@@ -206,7 +206,7 @@ M4 &  226 & $\times$ & $\times$ & $\times$ & -- &  --  & $\times$ \\
 \end{tabular}
 \end{table}
 
-To test which labels are associated with systematic residual structure, we construct a sequence of data-driven residual models using different subsets of the GALAH DR4 labels. The input for the first of our models (listed in Table~\ref{tab:residual_models}), is a baseline set of spectra with stellar parameters $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$. We use this to probe for both residual correlations with the main stellar parameters and extinction, approximated via $A_\mathrm{K_S}$, as we will explain in Sec.~\ref{sec:analysis_residual_cannon}.
+To test which labels are associated with systematic residual structure, we construct a sequence of data-driven residual models using different subsets of the GALAH DR4 labels. The input for the first of our models (listed in Table~\ref{tab:residual_models}), is a baseline set of spectra with stellar parameters $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$. We use this to probe for both residual correlations with the main stellar parameters and extinction, approximated via $A_\mathrm{K_S}$, as we will explain in Sec.~\ref{sec:analysis_cannon}.
 
 \subsubsection{Abundance Sample}
 \label{sec:sample_abundance}
@@ -229,7 +229,7 @@ Ideally, we would want to also include the r-process enrichment pattern. However
 \subsubsection{Activity Sample}
 \label{sec:sample_activity}
 
-With a third \textit{activity} sample, we aim to explore how well we can predict stellar activity. These features are typically estimated from sensitive chromospheric activity indicators such as the Ca H and K lines \SB{(REF)}, which are not covered by the GALAH wavelength range. We found a large\footnote{Overlaps with dedicated activity studies only yielded small overlaps with the studies by \citet[][83 stars]{BoroSaikia2018}, \citet[][51]{Brown2022}, \citet[][40]{GomesDaSilva2021}, and \citet[][1]{LorenzoOliveira2018}.} overlap with the study of G and K-type dwarf stars by \citet{Zhang2024} using $\log R'_\mathrm{HK}$ indices from LAMOST spectra \citep{Zhao2012}. Although their sample is restricted to stars between $4800 < T_\mathrm{eff}~/~\mathrm{K} < 6250$ as well as $\log(g~/~\mathrm{cm\,s^{-2}) > 3.8}$, it offers a significant overlap with our GALAH DR4 spectra of 34\,672 entries (including repeat observations with different activities), and 226 spectra of our \textit{baseline} sample from Sec.~\ref{sec:sample_baseline}, which we will use as \textit{activity} sample (see Fig.~\ref{fig:labels_m4_teff_logg_logrhk}). It samples activity values of $\log R'_\mathrm{HK}$ between -5.0 and 
+With a third \textit{activity} sample, we aim to explore how well we can predict stellar activity. These features are typically estimated from sensitive chromospheric activity indicators such as the Ca H and K lines \SB{(REF)}, which are not covered by the GALAH wavelength range. We found a large\footnote{Overlaps with dedicated activity studies only yielded small overlaps with the studies by \citet[][83 stars]{BoroSaikia2018}, \citet[][51]{Brown2022}, \citet[][40]{GomesDaSilva2021}, and \citet[][1]{LorenzoOliveira2018}.} overlap with the study of G and K-type dwarf stars by \citet{Zhang2024} using $\log R'_\mathrm{HK}$ indices from LAMOST spectra \citep{Zhao2012}. Although their sample is restricted to stars between $4800 < T_\mathrm{eff}~/~\mathrm{K} < 6250$ as well as $\log(g~/~\mathrm{cm\,s^{-2}) > 3.8}$, it offers a significant overlap with our GALAH DR4 spectra of 34\,672 entries (including repeat observations with different activities), and 226 spectra of our \textit{baseline} sample from Sec.~\ref{sec:sample_baseline}, which we will use as \textit{activity} sample (see Fig.~\ref{fig:labels_m4_teff_logg_logrhk}). It samples activity values of $\log R'_\mathrm{HK}$ between -5.0 and -3.9, which covers exactly the region for which \citet{Spina2020} found strong correlations of activity with equivalent widths and resulting abundance estimates.
 
 \begin{figure}
     \centering
@@ -240,13 +240,13 @@ With a third \textit{activity} sample, we aim to explore how well we can predict
     \label{fig:labels_m4_teff_logg_logrhk}
 \end{figure}
 
-\SB{We could also imagine additional information, such as X-ray luminosity?}
+\SB{We could also imagine additional information, such as X-ray luminosity (e.g. Hyades), or TESS' $S_\mathrm{PH}$ excess variability as suggested by B. Montet?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analysis} \label{sec:analysis}
 
-To investigate where we might be able to extract how much information from the residual spectra, we first investigate the typical residuals and their significance across the GALAH wavelength range (Sec.~\ref{sec:analysis_significance}). In a second step, we aim to model the residuals with a data-driven approach as a function of a variety of labels. For this purpose, we briefly introduce the data-driven code of \text{The Cannon} (Sec.~\ref{sec:analysis_residual_cannon}). With this fitting code, we aim to extract correlations of residuals and labels that have actually been included in the fitting process with synthesis spectra (Sec.~\ref{sec:cannon_fitted_labels}). We then move on extract correlations of residuals that have already been identified in prior work, such as interstellar medium residuals (Sec.~\ref{sec:cannon_exinction_labels}), before trying to identify and validate correlations of residuals with labels that are informative (such as activity indicators), but not (yet) included or identified in GALAH analyses (Sec.~\ref{sec:cannon_activity_labels}).
+To investigate where we might be able to extract how much information from the residual spectra, we first investigate the typical residuals and their significance across the GALAH wavelength range (Sec.~\ref{sec:analysis_significance}). In a second step, we aim to model the residuals with a data-driven approach as a function of a variety of labels. For this purpose, we briefly introduce the data-driven code of \text{The Cannon} (Sec.~\ref{sec:analysis_cannon}). With this fitting code, we aim to extract correlations of residuals and labels that have actually been included in the fitting process with synthesis spectra (Sec.~\ref{sec:analysis_cannon_fitted_labels}). We then move on extract correlations of residuals that have already been identified in prior work, such as interstellar medium residuals (Sec.~\ref{sec:analysis_cannon_exinction_labels}), before trying to identify and validate correlations of residuals with labels that are informative (such as activity indicators), but not (yet) included or identified in GALAH analyses (Sec.~\ref{sec:analysis_cannon_activity_labels}).
 
 \begin{figure*}
     % \centering
@@ -300,23 +300,38 @@ To describe:
 
 Especially to discern the residuals once-off pixels from residual lines, we need to analyse them systematically. For this purpose, we use find\_peaks with a specific minimum width (above 1 pixel)!
 
-At the end of the discussion and analysis, we should revisit Fig.~\ref{fig:residual_statistics} and in the best case have some sort of visual classification of residuals (e.g. DIBs in one color, activity indicators in another, 3DNLTE effects in yet another, continuum issues in yet another, skylines and tellurics in yet another, and whatever else we find). That way we can possibly also point out how much more exploration space is left (towards modelling 100\% of a spectrum!)
 
-\subsection{Modelling residuals with The Cannon}
-\label{sec:analysis_residual_cannon}
+\subsection{Modelling Residuals with \textsc{The Cannon}}
+\label{sec:analysis_cannon}
 
-We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016}.
+We use \textsc{The Cannon} \citep{Ness2015}, in particular an updated version v0.9.0 maintained in a public repository\footnote{\url{https://github.com/ANU-RSAA/AnniesLasso} maintained by Marc White from ANU RSAA/AITC's Software Group.} of the code by \citet{Casey2016}.
 
-We will use both the recovery performance (Fig.~\ref{fig:recovery_comparison}) as well as an assessment of the linear coefficients of the different models (Fig.~\ref{fig:cannon_linear_coefficients_joint}) when analysing the reliability of correlations.
+For each flux residual $\Delta f_{n\lambda}$ of star $n$ at wavelength $\lambda$, we construct a data-driven model following the formalism of \textsc{The Cannon}. The model relates the residual flux to a label vector $\boldsymbol{\ell}_n$, which may contain stellar parameters, element abundances, or other quantities of interest,
 
-\SB{should the residuals be adjusted, to only have those above the noise? That might improve the Cannon sensing?}
+\begin{equation}
+    \Delta f_{n\lambda}
+    =
+    \boldsymbol{\theta}_\lambda^{\mathsf T}\boldsymbol{\ell}_n
+    + \epsilon_{n\lambda},
+\end{equation}
+
+where $\boldsymbol{\theta}_\lambda$ is a wavelength-dependent coefficient vector and $\epsilon_{n\lambda}$ accounts for residual scatter. Throughout this work, we adopt a quadratic label model, such that $\boldsymbol{\ell}_n$ contains constant, linear, quadratic, and cross terms of the input labels. The coefficients $\boldsymbol{\theta}_\lambda$ then describe how the flux residuals vary with these terms at each wavelength.
+
+To assess the reliability, we use both the recovery performance (Fig.~\ref{fig:recovery_comparison}), that is,
+\begin{equation}
+    \Delta \ell = \ell_\mathrm{Cannon} - \ell_\mathrm{DR4},
+    \label{eq:label_residual}
+\end{equation}
+as well as an assessment of the linear coefficients of the different models (Fig.~\ref{fig:cannon_linear_coefficients_joint}). \SB{Not yet split the training set! That needs to be done to judge the reliability / overfitting!}
+
+\SB{should the residuals be adjusted, to only have those above the noise? That might improve \textsc{The Cannon} sensing?}
 
 - Split into train and test set!
 
 - Plot linear coefficients of different models in same panel with different colors (could even colorcode the model text in latex)!
 
 \subsection{Correlations of residuals with actually fitted properties}
-\label{sec:cannon_fitted_labels}
+\label{sec:analysis_cannon_fitted_labels}
 
 \subsubsection{Model 1: Correlations of residuals with stellar parameters}
 -> Use Baseline Sample
@@ -332,11 +347,11 @@ We will use both the recovery performance (Fig.~\ref{fig:recovery_comparison}) a
 \SB{ACTUALLY: SHOULD WE LIMIT THE TRAINING SPECTRA TO THOSE PIXELS (EVEN FOR THE CANNON) ABOVE 3 SIGMA? THAT SHOULD GET RID OF THE UNDERLYING NOISE AND MIGHT AMPLIFY RESULTS? To do that, we could set their values to 0, and enhance the noise to $ \sigma{f_\mathrm{new}} = \sqrt{f_\lambda^2 + \sigma_\mathrm{f}^2}$}
 
 \subsection{Correlations of residuals with interstellar properties}
-\label{sec:cannon_exinction_labels}
+\label{sec:analysis_cannon_exinction_labels}
 
 \subsubsection{Model 3: Correlations of residuals with stellar parameters and extinction}
 -> Use Baseline Sample
--> YES: Recovering the usual DIBs  \citep{Ho2017, Buder2018, Vogrincic2023}; less clear for interstellar KI. The imperfect match with ISM KI is not necessarily surprising, given the overlap with the stellar KI (which would have been modelled with a stronger stellar KI synthesis), which would have ISM KI only remain as a residual left and right of the stellar KI.
+-> YES: Recovering the usual DIBs at 5780, 5797, and 6613 \citep{Ho2017, Buder2018, Vogrincic2023}; less clear for interstellar KI. The imperfect match with ISM KI is not necessarily surprising, given the overlap with the stellar KI (which would have been modelled with a stronger stellar KI synthesis), which would have ISM KI only remain as a residual left and right of the stellar KI.
 
 \SB{We could also try to fit the residuals with barycentric velocity corrections (that should sense for sky and telluric lines)! The broad features in Fig.~\ref{fig:residual_statistics} bottom (or better Fig.~\ref{fig:percentage_residuals_1_and_2_sigma}) correspond exactly to the skylines as shown in Fig.~\ref{fig:example_skyline}}
 
@@ -349,12 +364,14 @@ We will use both the recovery performance (Fig.~\ref{fig:recovery_comparison}) a
 \end{figure}
 
 \subsection{Correlations of residuals with complementary properties}
-\label{sec:cannon_activity_labels}
+\label{sec:analysis_cannon_activity_labels}
 
 \subsubsection{Model 4: Correlations of residuals with stellar parameters and stellar activity}
 -> Use Activity Sample
 -> LOOK AT 7800AA!!!
 -> in particular Fig.~\ref{fig:recovery_comparison2}
+
+\SB{inspect H$\alpha$, Ba~II 5853\,\AA, and candidate regions around 6508, 6518, 6700, 7780, 7835, 7800, and 7855\,\AA.}
 
 \begin{figure*}
     \centering
@@ -386,6 +403,169 @@ We will use both the recovery performance (Fig.~\ref{fig:recovery_comparison}) a
     \caption{Same as Fig.~\ref{fig:recovery_comparison}, but only for model 4.}
     \label{fig:recovery_comparison2}
 \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion} \label{sec:discussion}
+
+Having presented the residual audit, we now discuss the results in the context of our four scientific questions introduced in Section~\ref{sec:introduction}.
+
+\subsection{How significant and systematic are the remaining residuals?}
+\label{sec:discussion_significance}
+
+Discussion of results from Sec.~\ref{sec:analysis_significance}:
+\begin{itemize}
+    \item how many pixels are inconsistent with the synthesis at $1\sigma$, $2\sigma$, $3\sigma$, $5\sigma$;
+    \item which GALAH arms show the largest residual significance;
+    \item whether residuals are dominated by over-predicted or under-predicted features;
+    \item whether masked/excluded pixels are indeed the dominant source of significant mismatch;
+    \item whether fitted pixels also retain significant residual structure.
+    \item The important result is not that residuals exist, but that their sign, wavelength localisation, and label dependence are systematic.
+\end{itemize}
+
+\subsection{To what extent do residuals retain information about fitted stellar labels?}
+\label{sec:discussion_fitted_labels}
+
+Discussion of Sec.~\ref{sec:analysis_cannon_fitted_labels}:
+\begin{itemize}
+    \item how well $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ can be recovered from residuals alone;
+    \item Can we make sense of the coefficiencts that we see (aka are they sensible)? -> think about 3D non-LTE effects for Teff/logg, and of course the missing/masked, yet clearly observed element lines that are expected to carry information on the metallicity 
+    \item Is the information retained in the masked or optimisation region of GALAH DR4? -> Sec.~\ref{sec:discussion_fitted_labels_94_6}
+    \item Can we relate the residuals of Balmer lines to other work?
+    \begin{itemize}
+        \item \citet{Sayeed2024} change to halpha wings
+        \item \citet{Bergemann2016} Balmer line bisector
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Recovery}
+
+This is a pilot study, so we (currently) have not attempted to significantly clean the training set, for example of hot stars piling up at 8000K (which are certainly hotter than 8000K, but hit the \textsc{MARCS} grid edge used to calculate synthetic spectra and hence are an artificial estimate boundary, where \textsc{The Cannon} recovery would actually be worse even if it is more accurate than DR4 (see hot stars in Fig.~\ref{fig:recovery_comparison}).)
+
+What can we do? In an earlier version, we had not excluded 188 stars with bad fits ($\chi^2 > 2$), almost exclusively cool giant stars ($T_\mathrm{eff} < 3500\,\mathrm{K}$ and $\log g < 0.5$). Because of their strong molecular features which are not well-predicted by the synthetic spectra, these stars could not be recovered by the fitting algorithm and were mislabelled as the hottest least luminous stars, that is, position as a plume of stars at the other opposite end of stellar types.
+
+\subsubsection{Is the information retained in the masked or optimisation region of GALAH DR4?}
+\label{sec:discussion_fitted_labels_94_6}
+
+For this purpose, it would be interesting to create an adjusted test for model 1:
+\begin{itemize}
+    \item Model 1a: Using only the 94 percent that was also used in GALAH DR4
+    \item Model 1b: Using only the 6 percent of the spectrum that were masked in DR4
+    \item Compare the performance of these against Model 1: How much in unfitted region and how much in residuals within fitted region? Is the label information more likely embedded in the fitted region or neglected region?
+\end{itemize}
+
+
+\subsection{To what extent do residuals retain information about extinction and activity?}
+\label{sec:discussion_unfitted_labels}
+
+Residuals can encode labels that are not part of the stellar-synthesis fit! This is of course not new (see C/N work with The Cannon, even directy mass/age estimates with the Cannon by Ho et al., Ness et al., Banks et al., ...).
+
+This motivates future residual models with additional nuisance labels, especially for activity, dust, and potentially time-variable stellar phenomena. While we can of course not test for the correlation of spectra with every possible \textit{label}, it might be interesting to test for several phenomena that are expected to leave their marks on spectra, including time-variable phenomena in the Gaia era and as part of Gaia DR4 analyses.
+
+Discuss extinction:
+\begin{itemize}
+        \item clarify that stellar-rest-frame residuals are not optimal for DIB measurements, but are still useful as a diagnostic of non-stellar information leaking into stellar spectral residuals.
+    \end{itemize}
+
+Discuss activity:
+\begin{itemize}
+    \item whether $\log R'_\mathrm{HK}$ can be recovered from GALAH residual spectra;
+    \item 7800AA line?!
+    \item whether activity-sensitive residuals are concentrated near H$\alpha$, Ba~II, Fe~I/Ni~I candidates, or other line cores;
+    \item whether adding $\log R'_\mathrm{HK}$ improves residual modelling in specific wavelength regions;
+    \item whether activity signatures could bias precision abundance work if not modelled.
+\end{itemize}
+
+Is there a possible application here?
+\begin{itemize}
+    \item to get ages from activity?
+    \item to flag active stars in addition to the Balmer lines, which we had already done in DR4 when measuring the absorption/emission equivalent width of the Halpha and Hbeta lines as well as the residuals between observation and synthesis?
+    \item Look at chromospheric age and halpha predictions from \citet{SouzadosSantos2024}! also chromospheric activity vs. age relation from \citet{Zhang2019b}.
+\end{itemize}
+
+\subsection{How much closer to modelling 100 percent are we?}
+
+At the end of the discussion and analysis, we should revisit Fig.~\ref{fig:residual_statistics} and in the best case have some sort of visual classification of residuals (e.g. DIBs in one color, activity indicators in another, 3Dnon-LTE effects in yet another, continuum issues in yet another, skylines and tellurics in yet another, and whatever else we find). That way we can possibly also point out how much more exploration space is left (towards modelling 100\% of a spectrum!)
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/residual_flux_percentiles_m1.png}
+    \caption{A version of Fig.~\ref{fig:residual_flux_percentiles_m1} that has regions coloured based on what the most likely cause of the residual is (e.g. skylines, telluric lines, 3D non-LTE effects, activity, ...)}
+    \label{fig:residual_classification}
+\end{figure}
+
+\subsection{Can residuals guide improvements to spectral modelling?}
+\label{sec:discussion_model_limitations}
+
+Discuss missing or inaccurate line data:
+\begin{itemize}
+    \item candidate residual features associated with abundance groups;
+    \item which features appear as under-predicted absorption;
+    \item which line-list entries may require improved $\log gf$, damping, blends, hyperfine/isotopic structure, or non-LTE treatment.
+\end{itemize}
+
+Discuss 1D LTE/non-LTE versus 3D non-LTE:
+\begin{itemize}
+    \item Balmer residuals are a natural test case because they are strongly sensitive to atmospheric structure and line formation;
+    \item this paper does not claim to derive a full 3D non-LTE correction;
+    \item instead, it identifies where a future data-driven mapping between cheap 1D LTE/non-LTE spectra and expensive 3D non-LTE spectra would be most valuable.
+    \item A crazy idea to put out there: Because 3D non-LTE synthesis is so expensive: What about simply creating a small, representative set of these models  (at least for the elements/regions where this is possible) as well as their cheap 1D LTE counterparts, and then train a mapping function. That way, exploration (in particular of uncertainties) could happen in a quicker 1D LTE framework, while still achieving higher accuracy thanks to the 3D non-LTE framework.
+\end{itemize}
+
+Discuss activity and spots as missing stellar-physics labels:
+\begin{itemize}
+    \item activity-sensitive residuals may indicate that static 1D photospheric models are insufficient for some stars;
+    \item residual-Cannon coefficients can identify where additional activity or spot labels improve the spectral description.
+\end{itemize}
+
+\subsection{Limitations of this first residual audit}
+\label{sec:discussion_limitations}
+
+\begin{itemize}
+    \item The main analysis uses one representative night, not the full GALAH survey. Yet: one night provides a compact, natural GALAH sample;
+    \item All residuals are analysed in the stellar rest frame.
+    \item Telluric, sky, and interstellar features are therefore not modelled in their optimal rest frames.
+    \item Residual-label correlations do not automatically imply causal physical interpretation; Yet: signed residuals and controlled label tests already expose systematic spectral regions;
+    \item Label covariance remains a central challenge, especially for abundance groups, age/activity, and extinction.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions} \label{sec:conclusions}
+
+\subsection{Take-away}
+\label{sec:conclusions_takeaway}
+
+\begin{itemize}
+    \item We have introduced a stellar-rest-frame residual audit of GALAH spectra with the idea of ``Reading between the lines''.
+
+    \item We quantify the significance of the residuals between observed GALAH spectra and best-fitting synthetic spectra, separating over-predicted and under-predicted spectral features (analysis in Sec.~\ref{sec:analysis_significance} and discussion in Sec.~\ref{sec:discussion_significance}).
+
+    \item We show that residual spectra retain information about fitted stellar labels, including $T_\mathrm{eff}$, $\log g$, $[\mathrm{Fe/H}]$, and abundance patterns (analysis in Sec.~\ref{sec:analysis_cannon_fitted_labels} and discussion in Sec.~\ref{sec:discussion_fitted_labels}).
+
+    \item We test whether residuals also retain information about quantities not directly fitted by the stellar synthesis, including $E(B-V)$, $A_\mathrm{K_S}$, and $\log R'_\mathrm{HK}$ (analyses in Secs.~\ref{sec:analysis_cannon_exinction_labels} and \ref{sec:analysis_cannon_activity_labels} and discussion in Sec.~\ref{sec:discussion_unfitted_labels}).
+
+    \item We identify candidate residual features associated with abundance patterns, activity-sensitive lines, extinction/DIB-like regions, and possible physical or modelling limitations (Fig.~\ref{fig:residual_classification}).
+
+    \item We argue that data-driven residual modelling provides a practical triage tool for improving stellar spectroscopy: it identifies where better line data, additional nuisance labels, or future 1D LTE/non-LTE to 3D non-LTE mappings would most increase the information extracted from spectra.
+\end{itemize}
+
+\subsection{Future research}
+\label{sec:conclusions_future_research}
+
+\begin{itemize}
+    \item Extend the one-night analysis to a larger GALAH sample after the method has been validated.
+
+    \item Model interstellar, telluric, sky, and stellar components in their appropriate rest frames \citep{Saydjari2023, Casey2026}.
+
+    \item Compare empirical Balmer-line residuals directly to published 3D non-LTE predictions \citep{Amarsi2018}.
+
+    \item Use candidate abundance-sensitive residual features to prioritise line-list improvements or targeted re-synthesis with Korg/SME.
+
+    \item Test whether activity-sensitive residual features can become practical activity diagnostics in spectral ranges without Ca H\&K - important for planet hunters!.
+
+    \item Develop data-driven corrections that map simpler 1D LTE/non-LTE spectra onto more realistic but computationally expensive 3D non-LTE predictions.
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -421,6 +601,9 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
 
 \begin{itemize}
     \item Fig.~\ref{fig:percentage_residuals_1_and_2_sigma} to supplement Fig.~\ref{fig:residual_statistics} (bottom).
+    \item Fig.~\ref{fig:residuals_170711005801103}: Balmer lines fit well by \textsc{The Cannon} model. Several regions with strong residual lines (e.g. 4748, 4773, 5695, 5755, 7800) indicate that some lines were not predicted well by the spectrum synthesis, but can be fitted well with a data-driven model. These lines indicate imperfect line synthesis. Some sharp outliers remain, e.g. 4735 or 7705, and are likely true pixel outliers.
+    \item Fig.~\ref{fig:residuals_170711005801334}: More residuals can be seen, especially in CCD1, which are again can be recovered by the data-driven model, and hint at imperfect spectrum synthesis. Strong residuals for several lines beyond 7800 remain -> remember talk from Kathryn Kreckel on emission lines.
+    \item Fig.~\ref{fig:residuals_170712003101121}: An overall stronger residual remains in CCD1, but can also not really be recovered by \textsc{The Cannon} model. This is equally true for some strong features at 5780, 5797, 6613, and 7699 -- all known interstellar features which should not be fitted well based on stellar labels.
 \end{itemize}
 
 \begin{figure*}
@@ -431,6 +614,28 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
     \label{fig:percentage_residuals_1_and_2_sigma}
 \end{figure*}
 
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/residuals_170711005801103.pdf}
+    \caption{Residual spectra (black), fits to these residua (blue), and residuals of the residua (red) for 170711005801103.}
+    \label{fig:residuals_170711005801103}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/residuals_170711005801334.pdf}
+    \caption{Residual spectra (black), fits to these residua (blue), and residuals of the residua (red) for 170711005801334.}
+    \label{fig:residuals_170711005801334}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/residuals_170712003101121.pdf}
+    \caption{Residual spectra (black), fits to these residua (blue), and residuals of the residua (red) for 170712003101121.}
+    \label{fig:residuals_170712003101121}
+\end{figure*}
+
 \end{appendix}
 
 \end{document}
@@ -439,25 +644,25 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
 
 A first motivation is "What if we could model 100% of a spectrum?" While this is a reference to a meme, it opens up a specific avenue of investigation: What effects are currently preventing us from using 100% of the information that observations give us (that is, flux and flux uncertainty as a function of wavelength)? In particular, based on my analysis of GALAH DR4, where I have traced the percentage of pixels used for the synthesis, only up to 94% of the pixels can be used for optimisation (others I had to exclude because of usual bad fits as described out in \citet[][Sec.~4.3.2]{Buder2025b}).
 
-Being able to fit spectra well is important for a lot of domains: it is timely for Gaia DR4, which will deliver time-domain spectroscopy for millions of stars. It is important for planet hunters (or hunters of any non-stellar signal that is potentially dwarfed by stellar effects). Similarly we have not identified all lines in spectra and we cannot model everything realistic (e.g. chromosphere or other effects influencing Balmer lines -> Amarsi) > Galah DR4 only able to include only up to 94%! What if some signatures (e.g. of rare elements) hidden? Only recently extracted C and N abundances from GALAH spectra based on proof-of-concept from CEMP stars (Cotar) -> aim to use Cannon to see which nucleosynthesis group residuals may correlate with. And of course extinction! -> exciting potential to let spectra tell us about this effect that significantly effects photometry (important beyond Gaiasphere with precise enough parallax measurements). Not to forgot potential to predict 3D non-LTE effects (or even corrections?) Potential: train Cannon (or any spectrum interpolator) to map between cheap 1D LTE and 3D NLTE instead of having to calculate more expensive 1D NLTE or even more expensive 3D NLTE models for each spectrum (it will still require the training set to be done in 3D NLTE, but then the 1D LTE -> 3D NLTE mapping could approached as a data-driven mapping rather than an astrophysical numerical one)!
+Being able to fit spectra well is important for a lot of domains: it is timely for Gaia DR4, which will deliver time-domain spectroscopy for millions of stars. It is important for planet hunters (or hunters of any non-stellar signal that is potentially dwarfed by stellar effects). Similarly we have not identified all lines in spectra and we cannot model everything realistic (e.g. chromosphere or other effects influencing Balmer lines -> Amarsi) > Galah DR4 only able to include only up to 94%! What if some signatures (e.g. of rare elements) hidden? Only recently extracted C and N abundances from GALAH spectra based on proof-of-concept from CEMP stars (Cotar) -> aim to use Cannon to see which nucleosynthesis group residuals may correlate with. And of course extinction! -> exciting potential to let spectra tell us about this effect that significantly effects photometry (important beyond Gaiasphere with precise enough parallax measurements). Not to forgot potential to predict 3D non-LTE effects (or even corrections?) Potential: train Cannon (or any spectrum interpolator) to map between cheap 1D LTE and 3D non-LTE instead of having to calculate more expensive 1D non-LTE or even more expensive 3D non-LTE models for each spectrum (it will still require the training set to be done in 3D non-LTE, but then the 1D LTE -> 3D non-LTE mapping could approached as a data-driven mapping rather than an astrophysical numerical one)!
 
 Here are a few ideas (already pointing into a direction that I believe we could use a data-driven approach to tell us which parts of a spectrum are susceptible to these influences within the GALAH wavelength range):
-- 3D NLTE effects, e.g. \citep[][]{Amarsi2018} http://adsabs.harvard.edu/abs/2018A%26A...615A.139A (currently we are only modelling 1D LTE or 1D NLTE at best) -> all lines, but particularly the two Balmer lines of Halpha and Hbeta
+- 3D non-LTE effects, e.g. \citep[][]{Amarsi2018} http://adsabs.harvard.edu/abs/2018A%26A...615A.139A (currently we are only modelling 1D LTE or 1D non-LTE at best) -> all lines, but particularly the two Balmer lines of Halpha and Hbeta
 - missing line data (e.g. a specific line is not in the line list of GALAH which is heavily based of the Gaia ESO linelist by \citet{Heiter2021} https://ui.adsabs.harvard.edu/abs/2021A&A...645A.106H and thus is not in the model) -> this is possibly the case for ~20 lines 
 - lines that are strongly affected by stellar activity (while the CaHK lines are not in the GALAH wavelength range, \citet{Spina2020} https://ui.adsabs.harvard.edu/abs/2020ApJ...895...52S showed for example a strong change in lines such as the Ba II line at 5853Å and how stellar activity significantly effects measurements above log R'HK of -4.6, but even already starting from -5.0. I am able to create a training set 2 of 228 GALAH dwarf stars and spectra that has log R'HK information from \citet{Zhang2024} https://ui.adsabs.harvard.edu/abs/2024A&A...688A..23Z to probe which lines are most sensitive to this label. There are some previous works (with different approaches) that aimed to identify activity sensitive lines, such as \citet{Wise2018} https://ui.adsabs.harvard.edu/abs/2018AJ....156..180W who found 4827.46, 4861.33, 5707.00, 6562.81. but also work by \citet{Lisogorskyi2019} https://ui.adsabs.harvard.edu/abs/2019MNRAS.485.4804L, with lines within the GALAH wavelength range.
-- Stellar spots (somewhat overlapping with activity) can change measurements, with approaches to model this tested by \citet{Wilson2023b} https://ui.adsabs.harvard.edu/abs/2023MNRAS.524..731W and \citet{Nordlander2024} https://ui.adsabs.harvard.edu/abs/2024MNRAS.tmp.2465N. -> such additional models would maybe not be necessary, if The Cannon could already include activity influences intrinsically.
+- Stellar spots (somewhat overlapping with activity) can change measurements, with approaches to model this tested by \citet{Wilson2023b} https://ui.adsabs.harvard.edu/abs/2023MNRAS.524..731W and \citet{Nordlander2024} https://ui.adsabs.harvard.edu/abs/2024MNRAS.tmp.2465N. -> such additional models would maybe not be necessary, if \textsc{The Cannon} could already include activity influences intrinsically.
 
 I already tested a first idea on how to approach the extraction of signals with The Cannon:
 - calculate the residuals between observed and best-fit spectra for a random night of GALAH DR4 (one that samples the HRD with the typical survey setup). One might have to at least take a bit more care of cutting wrong features, such as the occasional hot pixel causing a flux above 1.X.
-- Use them as input (rather than the observed flux) for the Cannon to see how well we can recover Teff, logg, and [Fe/H] - aka: how much information is left in the data? Surprise: We still get Teff correct to 60 - 230 + 360 K, logg to 0.05 - 0.25 + 0.42 and [Fe/H] to 0.02 -0.11 + 0.09. (After a cleaning step that gets rid of the usual few outliers with bad spectra, I even seem to get -10 -160+23- for Teff, -0.01 - 0.20 + 0.21 for logg, and 0.00 - 0.11+0.09 for [Fe/H]). This is mindblowing, given that this is only twice as bad for [Fe/H] than the results that use 94% of the spectrum (possibly a few very informative lines have been omitted or not included in the DR4 analysis or are not well fitted by the 1D NLTE analysis, yet highly informative?). For Teff and logg it is also still a strong indication, that teff- and logg-dependent information remains left in the residuals / is not covered by the synthesis (e.g. Teff/logg-dependent 3D NLTE effects that may differ across the HRD).
-- I could imagine going through the specific linear coefficients of the Cannon to systematically identify the residual information (e.g. I clearly see the Halpha line pop up as negatively corellated in the Teff coefficient, but several smaller features show up as positively correlated. For [Fe/H], there are a lot of positively correlated features (I assume lines that have not been included in the synthesis, but of course are expected to scale with iron abundance or more specifically overall metallicity).
+- Use them as input (rather than the observed flux) for \textsc{The Cannon} to see how well we can recover Teff, logg, and [Fe/H] - aka: how much information is left in the data? Surprise: We still get Teff correct to 60 - 230 + 360 K, logg to 0.05 - 0.25 + 0.42 and [Fe/H] to 0.02 -0.11 + 0.09. (After a cleaning step that gets rid of the usual few outliers with bad spectra, I even seem to get -10 -160+23- for Teff, -0.01 - 0.20 + 0.21 for logg, and 0.00 - 0.11+0.09 for [Fe/H]). This is mindblowing, given that this is only twice as bad for [Fe/H] than the results that use 94% of the spectrum (possibly a few very informative lines have been omitted or not included in the DR4 analysis or are not well fitted by the 1D non-LTE analysis, yet highly informative?). For Teff and logg it is also still a strong indication, that teff- and logg-dependent information remains left in the residuals / is not covered by the synthesis (e.g. Teff/logg-dependent 3D non-LTE effects that may differ across the HRD).
+- I could imagine going through the specific linear coefficients of \textsc{The Cannon} to systematically identify the residual information (e.g. I clearly see the Halpha line pop up as negatively corellated in the Teff coefficient, but several smaller features show up as positively correlated. For [Fe/H], there are a lot of positively correlated features (I assume lines that have not been included in the synthesis, but of course are expected to scale with iron abundance or more specifically overall metallicity).
 - instead of just tracing metallicity / [Fe/H], I was actually thinking of tracing more specific element groups, that is Mg (for CCSNe channel), Mn (for SNIa), the mean of Na and Al (for odd-Z), and the mean of Ba and Y (for s-process), possibly even Nd or Na+Eu (for r-process). That way, I could make a much more specific assessment of how important a specific residual is (as odd-Z and s/r-process are exciting, but CCSne and SNIa not necessarily). I could also imagine that specific lines may already be known and just simply have unreliable linedata (so I could help to make predictions as to which linedata may need improvement).
 
 I am wondering, what would be the most systematic approach: Looking into the remaining residuals of the residuals Cannon - to see what information is not yet covered? That way, I could definitely identify the interstellar features (this has already been proven to work by \citet{Ho2017} http://adsabs.harvard.edu/abs/2017ApJ...836....5H with the extinction label A\_Ks to identify DIBs 4428, 5780, 5797, and 6283, as well as myself for GALAH DR2 \citep{Buder2018} http://adsabs.harvard.edu/abs/2018MNRAS.478.4513B for DIBs around 5700, 5780, 5797, 6613, and the interstellar KI line around 7699). When adding E(B-V), I can reproduce that estimate within -0.01 - 0.09+0.10 mag, and similarly, I can reproduce A\_Ks within -0.0002 - 0.033+0.046 mag. Then the next step could be to see which residuals correlate with specific element groups / nucleosynthesis channels to get a better idea / prediction of their source (this would require more careful comparison with literature).
 
-When going to the training set and model 2 that also has log R'HK in it (only for dwarfs), I am able to recover stellar parameters even better (e.g. Teff within 5-78+89 K, but also logR'HK within 0.003-0.067+0.042. Using A\_Ks instead of E(B-V) for that model leads to a recovery of very similar recovery of log R'HK of 0.001-0.065+0.046. In both cases, The Cannon identifies a few lines as sensitive to logR'HK: correlating positively are lines around 6508+-5, 6518+-5, 6700+-5, 7780+-5, 7835+-5 (I can extract them more than that). There are also a few features that anti-correlate with this label, such as strongly the core of the Balmer line Halpha and at 7800 (this line has never been fitted well in most of GALAH and is not excluded in DR4 because it often did not match well), as well as a feature at 7855+-5. Some of these may not be actually be lines but just individual pixels -- but I can confirm that and clean the list to only involve actual lines. I could compare the linear coefficient with the lines from \citet{Wise2018} and \citet{Lisogorskyi2019}. I have to do that more carefully, but I think FeI at 4772.82, NiI at 6643.64 might match.
+When going to the training set and model 2 that also has log R'HK in it (only for dwarfs), I am able to recover stellar parameters even better (e.g. Teff within 5-78+89 K, but also logR'HK within 0.003-0.067+0.042. Using A\_Ks instead of E(B-V) for that model leads to a recovery of very similar recovery of log R'HK of 0.001-0.065+0.046. In both cases, \textsc{The Cannon} identifies a few lines as sensitive to logR'HK: correlating positively are lines around 6508+-5, 6518+-5, 6700+-5, 7780+-5, 7835+-5 (I can extract them more than that). There are also a few features that anti-correlate with this label, such as strongly the core of the Balmer line Halpha and at 7800 (this line has never been fitted well in most of GALAH and is not excluded in DR4 because it often did not match well), as well as a feature at 7855+-5. Some of these may not be actually be lines but just individual pixels -- but I can confirm that and clean the list to only involve actual lines. I could compare the linear coefficient with the lines from \citet{Wise2018} and \citet{Lisogorskyi2019}. I have to do that more carefully, but I think FeI at 4772.82, NiI at 6643.64 might match.
 
-When presenting the coefficients of the Cannon and identifying significant features, I might want to use the scipy find\_peak algorithm to set a reasonable limit on the width (aka avoid 1 pixel) and the amplitude (e.g. be significantly different from the noise), to automate the process.
+When presenting the coefficients of \textsc{The Cannon} and identifying significant features, I might want to use the scipy find\_peak algorithm to set a reasonable limit on the width (aka avoid 1 pixel) and the amplitude (e.g. be significantly different from the noise), to automate the process.
 
 I was also wondering about a good way to log my progress, e.g.: start by saying how significant (with respect to the observational uncertainty) the mismatch between observation and synthesis is. That might be good to quantify with a few numbers: a) what is the average flux residual in normalised flux, b) what is the typical noise in the same unit, c) what is the typical significance of the residuals, and how many pixels and percent of the 16000 disagree by more than 1sigma, 2sigma, 3sigma (aka how much discovery space is there)?
 
