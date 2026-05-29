@@ -250,21 +250,6 @@ With a third \textit{activity} sample, we aim to explore how well we can predict
 
 To investigate where we might be able to extract how much information from the residual spectra, we first investigate the typical residuals and their significance across the GALAH wavelength range (Sec.~\ref{sec:analysis_significance}). In a second step, we aim to model the residuals with a data-driven approach as a function of a variety of labels. For this purpose, we briefly introduce the data-driven code of \text{The Cannon} (Sec.~\ref{sec:analysis_residual_cannon}). With this fitting code, we aim to extract correlations of residuals and labels that have actually been included in the fitting process with synthesis spectra (Sec.~\ref{sec:cannon_fitted_labels}). We then move on extract correlations of residuals that have already been identified in prior work, such as interstellar medium residuals (Sec.~\ref{sec:cannon_exinction_labels}), before trying to identify and validate correlations of residuals with labels that are informative (such as activity indicators), but not (yet) included or identified in GALAH analyses (Sec.~\ref{sec:cannon_activity_labels}).
 
-\subsection{How significant are the residuals and where?}
-\label{sec:analysis_significance}
-
-Two things are important to consider: How significant is a residual with respect to the underlying noise? What is the sign of a significant residual?
-
-If the observed model has a stronger absorption than what is modelled ($\Delta f_\lambda < 0$), the model may lack absorption opacity, underestimate the strength of a blend, omit a relevant line, or misrepresent the line-formation physics. If the observed flux is higher than the synthesis ($\Delta f_\lambda > 0$), the model may over-predict absorption, miss chromospheric line-core filling, or absorb continuum-normalisation and reduction systematics into the fit. A signed residual analysis therefore separates under-predicted and over-predicted spectral structure, rather than treating all mismatch as a single unsigned noise term.
-
-So we will quantify at the following with our baseline sample:
-\begin{itemize}
-    \item What is the distribution of residuals $\Delta f_\lambda$ across the wavelength range, both median residuals and 16th-84th percentiles? For each pixel, we calculate the 16/50/84th percentiles of residual and plot it across the 7087 spectra (Fig.~\ref{fig:residual_statistics} top).
-    \item How significant are these residuals typically across the wavelength range? For each pixel, we calculate the 16/50/84th percentiles of the significance $s_{\lambda}$ (Fig.~\ref{fig:residual_statistics} middle).
-    \item How often are residuals significant for a given pixel? For each pixel, we calculate the percentage of residuals above/below 1, 2, and $3\sigma$ significance. We show this distribution in Fig.~\ref{fig:residual_statistics} (bottom) with blue regions showing how often the observation are more than $2\sigma$ shallower and red regions showing how often the observations are more than $2\sigma$ deeper (We attach the same panels for $1\sigma$ and $3\sigma$ in Fig.~\ref{fig:percentage_residuals_1_and_3_sigma}).
-    \item To get a quantitative feeling, for how often residuals are significant (and how large their are for typical GALAH observations), we show cumulative distribution functions of the significance of residuals (both median as well as 16th and 84th percentile) in Fig.~\ref{fig:cdf_significance_residual_flux_percentiles_m1}, with an inset of the cumulative distribution of absolute residuals.
-\end{itemize}
-
 \begin{figure*}
     % \centering
     \raggedleft
@@ -282,6 +267,21 @@ So we will quantify at the following with our baseline sample:
     \caption{Cumulative distribution functions of residual significance. We show both the median residual significance (black) as well as the 16th (orange) and 84th percentiles (red). And inset shows the cumulative distribution of absolute residuals.}
     \label{fig:cdf_significance_residual_flux_percentiles_m1}
 \end{figure}
+
+\subsection{How significant are the residuals and where?}
+\label{sec:analysis_significance}
+
+Two things are important to consider: How significant is a residual with respect to the underlying noise? What is the sign of a significant residual?
+
+If the observed model has a stronger absorption than what is modelled ($\Delta f_\lambda < 0$), the model may lack absorption opacity, underestimate the strength of a blend, omit a relevant line, or misrepresent the line-formation physics. If the observed flux is higher than the synthesis ($\Delta f_\lambda > 0$), the model may over-predict absorption, miss chromospheric line-core filling, or absorb continuum-normalisation and reduction systematics into the fit. A signed residual analysis therefore separates under-predicted and over-predicted spectral structure, rather than treating all mismatch as a single unsigned noise term.
+
+So we will quantify at the following with our baseline sample:
+\begin{itemize}
+    \item What is the distribution of residuals $\Delta f_\lambda$ across the wavelength range, both median residuals and 16th-84th percentiles? For each pixel, we calculate the 16/50/84th percentiles of residual and plot it across the 7087 spectra (Fig.~\ref{fig:residual_statistics} top).
+    \item How significant are these residuals typically across the wavelength range? For each pixel, we calculate the 16/50/84th percentiles of the significance $s_{\lambda}$ (Fig.~\ref{fig:residual_statistics} middle).
+    \item How often are residuals significant for a given pixel? For each pixel, we calculate the percentage of residuals above/below 1, 2, and $3\sigma$ significance. We show this distribution in Fig.~\ref{fig:residual_statistics} (bottom) with blue regions showing how often the observation are more than $2\sigma$ shallower and red regions showing how often the observations are more than $2\sigma$ deeper (We attach the same panels for $1\sigma$ and $3\sigma$ in Fig.~\ref{fig:percentage_residuals_1_and_3_sigma}).
+    \item To get a quantitative feeling, for how often residuals are significant (and how large their are for typical GALAH observations), we show cumulative distribution functions of the significance of residuals (both median as well as 16th and 84th percentile) in Fig.~\ref{fig:cdf_significance_residual_flux_percentiles_m1}, with an inset of the cumulative distribution of absolute residuals.
+\end{itemize}
 
 \SB{Use find\_peaks to systematically identify peaks rather than manually}
 
@@ -301,22 +301,28 @@ We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016
 
 \subsubsection{Model 1: Correlations of residuals with stellar parameters}
 -> Use Baseline Sample
+-> interpret Teff (correlation with continuum shape)
+-> interpret logg
+-> interpret FeH (yes: several absorption features not modelled well, which of course as a whole still hold information)
 
 \subsubsection{Model 2: Correlations of residuals with stellar parameters and abundances}
 -> Use Abundance Sample
--> 
+-> interesting correlations with continuum shapes.
+-> any strong enough features?
 
 \subsection{Correlations of residuals with interstellar properties}
 \label{sec:cannon_exinction_labels}
 
 \subsubsection{Model 3: Correlations of residuals with stellar parameters and extinction}
 -> Use Baseline Sample
+-> YES: Recovering the usual DIBs  \citep{Ho2017, Buder2018, Vogrincic2023}; less clear for interstellar KI. The imperfect match with ISM KI is not necessarily surprising, given the overlap with the stellar KI (which would have been modelled with a stronger stellar KI synthesis), which would have ISM KI only remain as a residual left and right of the stellar KI.
 
 \subsection{Correlations of residuals with complementary properties}
 \label{sec:cannon_activity_labels}
 
 \subsubsection{Model 4: Correlations of residuals with stellar parameters and stellar activity}
 -> Use Activity Sample
+-> LOOK AT 7800AA!!!
 
 \begin{figure*}
     \centering
@@ -335,12 +341,9 @@ We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016
     \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mg_fe.png}
     \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mn_fe.png}
     \includegraphics[width=0.245\linewidth]{figures/recovery_model2_ba_fe.png}
-    \caption{Density distribution of differences between input and recovered labels as a function of input label for the eight different labels used in models 1-3. Recovery for of the \textit{baseline} sample with model 1 ($T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$) is shown in black density, with the additional $A_\mathrm{K_S}$ used for model 3 in orange, and when additionally recovering [Na/Fe], [Mg/Fe], [Mn/Fe], and [Ba/Fe] with model 2 in red.}
+    \caption{Distributions of differences between input and recovered labels as a function of input label for the eight different labels used in models 1-3. Recovery for of the \textit{baseline} sample with model 1 ($T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$) is shown in black density, with the additional $A_\mathrm{K_S}$ used for model 3 in orange, and when additionally recovering [Na/Fe], [Mg/Fe], [Mn/Fe], and [Ba/Fe] with model 2 in red. For a more informed comparison, we enforce each panel to have equal aspect ratio (so more circular distribution indicates less reliable recovery) and provide both the 16/50/84th percentile of the input distribution in the axis label and the recovery difference as 16/50/84th percentiles, with larger distribution percentiles over recovery percentiles indicating better performance.}
     \label{fig:residual_statistics}
 \end{figure*}
-
-
-
 
 
 
@@ -369,6 +372,7 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
 \bibliographystyle{mnras}
 \bibliography{bib}
 
+\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{appendix}
