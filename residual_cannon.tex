@@ -155,13 +155,15 @@ We further require finite values of both $E(B-V)$ and $A_\mathrm{K_S}$ and expos
 We do not remove spectra with emission-line signatures or binary flags, because such spectra provide relevant tests of whether non-stellar or poorly modelled spectral structure is recovered by the residual analysis.
 These criteria leave a baseline sample of 7087 spectra. Each spectrum is from a unique star and no repeat observations are taken across the nights.
 
-The distribution of this sample in the Kiel diagram is shown in Fig.~\ref{fig:labels_m1_teff_logg_feh}. The sample covers the main stellar types observed by GALAH, spanning approximately $3000 < T_\mathrm{eff}/\mathrm{K} < 8000$, $0 < \log(g/\mathrm{cm\,s^{-2}}) < 5.5$, and $-1.5 < \mathrm{[Fe/H]} < 0.75$. \SB{coverage of EBV and AKS and typical SNR ranges?}
+The distribution of this sample in the Kiel diagram is shown in Fig.~\ref{fig:labels_m1_teff_logg_feh}. The sample covers the main stellar types observed by GALAH, spanning approximately $3000 < T_\mathrm{eff}/\mathrm{K} < 8000$, $0 < \log(g/\mathrm{cm\,s^{-2}}) < 5.5$, and $-1.5 < \mathrm{[Fe/H]} < 0.75$. \SB{Add coverage of $E(B-V)$ and $A_\mathrm{K_S}$ as well as the typical signal-to-noise distributions.}
 This broad coverage allows us to test whether residual structure is associated with the main stellar labels, rather than only with a narrow region of parameter space.
 
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{figures/labels_m1_teff_logg_feh.png}
-    \caption{Distribution of the representative GALAH DR4 sample in the Kiel diagram, colour-coded by iron abundance. The sample covers the main stellar types observed by GALAH and is used to construct the residual matrices analysed in this work.}
+    \caption{
+    Distribution of the stars of the \textit{baseline} sample used for Models~1 and~3 in the effective temperature--surface gravity plane, colour-coded by metallicity, [Fe/H]. The sample spans a broad range of stellar parameters as is required for a representative \textit{baseline} sample.
+    }
     \label{fig:labels_m1_teff_logg_feh}
 \end{figure}
 
@@ -188,35 +190,37 @@ and to construct inverse-variance weights,
 \end{equation}
 After requiring finite interpolated fluxes and uncertainties across the common wavelength grid, the final matrix contains 5314 spectra and 13927 wavelength pixels. This residual matrix forms the input to the data-driven models analysed in the following sections.
 
-To test which labels are associated with systematic residual structure, we construct a sequence of data-driven residual models using different subsets of the GALAH DR4 labels. The input for the first of our models (listed in Table~\ref{tab:residual_models}), is a baseline set of spectra with stellar parameters $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$. We use this to probe for both residual correlations with the main stellar parameters and extinction, approximated via $A_\mathrm{K_S}$, as we will explain in Sec.~\ref{sec:analysis_residual_cannon}.
-
-\begin{table*}
+\begin{table}
 \centering
-\caption{Label sets and numbers of spectra used for the different data-driven residual models. Crosses indicate labels included in each model.}
+\caption{Label sets and numbers of spectra used for the different data-driven residual models, with X in $\mathrm{[X/Fe]}$ representing the elements Na, Mg, Mn, and Ba. Crosses indicate labels included in each model. \SB{$A_\mathrm{K_S}$ or $E(B-V)$?}}
 \label{tab:residual_models}
 \begin{tabular}{lcccccccccc}
 \hline
-Model & $N_\mathrm{spectra}$ & $T_\mathrm{eff}$ & $\log g$ & $\mathrm{[Fe/H]}$ & $\mathrm{[Mg/Fe]}$ &$\mathrm{[Na/Fe]}$ &$\mathrm{[Mn/Fe]}$ &$\mathrm{[Ba/Fe]}$ & $A_\mathrm{K_S}$ & $\log R_\mathrm{HK}'$ \\
+Model & $N_\mathrm{spectra}$ & $T_\mathrm{eff}$ & $\log g$ & $\mathrm{[Fe/H]}$ & $\mathrm{[X/Fe]}$ & $A_\mathrm{K_S}$ & $\log R_\mathrm{HK}'$ \\
 \hline
-M1 & 7087 & $\times$ & $\times$ & $\times$ & -- & -- & -- & -- & -- & -- \\
-M2 & 3826 & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ & -- & -- \\
-M3 & 7087 & $\times$ & $\times$ & $\times$ & -- & -- & -- & -- & $\times$ & -- \\
-M4 &  226 & $\times$ & $\times$ & $\times$ & -- & -- & -- & -- &  --  & $\times$ \\
+M1 & 7087 & $\times$ & $\times$ & $\times$ & -- & -- \\
+M2 & 3826 & $\times$ & $\times$ & $\times$ & $\times$ & -- & -- \\
+M3 & 7087 & $\times$ & $\times$ & $\times$ & -- & $\times$ & -- \\
+M4 &  226 & $\times$ & $\times$ & $\times$ & -- &  --  & $\times$ \\
 \hline
 \end{tabular}
-\end{table*}
+\end{table}
+
+To test which labels are associated with systematic residual structure, we construct a sequence of data-driven residual models using different subsets of the GALAH DR4 labels. The input for the first of our models (listed in Table~\ref{tab:residual_models}), is a baseline set of spectra with stellar parameters $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$. We use this to probe for both residual correlations with the main stellar parameters and extinction, approximated via $A_\mathrm{K_S}$, as we will explain in Sec.~\ref{sec:analysis_residual_cannon}.
 
 \subsubsection{Abundance Sample}
 \label{sec:sample_abundance}
 
-Based on chemical evolution studies \citep[e.g.][]{Kobayashi2020}, we know that the chemical enhancement of several elements is strongly correlated due to their similar nucleosynthetic origins. As a result, the absorption lines of these elements are also expected to be strongly correlated. We will use this insight and representative elements of a range of nucleosynthesis or element groups to search for residual lines who are correlated with these enrichment patterns. In particular, we use Mg to represent core-collapse supernovae-dominated elements, Mn to represent supernovae Ia-dominated elements, Na to represent the behaviour of several odd-Z elements, and Ba to represent asymptotic giant branch star-dominated neutron-capture elements. We only select spectra from the \textit{baseline} sample which also fulfil $\texttt{flag\_x\_fe} = 0$ for $\texttt{x} \in \mathrm{[Na, Mg, Mn, Ba]}$. As we are searching for possibly smaller signals, our changes are higher, if we restrict ourselves to stars with typically narrow absorption lines, where most of the absorption is focussed in one or at least few pixels of our GALAH spectra. We thus further restrict this sample to slow-rotating stars ($\texttt{vsini} < 15\,\mathrm{km\,s^{-1}}$) and also cut a few dozen stars (less than 1\%) when enforcing $T_\mathrm{eff} < 6500\,\mathrm{K}$ to a final \textit{abundance} sample of 3826 spectra (see Fig.~\ref{fig:labels_m2_teff_logg_feh_xfe}.
+Based on chemical evolution studies \citep[e.g.][]{Kobayashi2020}, we know that the chemical enhancement of several elements is strongly correlated due to their similar nucleosynthetic origins. As a result, the absorption lines of these elements are also expected to be strongly correlated. We will use this insight and representative elements of a range of nucleosynthesis or element groups to search for residual lines who are correlated with these enrichment patterns. In particular, we use Mg to represent core-collapse supernovae-dominated elements, Mn to represent supernovae Ia-dominated elements, Na to represent the behaviour of several odd-Z elements, and Ba to represent asymptotic giant branch star-dominated neutron-capture elements. We only select spectra from the \textit{baseline} sample which also fulfil $\texttt{flag\_x\_fe} = 0$ for $\texttt{x} \in \mathrm{[Na, Mg, Mn, Ba]}$. As we are searching for possibly smaller signals, our changes are higher, if we restrict ourselves to stars with typically narrow absorption lines, where most of the absorption is focussed in one or at least few pixels of our GALAH spectra. We thus further restrict this sample to slow-rotating stars ($\texttt{vsini} < 15\,\mathrm{km\,s^{-1}}$) and also cut a few dozen stars (less than 1\%) when enforcing $T_\mathrm{eff} < 6500\,\mathrm{K}$. We show the destribution of stellar parameters for the resulting \textit{activity} sample of 3826 spectra Fig.~\ref{fig:labels_m2_teff_logg_feh_xfe}. For further information, we also show the neglected hot stars and fast rotators as grey crosses and an inset of one of the abundance distributions, [Fe/H] vs. [Mg/Fe].
 
 Ideally, we would want to also include the r-process enrichment pattern. However, Eu, as the sole element in the GALAH range known to be strongly dominated by this enrichment patter, is not well modelled in GALAH DR4. Similary, Sm, as the next most dominated element is not detected often enough. And Nd, as the third most dominated element is already showing a very similar pattern to the remaining s-process elements, and would decrease the useful training set from 3826 to 2663 spectra (a decrease of 30 percent). We hence do not attempt to search for correlations of spectrum residuals with this pattern.
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{figures/labels_m2_teff_logg_feh_xfe.png}
-    \caption{Caption}
+    \caption{
+    Distribution of the 3826 stars of the \textit{abundance} sample used for Model~2 in the effective temperature--surface gravity plane, colour-coded by metallicity, [Fe/H]. Excluded hot stars and fast rotators are shown as grey crosses. The inset shows the distribution of the selected stars in the [Mg/Fe]--[Fe/H] plane, illustrating the abundance coverage of the sample.
+    }    
     \label{fig:labels_m2_teff_logg_feh_xfe}
 \end{figure}
 
@@ -230,7 +234,9 @@ With a third \textit{activity} sample, we aim to explore how well we can predict
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{figures/labels_m4_teff_logg_logrhk.png}
-    \caption{Kiel diagram with histogram of logRHK inset}
+    \caption{
+    Distribution of the stars of the \textit{activity} sample used for Model~4 in the effective temperature--surface gravity plane, colour-coded by the activity indicator $\log R'_\mathrm{HK}$ from \citet{Zhang2024}. The sample is limited to dwarf stars with measured activity indices. An inset shows the distribution of $\log R'_\mathrm{HK}$.
+    }
     \label{fig:labels_m4_teff_logg_logrhk}
 \end{figure}
 
@@ -241,6 +247,8 @@ With a third \textit{activity} sample, we aim to explore how well we can predict
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analysis} \label{sec:analysis}
+
+To investigate where we might be able to extract how much information from the residual spectra, we first investigate the typical residuals and their significance across the GALAH wavelength range (Sec.~\ref{sec:analysis_significance}). In a second step, we aim to model the residuals with a data-driven approach as a function of a variety of labels. For this purpose, we briefly introduce the data-driven code of \text{The Cannon} (Sec.~\ref{sec:analysis_residual_cannon}). With this fitting code, we aim to extract correlations of residuals and labels that have actually been included in the fitting process with synthesis spectra (Sec.~\ref{sec:cannon_fitted_labels}). We then move on extract correlations of residuals that have already been identified in prior work, such as interstellar medium residuals (Sec.~\ref{sec:cannon_exinction_labels}), before trying to identify and validate correlations of residuals with labels that are informative (such as activity indicators), but not (yet) included or identified in GALAH analyses (Sec.~\ref{sec:cannon_activity_labels}).
 
 \subsection{How significant are the residuals and where?}
 \label{sec:analysis_significance}
@@ -262,7 +270,7 @@ So we will quantify at the following with our baseline sample:
     \raggedleft
     \includegraphics[width=0.985\linewidth]{figures/residual_flux_percentiles_m1.png}
     % \includegraphics[width=\linewidth]{figures/absolute_residual_flux_percentiles_m1.png} % Excluded, because it is actually not provided additional information to the other plots.
-    \includegraphics[width=0.978\linewidth]{figures/significance_residual_flux_percentiles_m1.png}
+    \includegraphics[width=0.979\linewidth]{figures/significance_residual_flux_percentiles_m1.png}
     \includegraphics[width=\linewidth]{figures/percentage_2sigma_residual_flux_percentiles_m1.png}
     \caption{Different visualisations of residual statistics across the four GALAH wavelength bands (columns). As a function of wavelength, we show the distribution of residuals (top), their typical significance (middle), as well as the frequency with which observed fluxes remain significantly (more than $2 \sigma$) shallower (red) or deeper (blue) than the synthesis across the 7087 spectra (bottom).}
     \label{fig:residual_statistics}
@@ -275,20 +283,21 @@ So we will quantify at the following with our baseline sample:
     \label{fig:cdf_significance_residual_flux_percentiles_m1}
 \end{figure}
 
-\SB{should the residuals be adjusted, to only have those above the noise? That might improve the Cannon sensing?}
-
 \SB{Use find\_peaks to systematically identify peaks rather than manually}
 
-\subsection{The residual-Cannon models}
+\subsection{Modelling residuals with The Cannon}
 \label{sec:analysis_residual_cannon}
 
 We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016}.
+
+\SB{should the residuals be adjusted, to only have those above the noise? That might improve the Cannon sensing?}
 
 - Split into train and test set!
 
 - Plot linear coefficients of different models in same panel with different colors (could even colorcode the model text in latex)!
 
 \subsection{Correlations of residuals with actually fitted properties}
+\label{sec:cannon_fitted_labels}
 
 \subsubsection{Model 1: Correlations of residuals with stellar parameters}
 -> Use Baseline Sample
@@ -298,14 +307,37 @@ We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016
 -> 
 
 \subsection{Correlations of residuals with interstellar properties}
+\label{sec:cannon_exinction_labels}
 
 \subsubsection{Model 3: Correlations of residuals with stellar parameters and extinction}
 -> Use Baseline Sample
 
 \subsection{Correlations of residuals with complementary properties}
+\label{sec:cannon_activity_labels}
 
 \subsubsection{Model 4: Correlations of residuals with stellar parameters and stellar activity}
 -> Use Activity Sample
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.245\linewidth]{figures/figures/cannon_linear_coefficients_joint.pdf}
+    \caption{Linear coefficients of different models}
+    \label{fig:cannon_linear_coefficients_joint}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model1_teff.png}
+    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model1_logg.png}
+    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model1_fe_h.png}
+    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model3_a_ks.png}
+    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model2_na_fe.png}
+    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model2_mg_fe.png}
+    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model2_mn_fe.png}
+    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model2_ba_fe.png}
+    \caption{Density distribution of differences between input and recovered labels as a function of input label for the eight different labels used in models 1-3. Recovery for of the \textit{baseline} sample with model 1 ($T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$) is shown in black density, with the additional $A_\mathrm{K_S}$ used for model 3 in orange, and when additionally recovering [Na/Fe], [Mg/Fe], [Mn/Fe], and [Ba/Fe] with model 2 in red.}
+    \label{fig:residual_statistics}
+\end{figure*}
 
 
 
@@ -316,6 +348,12 @@ We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016
 We acknowledge the traditional owners of the land on which the ANU stands, the Ngunnawal and Ngambri people. We pay our respects to elders past, and present and are proud to continue their tradition of surveying the night sky and its mysteries to better understand our Universe.
 
 SB acknowledges support from the Australian Research Council under grant numbers DE240100150.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Software}
+
+\input{tex_text/software_info.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
