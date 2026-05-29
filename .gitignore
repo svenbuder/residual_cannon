@@ -1,5 +1,6 @@
 .DS_Store
 models/*.npz
+figures/residuals_test_*.pdf
 data/
 spectra/
 .ipynb_checkpoints/
