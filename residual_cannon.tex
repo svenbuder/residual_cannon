@@ -240,8 +240,6 @@ With a third \textit{activity} sample, we aim to explore how well we can predict
     \label{fig:labels_m4_teff_logg_logrhk}
 \end{figure}
 
-\SB{Figure of Kiel diagram with histogram of logRHK inset in Fig.~\ref{fig:labels_m4_teff_logg_logrhk}}
-
 \SB{We could also imagine additional information, such as X-ray luminosity?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -256,7 +254,7 @@ To investigate where we might be able to extract how much information from the r
     \includegraphics[width=0.985\linewidth]{figures/residual_flux_percentiles_m1.png}
     % \includegraphics[width=\linewidth]{figures/absolute_residual_flux_percentiles_m1.png} % Excluded, because it is actually not provided additional information to the other plots.
     \includegraphics[width=0.979\linewidth]{figures/significance_residual_flux_percentiles_m1.png}
-    \includegraphics[width=\linewidth]{figures/percentage_2sigma_residual_flux_percentiles_m1.png}
+    \includegraphics[width=\linewidth]{figures/percentage_3sigma_residual_flux_percentiles_m1.png}
     \caption{Different visualisations of residual statistics across the four GALAH wavelength bands (columns). As a function of wavelength, we show the distribution of residuals (top), their typical significance (middle), as well as the frequency with which observed fluxes remain significantly (more than $2 \sigma$) shallower (red) or deeper (blue) than the synthesis across the 7087 spectra (bottom).}
     \label{fig:residual_statistics}
 \end{figure*}
@@ -279,16 +277,37 @@ So we will quantify at the following with our baseline sample:
 \begin{itemize}
     \item What is the distribution of residuals $\Delta f_\lambda$ across the wavelength range, both median residuals and 16th-84th percentiles? For each pixel, we calculate the 16/50/84th percentiles of residual and plot it across the 7087 spectra (Fig.~\ref{fig:residual_statistics} top).
     \item How significant are these residuals typically across the wavelength range? For each pixel, we calculate the 16/50/84th percentiles of the significance $s_{\lambda}$ (Fig.~\ref{fig:residual_statistics} middle).
-    \item How often are residuals significant for a given pixel? For each pixel, we calculate the percentage of residuals above/below 1, 2, and $3\sigma$ significance. We show this distribution in Fig.~\ref{fig:residual_statistics} (bottom) with blue regions showing how often the observation are more than $2\sigma$ shallower and red regions showing how often the observations are more than $2\sigma$ deeper (We attach the same panels for $1\sigma$ and $3\sigma$ in Fig.~\ref{fig:percentage_residuals_1_and_3_sigma}).
+    \item How often are residuals significant for a given pixel? For each pixel, we calculate the percentage of residuals above/below 1, 2, and $3\sigma$ significance. We show this distribution in Fig.~\ref{fig:residual_statistics} (bottom) with blue regions showing how often the observation are more than $2\sigma$ shallower and red regions showing how often the observations are more than $2\sigma$ deeper (We attach the same panels for $1\sigma$ and $3\sigma$ in Fig.~\ref{fig:percentage_residuals_1_and_2_sigma}).
     \item To get a quantitative feeling, for how often residuals are significant (and how large their are for typical GALAH observations), we show cumulative distribution functions of the significance of residuals (both median as well as 16th and 84th percentile) in Fig.~\ref{fig:cdf_significance_residual_flux_percentiles_m1}, with an inset of the cumulative distribution of absolute residuals.
 \end{itemize}
 
-\SB{Use find\_peaks to systematically identify peaks rather than manually}
+To describe:
+\begin{itemize}
+    \item Where are the the largest residuals? (note the wavy shape of underlying residuals in CCD3)
+    \item How significant are residuals? One can notice a few trends
+    \begin{itemize}
+        \item The two Balmer lines are the most significant outliers.
+        \item There are significant residuals with broader (>1AA) residual patterns.
+        \begin{itemize}
+            \item Among them, we note for example 5780, 5797, 6613, 7699 (we already know about these 3 from ISM absorption analyses).
+            \item There are several features, e.g. around 5755, 5750-5760, 6635 (note it's almost always too shallow in the synthesis -> red in bottom of Fig.~\ref{fig:residual_statistics}), and 7710-7720, which are possibly multiple lines, but also possibly a broader residual feature with superimposed line residuals.
+            \item There are quite a few broader features in the IR arm: 7750, 7760, 7785, 7795, 7810, 7820, 7860. Note how these show up quite strongly in the positive/negative frequency plot at the bottom of Fig.~\ref{fig:residual_statistics}: As this happens in both directions and is a broad feature: Is that possibly sky-subtraction? -> We need to compare this with the skylines! This is confirmed by Fig.~\ref{fig:example_skyline}!
+        \end{itemize}
+        \item There are numerous significant residuals that are on the order of 1AA or below (either individual lines or possibly specific pixels). Features that extend beyond just one pixel, yet are limited to a small enough range to be consistent with one specific line in the stellar restframe, are exactly those interesting ones. Here, a large amplitude towards positive frequencies suggests that these lines are predominantly overestimated by the synthesis. Single-line features that extend in both directions indicate that the lines are not well modelled (e.g. because of imprecise oscillator strengths). The most exciting one will be those in terms of missing lines, which show up preferentially in the red region in the bottom of Fig.~\ref{fig:residual_statistics}, such as the line around 7800.
+    \end{itemize}
+    \item \SB{FOR ALL THESE: CHECK HOW MUCH SIGNIFICANCE REMAINS WITH 3SIGMA - FIG.~\ref{fig:percentage_residuals_1_and_2_sigma}!!! POSSIBLY THE LATTER IS A MORE RELIABLE FIGURE?}
+\end{itemize}
+
+Especially to discern the residuals once-off pixels from residual lines, we need to analyse them systematically. For this purpose, we use find\_peaks with a specific minimum width (above 1 pixel)!
+
+At the end of the discussion and analysis, we should revisit Fig.~\ref{fig:residual_statistics} and in the best case have some sort of visual classification of residuals (e.g. DIBs in one color, activity indicators in another, 3DNLTE effects in yet another, continuum issues in yet another, skylines and tellurics in yet another, and whatever else we find). That way we can possibly also point out how much more exploration space is left (towards modelling 100\% of a spectrum!)
 
 \subsection{Modelling residuals with The Cannon}
 \label{sec:analysis_residual_cannon}
 
 We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016}.
+
+We will use both the recovery performance (Fig.~\ref{fig:recovery_comparison}) as well as an assessment of the linear coefficients of the different models (Fig.~\ref{fig:cannon_linear_coefficients_joint}) when analysing the reliability of correlations.
 
 \SB{should the residuals be adjusted, to only have those above the noise? That might improve the Cannon sensing?}
 
@@ -310,6 +329,8 @@ We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016
 -> interesting correlations with continuum shapes.
 -> any strong enough features?
 
+\SB{ACTUALLY: SHOULD WE LIMIT THE TRAINING SPECTRA TO THOSE PIXELS (EVEN FOR THE CANNON) ABOVE 3 SIGMA? THAT SHOULD GET RID OF THE UNDERLYING NOISE AND MIGHT AMPLIFY RESULTS? To do that, we could set their values to 0, and enhance the noise to $ \sigma{f_\mathrm{new}} = \sqrt{f_\lambda^2 + \sigma_\mathrm{f}^2}$}
+
 \subsection{Correlations of residuals with interstellar properties}
 \label{sec:cannon_exinction_labels}
 
@@ -317,12 +338,23 @@ We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016
 -> Use Baseline Sample
 -> YES: Recovering the usual DIBs  \citep{Ho2017, Buder2018, Vogrincic2023}; less clear for interstellar KI. The imperfect match with ISM KI is not necessarily surprising, given the overlap with the stellar KI (which would have been modelled with a stronger stellar KI synthesis), which would have ISM KI only remain as a residual left and right of the stellar KI.
 
+\SB{We could also try to fit the residuals with barycentric velocity corrections (that should sense for sky and telluric lines)! The broad features in Fig.~\ref{fig:residual_statistics} bottom (or better Fig.~\ref{fig:percentage_residuals_1_and_2_sigma}) correspond exactly to the skylines as shown in Fig.~\ref{fig:example_skyline}}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/example_skyline.png}
+    \caption{Example of skyline (blue) and telluric estimate (orange) from 210115002201239.}
+    \label{fig:example_skyline}
+\end{figure}
+
 \subsection{Correlations of residuals with complementary properties}
 \label{sec:cannon_activity_labels}
 
 \subsubsection{Model 4: Correlations of residuals with stellar parameters and stellar activity}
 -> Use Activity Sample
 -> LOOK AT 7800AA!!!
+-> in particular Fig.~\ref{fig:recovery_comparison2}
 
 \begin{figure*}
     \centering
@@ -342,10 +374,18 @@ We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016
     \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mn_fe.png}
     \includegraphics[width=0.245\linewidth]{figures/recovery_model2_ba_fe.png}
     \caption{Distributions of differences between input and recovered labels as a function of input label for the eight different labels used in models 1-3. Recovery for of the \textit{baseline} sample with model 1 ($T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$) is shown in black density, with the additional $A_\mathrm{K_S}$ used for model 3 in orange, and when additionally recovering [Na/Fe], [Mg/Fe], [Mn/Fe], and [Ba/Fe] with model 2 in red. For a more informed comparison, we enforce each panel to have equal aspect ratio (so more circular distribution indicates less reliable recovery) and provide both the 16/50/84th percentile of the input distribution in the axis label and the recovery difference as 16/50/84th percentiles, with larger distribution percentiles over recovery percentiles indicating better performance.}
-    \label{fig:residual_statistics}
+    \label{fig:recovery_comparison}
 \end{figure*}
 
-
+\begin{figure}
+    \centering
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_teff.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logg.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_fe_h.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logRHK.png}
+    \caption{Same as Fig.~\ref{fig:recovery_comparison}, but only for model 4.}
+    \label{fig:recovery_comparison2}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -380,15 +420,15 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
 \section{Additional Material}
 
 \begin{itemize}
-    \item Fig.~\ref{fig:percentage_residuals_1_and_3_sigma} to supplement Fig.~\ref{fig:residual_statistics} (bottom).
+    \item Fig.~\ref{fig:percentage_residuals_1_and_2_sigma} to supplement Fig.~\ref{fig:residual_statistics} (bottom).
 \end{itemize}
 
 \begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{figures/percentage_1sigma_residual_flux_percentiles_m1.png}
-    \includegraphics[width=\linewidth]{figures/percentage_3sigma_residual_flux_percentiles_m1.png}
+    \includegraphics[width=\linewidth]{figures/percentage_2sigma_residual_flux_percentiles_m1.png}
     \caption{Same as bottom panel of Fig.~\ref{fig:residual_statistics}, but for percentage of spectra with residuals above/below $1\sigma$ (top) and $3\sigma$ (bottom).}
-    \label{fig:percentage_residuals_1_and_3_sigma}
+    \label{fig:percentage_residuals_1_and_2_sigma}
 \end{figure*}
 
 \end{appendix}
