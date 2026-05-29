@@ -120,7 +120,7 @@ The reduced one-dimensional spectra are produced with the HERMES reduction pipel
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{figures/example_spectrum_170710003201361.png}
-    \caption{Example GALAH DR4 spectrum for \texttt{sobject\_id} 170710003201361 (2MASS J22084160+0607286). Black and blue lines show the observed continuum-normalised spectrum and best-fit DR4 model across the four HERMES CCD arms. Shaded residuals indicate model-data differences, with darker colours marking increasingly significant residuals relative to the reported flux uncertainty. Grey bands at the bottom show wavelength regions masked in the DR4 fit.}
+    \caption{Example GALAH DR4 spectrum with \texttt{sobject\_id} 170710003201361 (of the red giant 2MASS J22084160+0607286). Black and blue lines show the observed continuum-normalised spectrum and best-fit DR4 model across the four HERMES CCD arms. Shaded residuals indicate model-data differences, with darker colours marking increasingly significant residuals relative to the reported flux uncertainty. Grey bands at the bottom show wavelength regions masked in the DR4 fit.}
     \label{fig:example_spectrum_170710003201361}
 \end{figure}
 
@@ -254,9 +254,17 @@ So we will quantify at the following with our baseline sample:
     \centering
     \includegraphics[width=\linewidth]{figures/absolute_residual_flux_percentiles_m1.png}
     \includegraphics[width=\linewidth]{figures/significance_residual_flux_percentiles_m1.png}
-    \caption{Different visualisations of residual statistics. As a function of wavelength, we show the distribution of absolute residuals (panel a), their typical significance (panel c), as well as the frequency which which synthetic fluxes are significantly (more than $1 \sigma$) over- (red) and under-estimated across the 7087 spectra (panel e). Panels b, d, and f, show then the cumulative distribution functions of the left panels.}
+    \includegraphics[width=\linewidth]{figures/percentage_2sigma_residual_flux_percentiles_m1.png}
+    \caption{Different visualisations of residual statistics across the four GALAH wavelength bands (columns). As a function of wavelength, we show the distribution of absolute residuals (top), their typical significance (middle), as well as the frequency which which synthetic fluxes are significantly (more than $2 \sigma$) over- (red) and under-estimated across the 7087 spectra (bottom).}
     \label{fig:residual_statistics}
 \end{figure*}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/cdf_significance_residual_flux_percentiles_m1.png}
+    \caption{Cumulative distribution functions of residual significance. We show both the median residual significance (black) as well as the 16th (orange) and 84th percentiles (red). And inset shows the cumulative distribution of absolute residuals.}
+    \label{fig:cdf_significance_residual_flux_percentiles_m1}
+\end{figure}
 
 \SB{should the residuals be adjusted, to only have those above the noise? That might improve the Cannon sensing?}
 
@@ -313,11 +321,23 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{appendix}
+\begin{appendix}
 
-%\section{Interesting information that is not vital for the main story of your paper}
+\section{Additional Material}
 
-%\end{appendix}
+\begin{itemize}
+    \item Fig.~\ref{fig:percentage_residuals_1_and_3_sigma} to supplement Fig.~\ref{Fig.~\ref{fig:residual_statistics}} (bottom).
+\end{itemize}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\linewidth]{figures/percentage_1sigma_residual_flux_percentiles_m1.png}
+    \includegraphics[width=\linewidth]{figures/percentage_3sigma_residual_flux_percentiles_m1.png}
+    \caption{Same as bottom panel of Fig.~\ref{fig:residual_statistics}, but for percentage of spectra with residuals above/below $1\sigma$ (top) and $3\sigma$ (bottom).}
+    \label{fig:percentage_residuals_1_and_3_sigma}
+\end{figure*}
+
+\end{appendix}
 
 \end{document}
 
