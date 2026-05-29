@@ -229,7 +229,7 @@ Ideally, we would want to also include the r-process enrichment pattern. However
 \subsubsection{Activity Sample}
 \label{sec:sample_activity}
 
-With a third \textit{activity} sample, we aim to explore how well we can predict stellar activity. These features are typically estimated from sensitive chromospheric activity indicators such as the Ca H and K lines \SB{(REF)}, which are not covered by the GALAH wavelength range. We found a large\footnote{Overlaps with dedicated activity studies only yielded small overlaps with the studies by \citet[][83 stars]{BoroSaikia2018}, \citet[][51]{Brown2022}, \citet[][40]{GomesDaSilva2021}, and \citet[][1]{LorenzoOliveira2018}.} overlap with the study of G and K-type dwarf stars by \citet{Zhang2024} using $\log R'_\mathrm{HK}$ indices from LAMOST spectra \citep{Zhao2012}. Although their sample is restricted to stars between $4800 < T_\mathrm{eff}~/~\mathrm{K} < 6250$ as well as $\log(g~/~\mathrm{cm\,s^{-2}) > 3.8}$, it offers a significant overlap with our GALAH DR4 spectra of 34\,672 entries (including repeat observations with different activities), and 226 spectra of our \textit{baseline} sample from Sec.~\ref{sec:sample_baseline}, which we will use as \textit{activity} sample (see Fig.~\ref{fig:labels_m4_teff_logg_logrhk}).
+With a third \textit{activity} sample, we aim to explore how well we can predict stellar activity. These features are typically estimated from sensitive chromospheric activity indicators such as the Ca H and K lines \SB{(REF)}, which are not covered by the GALAH wavelength range. We found a large\footnote{Overlaps with dedicated activity studies only yielded small overlaps with the studies by \citet[][83 stars]{BoroSaikia2018}, \citet[][51]{Brown2022}, \citet[][40]{GomesDaSilva2021}, and \citet[][1]{LorenzoOliveira2018}.} overlap with the study of G and K-type dwarf stars by \citet{Zhang2024} using $\log R'_\mathrm{HK}$ indices from LAMOST spectra \citep{Zhao2012}. Although their sample is restricted to stars between $4800 < T_\mathrm{eff}~/~\mathrm{K} < 6250$ as well as $\log(g~/~\mathrm{cm\,s^{-2}) > 3.8}$, it offers a significant overlap with our GALAH DR4 spectra of 34\,672 entries (including repeat observations with different activities), and 226 spectra of our \textit{baseline} sample from Sec.~\ref{sec:sample_baseline}, which we will use as \textit{activity} sample (see Fig.~\ref{fig:labels_m4_teff_logg_logrhk}). It samples activity values of $\log R'_\mathrm{HK}$ between -5.0 and 
 
 \begin{figure}
     \centering
@@ -320,24 +320,27 @@ We use \textit{The Cannon} \citep{Ness2015} in its version 2 by \citet{Casey2016
 
 \begin{figure*}
     \centering
-    \includegraphics[width=0.245\linewidth]{figures/figures/cannon_linear_coefficients_joint.pdf}
+    \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_joint.pdf}
     \caption{Linear coefficients of different models}
     \label{fig:cannon_linear_coefficients_joint}
 \end{figure*}
 
 \begin{figure*}
     \centering
-    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model1_teff.png}
-    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model1_logg.png}
-    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model1_fe_h.png}
-    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model3_a_ks.png}
-    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model2_na_fe.png}
-    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model2_mg_fe.png}
-    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model2_mn_fe.png}
-    \includegraphics[width=0.245\linewidth]{figures/figures/recovery_model2_ba_fe.png}
+    \includegraphics[width=0.245\linewidth]{figures/recovery_model1_teff.png}
+    \includegraphics[width=0.245\linewidth]{figures/recovery_model1_logg.png}
+    \includegraphics[width=0.245\linewidth]{figures/recovery_model1_fe_h.png}
+    \includegraphics[width=0.245\linewidth]{figures/recovery_model3_a_ks.png}
+    \includegraphics[width=0.245\linewidth]{figures/recovery_model2_na_fe.png}
+    \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mg_fe.png}
+    \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mn_fe.png}
+    \includegraphics[width=0.245\linewidth]{figures/recovery_model2_ba_fe.png}
     \caption{Density distribution of differences between input and recovered labels as a function of input label for the eight different labels used in models 1-3. Recovery for of the \textit{baseline} sample with model 1 ($T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$) is shown in black density, with the additional $A_\mathrm{K_S}$ used for model 3 in orange, and when additionally recovering [Na/Fe], [Mg/Fe], [Mn/Fe], and [Ba/Fe] with model 2 in red.}
     \label{fig:residual_statistics}
 \end{figure*}
+
+
+
 
 
 
