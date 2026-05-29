@@ -487,12 +487,12 @@ Is there a possible application here?
 
 At the end of the discussion and analysis, we should revisit Fig.~\ref{fig:residual_statistics} and in the best case have some sort of visual classification of residuals (e.g. DIBs in one color, activity indicators in another, 3Dnon-LTE effects in yet another, continuum issues in yet another, skylines and tellurics in yet another, and whatever else we find). That way we can possibly also point out how much more exploration space is left (towards modelling 100\% of a spectrum!)
 
-\begin{figure}
+\begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{figures/residual_flux_percentiles_m1.png}
-    \caption{A version of Fig.~\ref{fig:residual_flux_percentiles_m1} that has regions coloured based on what the most likely cause of the residual is (e.g. skylines, telluric lines, 3D non-LTE effects, activity, ...)}
+    \caption{A version of Fig.~\ref{fig:residual_statistics} (top) that has regions coloured based on what the most likely cause of the residual is (e.g. skylines, telluric lines, 3D non-LTE effects, activity, ...)}
     \label{fig:residual_classification}
-\end{figure}
+\end{figure*}
 
 \subsection{Can residuals guide improvements to spectral modelling?}
 \label{sec:discussion_model_limitations}
@@ -592,7 +592,6 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
 \bibliographystyle{mnras}
 \bibliography{bib}
 
-\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{appendix}
