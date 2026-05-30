@@ -202,17 +202,18 @@ After requiring finite interpolated fluxes and uncertainties across the common w
 \caption{Overview of inputs for our residual models.}
 \label{tab:residual_models}
 \begin{tabular}{lccccccccccc}
-\hline
+\hline\hline
 Model & $N_\lambda$ & $N_\star$ & $T/g/\mathrm{Fe}$ & $\mathrm{[X/Fe]}$ & $A_\mathrm{K_S}$ & $\log R_\mathrm{HK}'$ \\
 % Model & $N_\lambda$ & $N_\star$ & $T_\mathrm{eff}/\log g/\mathrm{[Fe/H]}$ & $\mathrm{[X/Fe]}$ & $A_\mathrm{K_S}$ & $\log R_\mathrm{HK}'$ \\
 \hline
 \textcolor{M1}{M1} & 13927 & 7087 & $\times$ & -- & -- & -- \\
+\textcolor{M1}{M1*} & 13927 & 3826 & $\times$ & -- & -- & -- \\
 \textcolor{M2}{M2} & 13927 & 3826 & $\times$ & $\times$ & -- & -- \\
 \textcolor{M3}{M3} & 13927 & 7087 & $\times$ & -- & $\times$ & -- \\
 \textcolor{M4}{M4} & 13927 &  226 & $\times$ & -- &  --  & $\times$ \\
 \textcolor{M5}{M5} &   793 & 7087 & $\times$ & -- & -- & -- \\
 \textcolor{M6}{M6} & 13134 & 7087 & $\times$ & -- & -- & -- \\
-\hline
+\hline\hline
 \end{tabular} \newline
 \footnotesize{Note: Each model uses a certain number of pixels ($N_\lambda$) for a total of $N_\star$ spectra with input labels $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$ (abbreviated as $T/g/\mathrm{Fe}$). $\mathrm{[X/Fe]}$ denotes the additional use of abundances of elements Na, Mg, Mn, and Ba. Crosses indicate labels included in each model. Model \textcolor{M5}{M5} used only the pixels that have been masked in GALAH DR4, while \textcolor{M6}{M6} used only pixels that have been used for fitting in GALAH DR4.}
 \end{table}
@@ -403,7 +404,7 @@ as well as an assessment of the linear coefficients of the different models (Fig
     \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mg_fe.png}
     \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mn_fe.png}
     \includegraphics[width=0.245\linewidth]{figures/recovery_model2_ba_fe.png}
-    \caption{Distributions of differences between input and recovered labels as a function of input label for the eight different labels used in models 1-3. Recovery for of the \textit{baseline} sample with model 1 ($T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$) is shown in black density, with the additional $A_\mathrm{K_S}$ used for model 3 in orange, and when additionally recovering [Na/Fe], [Mg/Fe], [Mn/Fe], and [Ba/Fe] with model 2 in red. For a more informed comparison, we enforce each panel to have equal aspect ratio (so more circular distribution indicates less reliable recovery) and provide both the 16/50/84th percentile of the input distribution in the axis label and the recovery difference as 16/50/84th percentiles, with larger distribution percentiles over recovery percentiles indicating better performance.}
+    \caption{Distributions of differences between input and recovered labels as a function of input label for the eight different labels used in models 1-3. Recovery for of the \textit{baseline} sample with model 1 ($T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$) is shown in black density, with the additional $A_\mathrm{K_S}$ used for model 3 in orange, and when additionally recovering [Na/Fe], [Mg/Fe], [Mn/Fe], and [Ba/Fe] with model 2 in red. For a more informed comparison, we enforce each panel to have equal aspect ratio (so more circular distribution indicates less reliable recovery) and provide both the 16/50/84th percentile of the input distribution in the axis label and the recovery difference as 16/50/84th percentiles, with larger distribution percentiles over recovery percentiles indicating better performance. \SB{We could overplot the results of M1* on top of M1 for Teff/logg/FeH.}}
     \label{fig:recovery_comparison}
 \end{figure*}
 
@@ -457,6 +458,8 @@ This is a pilot study, so we (currently) have not attempted to significantly cle
 
 What can we do? In an earlier version, we had not excluded 188 stars with bad fits ($\chi^2 > 2$), almost exclusively cool giant stars ($T_\mathrm{eff} < 3500\,\mathrm{K}$ and $\log g < 0.5$). Because of their strong molecular features which are not well-predicted by the synthetic spectra, these stars could not be recovered by the fitting algorithm and were mislabelled as the hottest least luminous stars, that is, position as a plume of stars at the other opposite end of stellar types.
 
+Along those lines: When being more restrictive for the \textit{abundance} sample, we seem to recover the stellar parameters significantly better than for the \textit{baseline} sample (see Tab.~\ref{tab:recovery_performance}). Is that because of the restriction to cooler stars or because of the more flexible model (we added 4 more labels!)? -> Run the 3-label cannon on the \textit{abundance} sample to confirm numbers!
+
 \subsubsection{Is the information retained in the masked or optimisation region of GALAH DR4?}
 \label{sec:discussion_fitted_labels_94_6}
 
@@ -507,13 +510,16 @@ For this purpose, it would be interesting to create an adjusted test for model 1
     & 50 & 50-16 & 84-50 & 50 & 50-16 & 84-50 & 50 & 50-16 & 84-50 \\
     \hline
     \textcolor{M1}{M1} & $-20$  & $-130$  & $+160$  & $+0.00~~$ & $-0.19~~$ & $+0.19~~$ & $-0.006$  & $-0.085$  & $+0.090$  \\
+    \textcolor{M1}{M1*} & $+~~1$  & $-~~76$  & $+~~90$  & $+0.00~~$ & $-0.14~~$ & $+0.13~~$ & $-0.001$  & $-0.058$  & $+0.056$ \\
     \textcolor{M2}{M2} & $+~~2$ & $-~~77$ & $+~~73$ & $-0.00~~$ & $-0.13~~$ & $+0.14~~$ & $-0.003$  & $-0.052$  & $+0.055$  \\
     \textcolor{M3}{M3} & $-20$  & $-130$  & $+150$  & $+0.01~~$ & $-0.19~~$ & $+0.19~~$ & $-0.005$  & $-0.087$  & $+0.085$  \\
     \textcolor{M4}{M4} & $+~~5$ & $-~~81$ & $+~~79$ & $-0.002$  & $-0.058$  & $+0.050$  & $-0.001$  & $-0.051$  & $+0.042$  \\
     \textcolor{M5}{M5} & $-60$  & $-140$  & $+170$  & $-0.00~~$ & $-0.23~~$ & $+0.20~~$ & $-0.01~~$ & $-0.10~~$ & $+0.09~~$ \\
-    \textcolor{M6}{M6} & $+10$  & $-160$  & $+210$  & $+0.02~~$ & $-0.21~~$ & $+0.23~~$ & $+0.00~~$ & $-0.10~~$ & $+0.12~~$ \\
+    \textcolor{M6}{M6} & $+10$  & $-160$  & $+210$  & $+0.02~~$ & $-0.21~~$ & $+0.23~~$ & $+0.00~~$ & $-0.10~~$ & $+0.12~~$ \\    
     \hline \hline
+    \multicolumn{10}{c}{\footnotesize{Note: \textcolor{M1}{M1*} denotes training of model \textcolor{M1}{M1} on the \textit{abundance} sample, rather than the \textit{baseline} sample.}} \\
     \end{tabular}
+    \newline
 \end{table*}
 
 \subsection{To what extent do residuals retain information about extinction and activity?}
@@ -551,7 +557,7 @@ At the end of the discussion and analysis, we should revisit Fig.~\ref{fig:resid
 \begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{figures/residual_flux_percentiles_m1.png}
-    \caption{A version of Fig.~\ref{fig:residual_statistics} (top) that has regions coloured based on what the most likely cause of the residual is (e.g. skylines, telluric lines, 3D non-LTE effects, activity, ...)}
+    \caption{\SB{To Be Done of course, but placing the idea here of this key plot:} A version of Fig.~\ref{fig:residual_statistics} (top) that has regions coloured based on what the most likely cause of the residual is (e.g. skylines, telluric lines, 3D non-LTE effects, activity, ...)}
     \label{fig:residual_classification}
 \end{figure*}
 
@@ -590,7 +596,7 @@ Discuss activity and spots as missing stellar-physics labels:
     \item Label covariance remains a central challenge, especially for abundance groups, age/activity, and extinction.
 \end{itemize}
 
-\clearpage
+% \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions} \label{sec:conclusions}
