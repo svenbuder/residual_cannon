@@ -21,6 +21,13 @@
 }
 \definecolor{linkcolor}{rgb}{0.0,0.3,0.5}
 
+\definecolor{M1}{HTML}{000000} % k
+\definecolor{M2}{HTML}{1F77B4} % C0
+\definecolor{M3}{HTML}{FF7F0E} % C1
+\definecolor{M4}{HTML}{9467BD} % C4
+\definecolor{M5}{HTML}{D62728} % C3
+\definecolor{M6}{HTML}{E377C2} % C6
+
 %%%%% COMMANDS %%%%%
 \newcommand{\SB}[1]{{\textcolor{purple}{SB: #1}}}
 \newcommand{\comment}[1]{\textcolor{lightgray}{#1}}
@@ -192,18 +199,22 @@ After requiring finite interpolated fluxes and uncertainties across the common w
 
 \begin{table}
 \centering
-\caption{Label sets and numbers of spectra used for the different data-driven residual models, with X in $\mathrm{[X/Fe]}$ representing the elements Na, Mg, Mn, and Ba. Crosses indicate labels included in each model. \SB{$A_\mathrm{K_S}$ or $E(B-V)$?}}
+\caption{Overview of inputs for our residual models.}
 \label{tab:residual_models}
-\begin{tabular}{lcccccccccc}
+\begin{tabular}{lccccccccccc}
 \hline
-Model & $N_\mathrm{spectra}$ & $T_\mathrm{eff}$ & $\log g$ & $\mathrm{[Fe/H]}$ & $\mathrm{[X/Fe]}$ & $A_\mathrm{K_S}$ & $\log R_\mathrm{HK}'$ \\
+Model & $N_\lambda$ & $N_\star$ & $T/g/\mathrm{Fe}$ & $\mathrm{[X/Fe]}$ & $A_\mathrm{K_S}$ & $\log R_\mathrm{HK}'$ \\
+% Model & $N_\lambda$ & $N_\star$ & $T_\mathrm{eff}/\log g/\mathrm{[Fe/H]}$ & $\mathrm{[X/Fe]}$ & $A_\mathrm{K_S}$ & $\log R_\mathrm{HK}'$ \\
 \hline
-M1 & 7087 & $\times$ & $\times$ & $\times$ & -- & -- \\
-M2 & 3826 & $\times$ & $\times$ & $\times$ & $\times$ & -- & -- \\
-M3 & 7087 & $\times$ & $\times$ & $\times$ & -- & $\times$ & -- \\
-M4 &  226 & $\times$ & $\times$ & $\times$ & -- &  --  & $\times$ \\
+\textcolor{M1}{M1} & 13927 & 7087 & $\times$ & -- & -- & -- \\
+\textcolor{M2}{M2} & 13927 & 3826 & $\times$ & $\times$ & -- & -- \\
+\textcolor{M3}{M3} & 13927 & 7087 & $\times$ & -- & $\times$ & -- \\
+\textcolor{M4}{M4} & 13927 &  226 & $\times$ & -- &  --  & $\times$ \\
+\textcolor{M5}{M5} &   793 & 7087 & $\times$ & -- & -- & -- \\
+\textcolor{M6}{M6} & 13134 & 7087 & $\times$ & -- & -- & -- \\
 \hline
-\end{tabular}
+\end{tabular} \newline
+\footnotesize{Note: Each model uses a certain number of pixels ($N_\lambda$) for a total of $N_\star$ spectra with input labels $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$ (abbreviated as $T/g/\mathrm{Fe}$). $\mathrm{[X/Fe]}$ denotes the additional use of abundances of elements Na, Mg, Mn, and Ba. Crosses indicate labels included in each model. Model \textcolor{M5}{M5} used only the pixels that have been masked in GALAH DR4, while \textcolor{M6}{M6} used only pixels that have been used for fitting in GALAH DR4.}
 \end{table}
 
 To test which labels are associated with systematic residual structure, we construct a sequence of data-driven residual models using different subsets of the GALAH DR4 labels. The input for the first of our models (listed in Table~\ref{tab:residual_models}), is a baseline set of spectra with stellar parameters $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$. We use this to probe for both residual correlations with the main stellar parameters and extinction, approximated via $A_\mathrm{K_S}$, as we will explain in Sec.~\ref{sec:analysis_cannon}.
@@ -453,11 +464,57 @@ What can we do? In an earlier version, we had not excluded 188 stars with bad fi
 
 For this purpose, it would be interesting to create an adjusted test for model 1:
 \begin{itemize}
-    \item Model 1a: Using only the 94 percent that was also used in GALAH DR4
-    \item Model 1b: Using only the 6 percent of the spectrum that were masked in DR4
+    \item Model \textcolor{M5}{M5}: Using only the 6 percent of the spectrum that were masked in DR4: DAMN! see Fig.~\ref{fig:cannon_linear_coefficients_model5} and Fig.~\ref{fig:recovery_comparison3}!
+    \item Model \textcolor{M6}{M6}: Using only the 94 percent that was also used in GALAH DR4
     \item Compare the performance of these against Model 1: How much in unfitted region and how much in residuals within fitted region? Is the label information more likely embedded in the fitted region or neglected region?
+    \item Specifically for \textcolor{M5}{M5}: Discuss the linear coefficients in significantly more detail:
+    \begin{itemize}
+        \item in $T_\mathrm{eff}$: Balmer line cores do not seem to be most striking information here! Are the clear negative cases ionised (XII) lines and the clear positive cases (neutral XI)?
+        \item in $\log g$: clearly, there seems to be more information in the cores of the Balmer lines here for this label. But also some lines here and there.. Again: ionised vs. neutral lines?
+        \item in $\mathrm{[Fe/]}$: most information in the blue. Missing lines?
+    \end{itemize}
 \end{itemize}
 
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_model5.pdf}
+    \caption{Linear coefficients for model \textcolor{M5}{M5}, which was only allowed to use the 793 pixels of the GALAH wavelength range that were neglected for fitting in GALAH DR4.}
+    \label{fig:cannon_linear_coefficients_model5}
+\end{figure*}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model5_teff.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model6_teff.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model5_logg.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model6_logg.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model5_fe_h.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model6_fe_h.png}
+    \caption{Same as Fig.~\ref{fig:recovery_comparison}, but only for models \textcolor{M5}{M5}(left) and \textcolor{M6}{M6} (right).}
+    \label{fig:recovery_comparison3}
+\end{figure}
+
+
+\begin{table*}
+    \caption{Performance comparison of the common labels $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$ between the different residual models.}
+    \label{tab:recovery_performance}
+    \centering
+    \begin{tabular}{cccccccccc}
+    \hline \hline
+    Model & \multicolumn{3}{c}{$T_\mathrm{eff}~/~\mathrm{K}$} & \multicolumn{3}{c}{$\log (g~/~\mathrm{cm\,s^{-2}})$} & \multicolumn{3}{c}{$\mathrm{[Fe/H]}$}  \\
+    & 50 & 50-16 & 84-50 & 50 & 50-16 & 84-50 & 50 & 50-16 & 84-50 \\
+    \hline
+    \textcolor{M1}{M1} & $-20$  & $-130$  & $+160$  & $+0.00~~$ & $-0.19~~$ & $+0.19~~$ & $-0.006$  & $-0.085$  & $+0.090$  \\
+    \textcolor{M2}{M2} & $+~~2$ & $-~~77$ & $+~~73$ & $-0.00~~$ & $-0.13~~$ & $+0.14~~$ & $-0.003$  & $-0.052$  & $+0.055$  \\
+    \textcolor{M3}{M3} & $-20$  & $-130$  & $+150$  & $+0.01~~$ & $-0.19~~$ & $+0.19~~$ & $-0.005$  & $-0.087$  & $+0.085$  \\
+    \textcolor{M4}{M4} & $+~~5$ & $-~~81$ & $+~~79$ & $-0.002$  & $-0.058$  & $+0.050$  & $-0.001$  & $-0.051$  & $+0.042$  \\
+    \textcolor{M5}{M5} & $-60$  & $-140$  & $+170$  & $-0.00~~$ & $-0.23~~$ & $+0.20~~$ & $-0.01~~$ & $-0.10~~$ & $+0.09~~$ \\
+    \textcolor{M6}{M6} & $+10$  & $-160$  & $+210$  & $+0.02~~$ & $-0.21~~$ & $+0.23~~$ & $+0.00~~$ & $-0.10~~$ & $+0.12~~$ \\
+    \hline \hline
+    \end{tabular}
+\end{table*}
 
 \subsection{To what extent do residuals retain information about extinction and activity?}
 \label{sec:discussion_unfitted_labels}
@@ -533,6 +590,7 @@ Discuss activity and spots as missing stellar-physics labels:
     \item Label covariance remains a central challenge, especially for abundance groups, age/activity, and extinction.
 \end{itemize}
 
+\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions} \label{sec:conclusions}
@@ -542,6 +600,8 @@ Discuss activity and spots as missing stellar-physics labels:
 
 \begin{itemize}
     \item We have introduced a stellar-rest-frame residual audit of GALAH spectra with the idea of ``Reading between the lines''.
+
+    \item One man's trash is another man's treasure: We are able to recover stellar parameters even from a) the residuals alone! b) from the regions that were actually masked in GALAH DR4 as unreliable (at least regarding the agreement of observations and synthesis).
 
     \item We quantify the significance of the residuals between observed GALAH spectra and best-fitting synthetic spectra, separating over-predicted and under-predicted spectral features (analysis in Sec.~\ref{sec:analysis_significance} and discussion in Sec.~\ref{sec:discussion_significance}).
 
@@ -571,6 +631,7 @@ Discuss activity and spots as missing stellar-physics labels:
     \item Develop data-driven corrections that map simpler 1D LTE/non-LTE spectra onto more realistic but computationally expensive 3D non-LTE predictions.
 \end{itemize}
 
+\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Acknowledgments}
@@ -596,6 +657,7 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
 \bibliographystyle{mnras}
 \bibliography{bib}
 
+\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{appendix}
@@ -617,24 +679,25 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
     \label{fig:percentage_residuals_1_and_2_sigma}
 \end{figure*}
 
+\newpage
 
 \begin{figure*}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/residuals_170711005801103.pdf}
+    \includegraphics[width=0.45\textwidth]{figures/residuals_170711005801103.pdf}
     \caption{Residual spectra (black), fits to these residua (blue), and residuals of the residua (red) for 170711005801103.}
     \label{fig:residuals_170711005801103}
 \end{figure*}
 
 \begin{figure*}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/residuals_170711005801334.pdf}
+    \includegraphics[width=0.45\textwidth]{figures/residuals_170711005801334.pdf}
     \caption{Residual spectra (black), fits to these residua (blue), and residuals of the residua (red) for 170711005801334.}
     \label{fig:residuals_170711005801334}
 \end{figure*}
 
 \begin{figure*}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/residuals_170712003101121.pdf}
+    \includegraphics[width=0.45\textwidth]{figures/residuals_170712003101121.pdf}
     \caption{Residual spectra (black), fits to these residua (blue), and residuals of the residua (red) for 170712003101121.}
     \label{fig:residuals_170712003101121}
 \end{figure*}
