@@ -35,7 +35,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-\title{Reading Between the Lines:\\Learning from Residuals between Observed and Synthetic Stellar Spectra}
+\title{Reading Between the Lines:\\How Much Information Remains After Fitting a Stellar Spectrum?}
 
 \author{\vspace{-1.5cm}Sven Buder$^{1,*}$\orcidlink{0000-0002-4031-8553}}
 \author{David W. Hogg$^{2,3,4}$\orcidlink{0000-0002-4031-8553}}
@@ -303,7 +303,7 @@ To describe:
         \begin{itemize}
             \item Among them, we note for example 5780, 5797, 6613, 7699 (we already know about these 3 from ISM absorption analyses).
             \item There are several features, e.g. around 5755, 5750-5760, 6635 (note it's almost always too shallow in the synthesis -> red in bottom of Fig.~\ref{fig:residual_statistics}), and 7710-7720, which are possibly multiple lines, but also possibly a broader residual feature with superimposed line residuals.
-            \item There are quite a few broader features in the IR arm: 7750, 7760, 7785, 7795, 7810, 7820, 7860. Note how these show up quite strongly in the positive/negative frequency plot at the bottom of Fig.~\ref{fig:residual_statistics}: As this happens in both directions and is a broad feature: Is that possibly sky-subtraction? -> We need to compare this with the skylines! This is confirmed by Fig.~\ref{fig:example_skyline}!
+            \item There are quite a few broader features in the IR arm: 7750, 7760, 7785, 7795, 7810, 7820, 7860. Note how these show up quite strongly in the positive/negative frequency plot at the bottom of Fig.~\ref{fig:residual_statistics}: As this happens in both directions and is a broad feature: Is that possibly sky-subtraction? -> We need to compare this with the skylines! This is confirmed by Fig.~\ref{fig:example_skyline}! Note: We have the skylines and telluric lines used for the example spectrum (\texttt{data/reduction\_sky\_tellurics.fits} already shifted back to the observed frame so residual skylines and tellurics should match these.)
         \end{itemize}
         \item There are numerous significant residuals that are on the order of 1AA or below (either individual lines or possibly specific pixels). Features that extend beyond just one pixel, yet are limited to a small enough range to be consistent with one specific line in the stellar restframe, are exactly those interesting ones. Here, a large amplitude towards positive frequencies suggests that these lines are predominantly overestimated by the synthesis. Single-line features that extend in both directions indicate that the lines are not well modelled (e.g. because of imprecise oscillator strengths). The most exciting one will be those in terms of missing lines, which show up preferentially in the red region in the bottom of Fig.~\ref{fig:residual_statistics}, such as the line around 7800.
     \end{itemize}
@@ -311,6 +311,16 @@ To describe:
 \end{itemize}
 
 Especially to discern the residuals once-off pixels from residual lines, we need to analyse them systematically. For this purpose, we use find\_peaks with a specific minimum width (above 1 pixel)!
+
+Throw find\_peaks at the median significance plot. Test the following:
+- 1sigma floor
+- different minimum widths
+
+zoom into different regions of the spectrum to confirm we actually identified the significant peaks and also do not select hot pixels!
+
+
+The resulting list will be out list that we aim to classify with different classes at the very end. Figure out how we can use find\_peaks results to create the axvspan beginning and the end.
+
 
 
 \subsection{Modelling Residuals with \textsc{The Cannon}}
@@ -386,6 +396,9 @@ as well as an assessment of the linear coefficients of the different models (Fig
 \SB{Compare lines to activity indicators from \citet{Wise2018} and \citet{Lisogorskyi2019}! <- already in the jupyter notebook anyway!}
 
 \SB{inspect H$\alpha$, Ba~II 5853\,\AA, and candidate regions around 6508, 6518, 6700, 7780, 7835, 7800, and 7855\,\AA.}
+
+work by \citet{Abia2021} on Rb line and magnetic activity: https://ui.adsabs.harvard.edu/abs/2021A%26A...648A.107A/abstract
+note: depth decreases with stronger magnetic field due to Zeeman splitting!!!
 
 \begin{figure*}
     \centering
@@ -537,8 +550,12 @@ Discuss extinction:
 Discuss activity:
 \begin{itemize}
     \item whether $\log R'_\mathrm{HK}$ can be recovered from GALAH residual spectra;
-    \item 7800AA line?!
-    \item whether activity-sensitive residuals are concentrated near H$\alpha$, Ba~II, Fe~I/Ni~I candidates, or other line cores;
+    \item 7800AA line?! If the 7800 AA residual correlates with Halpha core fill-in or Halpha residuals at fixed stellar parameters, that would make the activity interpretation much stronger. look at this like for the strongest activity star and compare with a non-active twin.
+    \item My latest take on this: The 7800AA line is actually the Si I line at 7799.9957. The line is in the linelist, but I have never actually seen it being modelled well. It has a strong blend with RbI at 7800.259, but the strong residual here is definitely blue of 7800. Note how the GALAH DR4 linelist currently uses a $\log gf = -2.215$ from K07, whereas \citet{Abia2020} used -0.75. Also remember studies with Rb \citep{DOrazi2013,Abias2021}.
+    \item so revising the $\log gf$ value up, will allow a revision of the Rb measurements from GALAH and will hopefully allow to improve the currently rather unreliable measurements of Rb in GALAH DR4.
+    \item On another note: the strong linear coefficient for logRHK is at \textbf{7798.0} with a stronger +- 0.5 range.
+    \item Other strong linear coefficients appears to be at 5710.3 (no skyline), 5715.2 (no skyline), 6515.4 (no skyline), 6526.00 (no skyline), 6700.2AA (no skyline), \textbf{7782.8AA} (no skyline), 7834.2AA (no skyline), 7853.0AA (the last one at skyline)
+    \item whether activity-sensitive residuals are concentrated near H$\alpha$, Ba~II, Fe~I/Ni~I candidates, or other line cores; compare \citep{Spina2020} lines
     \item whether adding $\log R'_\mathrm{HK}$ improves residual modelling in specific wavelength regions;
     \item whether activity signatures could bias precision abundance work if not modelled.
 \end{itemize}
