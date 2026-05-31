@@ -267,7 +267,7 @@ To investigate where we might be able to extract how much information from the r
     % \includegraphics[width=\linewidth]{figures/absolute_residual_flux_percentiles_m1.png} % Excluded, because it is actually not provided additional information to the other plots.
     \includegraphics[width=0.979\linewidth]{figures/significance_residual_flux_percentiles_m1.png}
     \includegraphics[width=\linewidth]{figures/percentage_3sigma_residual_flux_percentiles_m1.png}
-    \caption{Different visualisations of residual statistics across the four GALAH wavelength bands (columns). As a function of wavelength, we show the distribution of residuals (top), their typical significance (middle), as well as the frequency with which observed fluxes remain significantly (more than $2 \sigma$) shallower (red) or deeper (blue) than the synthesis across the 7087 spectra (bottom).}
+    \caption{Different visualisations of residual statistics across the four GALAH wavelength bands (columns). As a function of wavelength, we show the distribution of residuals (top), their typical significance (middle, enlarged version \href{https://github.com/svenbuder/residual_cannon/blob/main/figures/significant\_residual\_peaks\_m1\_enlarged.png}{here}), as well as the frequency with which observed fluxes remain significantly (more than $2 \sigma$) shallower (red) or deeper (blue) than the synthesis across the 7087 spectra (bottom).}
     \label{fig:residual_statistics}
 \end{figure*}
 
@@ -553,7 +553,8 @@ Discuss activity:
     \item 7800AA line?! If the 7800 AA residual correlates with Halpha core fill-in or Halpha residuals at fixed stellar parameters, that would make the activity interpretation much stronger. look at this like for the strongest activity star and compare with a non-active twin.
     \item My latest take on this: The 7800AA line is actually the Si I line at 7799.9957. The line is in the linelist, but I have never actually seen it being modelled well. It has a strong blend with RbI at 7800.259, but the strong residual here is definitely blue of 7800. Note how the GALAH DR4 linelist currently uses a $\log gf = -2.215$ from K07, whereas \citet{Abia2020} used -0.75. Also remember studies with Rb \citep{DOrazi2013,Abias2021}.
     \item so revising the $\log gf$ value up, will allow a revision of the Rb measurements from GALAH and will hopefully allow to improve the currently rather unreliable measurements of Rb in GALAH DR4.
-    \item On another note: the strong linear coefficient for logRHK is at \textbf{7798.0} with a stronger +- 0.5 range.
+    \item On another note: the strong linear coefficient for logRHK is at \textbf{7798.0} with a stronger +- 0.5 range. That is just red / but slightly overlapping with the NiI line at 7797.5AA.
+    \item note that \citet{Takeda2021} https://ui.adsabs.harvard.edu/abs/2021AN....342..515T/abstract also found deviations for several stars in their spectra (green dots!)!
     \item Other strong linear coefficients appears to be at 5710.3 (no skyline), 5715.2 (no skyline), 6515.4 (no skyline), 6526.00 (no skyline), 6700.2AA (no skyline), \textbf{7782.8AA} (no skyline), 7834.2AA (no skyline), 7853.0AA (the last one at skyline)
     \item whether activity-sensitive residuals are concentrated near H$\alpha$, Ba~II, Fe~I/Ni~I candidates, or other line cores; compare \citep{Spina2020} lines
     \item whether adding $\log R'_\mathrm{HK}$ improves residual modelling in specific wavelength regions;
