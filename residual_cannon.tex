@@ -323,7 +323,7 @@ Zoom into different regions of the spectrum to confirm we actually identified th
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{significant_residual_regions/residual_region_6697.png}
+    \includegraphics[width=\linewidth]{significant_residual_regions/residual_region_6697.png}
     \caption{Example of a significant residual in comparison to the higher resolution observations of the Sun and Arcturus by \citet{Hinkle2000}.}
     \label{fig:example_significant_residual_regions}
 \end{figure}
@@ -560,10 +560,10 @@ Discuss activity:
 \begin{itemize}
     \item whether $\log R'_\mathrm{HK}$ can be recovered from GALAH residual spectra;
     \item 7800AA line?! If the 7800 AA residual correlates with Halpha core fill-in or Halpha residuals at fixed stellar parameters, that would make the activity interpretation much stronger. look at this like for the strongest activity star and compare with a non-active twin.
-    \item My latest take on this: The 7800AA line is actually the Si I line at 7799.9957. The line is in the linelist, but I have never actually seen it being modelled well. It has a strong blend with RbI at 7800.259, but the strong residual here is definitely blue of 7800. Note how the GALAH DR4 linelist currently uses a $\log gf = -2.215$ from K07, whereas \citet{Abia2020} used -0.75. Also remember studies with Rb \citep{DOrazi2013,Abias2021}.
+    \item My latest take on this: The 7800AA line is actually the Si I line at 7799.9957. The line is in the linelist, but I have never actually seen it being modelled well. It has a strong blend with RbI at 7800.259, but the strong residual here is definitely blue of 7800. Note how the GALAH DR4 linelist currently uses a $\log gf = -2.215$ from K07, whereas \citet{Abia2020} used -0.75. Also remember studies with Rb \citep{DOrazi2013,Abia2021}.
     \item so revising the $\log gf$ value up, will allow a revision of the Rb measurements from GALAH and will hopefully allow to improve the currently rather unreliable measurements of Rb in GALAH DR4.
     \item On another note: the strong linear coefficient for logRHK is at \textbf{7798.0} with a stronger +- 0.5 range. That is just red / but slightly overlapping with the NiI line at 7797.5AA.
-    \item note that \citet{Takeda2021} https://ui.adsabs.harvard.edu/abs/2021AN....342..515T/abstract also found deviations for several stars in their spectra (green dots!)!
+    \item note that \citet{Takeda2021} also found deviations for several stars in their spectra (green dots!)!
     \item Other strong linear coefficients appears to be at 5710.3 (no skyline), 5715.2 (no skyline), 6515.4 (no skyline), 6526.00 (no skyline), 6700.2AA (no skyline), \textbf{7782.8AA} (no skyline), 7834.2AA (no skyline), 7853.0AA (the last one at skyline)
     \item whether activity-sensitive residuals are concentrated near H$\alpha$, Ba~II, Fe~I/Ni~I candidates, or other line cores; compare \citep{Spina2020} lines
     \item whether adding $\log R'_\mathrm{HK}$ improves residual modelling in specific wavelength regions;
@@ -646,6 +646,8 @@ Discuss activity and spots as missing stellar-physics labels:
     \item One man's trash is another man's treasure: We are able to recover stellar parameters even from a) the residuals alone! b) from the regions that were actually masked in GALAH DR4 as unreliable (at least regarding the agreement of observations and synthesis).
 
     \item We quantify the significance of the residuals between observed GALAH spectra and best-fitting synthetic spectra, separating over-predicted and under-predicted spectral features (analysis in Sec.~\ref{sec:analysis_significance} and discussion in Sec.~\ref{sec:discussion_significance}).
+
+    \item Provided not only the motivation for a revision of the current GALAH linelist, but also are able to point out exactly where and in most cases for even for which specific element (see Sec.~\ref{sec:analysis_significance} and Sec.~\ref{sec:discussion_significance}) the linelist needs adjustment in a certain direction!
 
     \item We show that residual spectra retain information about fitted stellar labels, including $T_\mathrm{eff}$, $\log g$, $[\mathrm{Fe/H}]$, and abundance patterns (analysis in Sec.~\ref{sec:analysis_cannon_fitted_labels} and discussion in Sec.~\ref{sec:discussion_fitted_labels}).
 
