@@ -293,6 +293,8 @@ So we will quantify at the following with our baseline sample:
     \item To get a quantitative feeling, for how often residuals are significant (and how large their are for typical GALAH observations), we show cumulative distribution functions of the significance of residuals (both median as well as 16th and 84th percentile) in Fig.~\ref{fig:cdf_significance_residual_flux_percentiles_m1}, with an inset of the cumulative distribution of absolute residuals.
 \end{itemize}
 
+We identify peaks from the median significance of residuals of the \textit{baseline} sample (Fig.~\ref{fig:residual_statistics} middle). Acknowledging that no approach will lead to a perfect selection, we employ a systematic approach with the \textsc{find\_peaks} function of \textsc{scipy} \citep{Scipy} after limiting the significance peaks to those above the value of the 75th significance percentile of the median residuals per CCD (dashed horizontal lines in Fig.~\ref{fig:residual_statistics} middle). To avoid too narrow and close peaks, we use a width of 4 and distance of 15 pixels and confirm theses choices by confirming that all arguably important peaks are indeed identified via red dashed vertical lines in Fig.~\ref{fig:residual_statistics} (middle). With this approach, we identify 71, 75, 72, and 36 peaks in CCDs 1 to 4 - a total of 254. We acknowledge that different hyperparameters and thresholds can be chosen, but argue that they would not significantly influence our goal of identifying the most significant residuals in a systematic manner. \SB{Should the threshold and line identification maybe rather be done with the bottom of Fig.~\ref{fig:residual_statistics}? Or maybe just confirmed?}
+
 To describe:
 \begin{itemize}
     \item Where are the the largest residuals? (note the wavy shape of underlying residuals in CCD3)
@@ -572,12 +574,21 @@ Is there a possible application here?
 
 At the end of the discussion and analysis, we should revisit Fig.~\ref{fig:residual_statistics} and in the best case have some sort of visual classification of residuals (e.g. DIBs in one color, activity indicators in another, 3Dnon-LTE effects in yet another, continuum issues in yet another, skylines and tellurics in yet another, and whatever else we find). That way we can possibly also point out how much more exploration space is left (towards modelling 100\% of a spectrum!)
 
+There is the beginning of a table for the classifications in Tab.~\ref{tab:tabular_significant_peaks_classification} now! We can do a bit of statistics on that one: In particular the amount of wrong FeI lines is going to be interesting!
+
 \begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{figures/residual_flux_percentiles_m1.png}
     \caption{\SB{To Be Done of course, but placing the idea here of this key plot:} A version of Fig.~\ref{fig:residual_statistics} (top) that has regions coloured based on what the most likely cause of the residual is (e.g. skylines, telluric lines, 3D non-LTE effects, activity, ...)}
     \label{fig:residual_classification}
 \end{figure*}
+
+\begin{table*}
+\centering
+\caption{Overview of unique classifications of the 253 significant residuals. A complete version is available as FITS file in our public repository \href{https://github.com/svenbuder/residual_cannon/blob/main/data/significant\_peaks\_classification.fits}{here}.}
+\label{tab:tabular_significant_peaks_classification}
+\input{tex_text/tabular_significant_peaks_classification.tex}
+\end{table*}
 
 \subsection{Can residuals guide improvements to spectral modelling?}
 \label{sec:discussion_model_limitations}
