@@ -162,7 +162,7 @@ We further require finite values of both $E(B-V)$ and $A_\mathrm{K_S}$ and expos
 We do not remove spectra with emission-line signatures or binary flags, because such spectra provide relevant tests of whether non-stellar or poorly modelled spectral structure is recovered by the residual analysis.
 These criteria leave a baseline sample of 7087 spectra. Each spectrum is from a unique star and no repeat observations are taken across the nights.
 
-The distribution of this sample in the Kiel diagram is shown in Fig.~\ref{fig:labels_m1_teff_logg_feh}. The sample covers the main stellar types observed by GALAH, spanning approximately $3000 < T_\mathrm{eff}/\mathrm{K} < 8000$, $0 < \log(g/\mathrm{cm\,s^{-2}}) < 5.5$, and $-1.5 < \mathrm{[Fe/H]} < 0.75$. \SB{Add coverage of $E(B-V)$ and $A_\mathrm{K_S}$ as well as the typical signal-to-noise distributions.}
+The distribution of this sample in the Kiel diagram is shown in Fig.~\ref{fig:labels_m1_teff_logg_feh}. The sample covers the main stellar types observed by GALAH, spanning approximately $3000 < T_\mathrm{eff}/\mathrm{K} < 8000$, $0 < \log(g/\mathrm{cm\,s^{-2}}) < 5.5$, and $-1.5 < \mathrm{[Fe/H]} < 0.75$.\footnote{\SB{Add coverage of $E(B-V)$ and $A_\mathrm{K_S}$ as well as the typical signal-to-noise distributions.}}
 This broad coverage allows us to test whether residual structure is associated with the main stellar labels, rather than only with a narrow region of parameter space.
 
 \begin{figure}
@@ -225,7 +225,7 @@ To test which labels are associated with systematic residual structure, we const
 
 Based on chemical evolution studies \citep[e.g.][]{Kobayashi2020}, we know that the chemical enhancement of several elements is strongly correlated due to their similar nucleosynthetic origins. As a result, the absorption lines of these elements are also expected to be strongly correlated. We will use this insight and representative elements of a range of nucleosynthesis or element groups to search for residual lines who are correlated with these enrichment patterns. In particular, we use Mg to represent core-collapse supernovae-dominated elements, Mn to represent supernovae Ia-dominated elements, Na to represent the behaviour of several odd-Z elements, and Ba to represent asymptotic giant branch star-dominated neutron-capture elements. We only select spectra from the \textit{baseline} sample which also fulfil $\texttt{flag\_x\_fe} = 0$ for $\texttt{x} \in \mathrm{[Na, Mg, Mn, Ba]}$. As we are searching for possibly smaller signals, our changes are higher, if we restrict ourselves to stars with typically narrow absorption lines, where most of the absorption is focussed in one or at least few pixels of our GALAH spectra. We thus further restrict this sample to slow-rotating stars ($\texttt{vsini} < 15\,\mathrm{km\,s^{-1}}$) and also cut a few dozen stars (less than 1\%) when enforcing $T_\mathrm{eff} < 6500\,\mathrm{K}$. We show the destribution of stellar parameters for the resulting \textit{activity} sample of 3826 spectra Fig.~\ref{fig:labels_m2_teff_logg_feh_xfe}. For further information, we also show the neglected hot stars and fast rotators as grey crosses and an inset of one of the abundance distributions, [Fe/H] vs. [Mg/Fe].
 
-Ideally, we would want to also include the r-process enrichment pattern. However, Eu, as the sole element in the GALAH range known to be strongly dominated by this enrichment patter, is not well modelled in GALAH DR4. Similary, Sm, as the next most dominated element is not detected often enough. And Nd, as the third most dominated element is already showing a very similar pattern to the remaining s-process elements, and would decrease the useful training set from 3826 to 2663 spectra (a decrease of 30 percent). We hence do not attempt to search for correlations of spectrum residuals with this pattern.
+Ideally, we would want to also include the r-process enrichment pattern. However, Eu, as the sole element in the GALAH range known to be strongly dominated by this enrichment patter, is not well modelled in GALAH DR4. Similary, Sm, as the next most dominated element is not detected often enough. And Nd, as the third most dominated element is already showing a very similar pattern to the remaining s-process elements, and would decrease the useful training set from 3826 to 2663 spectra (a decrease of 30 percent). We hence do not attempt to search for correlations of spectrum residuals with this pattern.\footnote{\SB{If we want to include [Eu/Fe], we could try to use the golden sample of 54068 stars from the VAC with [Eu/H] by \citet{Kane2026}. That would, however require an adjustment of all sample selections and be limited to giants. So I would avoid this if we already get something interesting out of this abundance sample.}}
 
 \begin{figure}
     \centering
@@ -236,12 +236,10 @@ Ideally, we would want to also include the r-process enrichment pattern. However
     \label{fig:labels_m2_teff_logg_feh_xfe}
 \end{figure}
 
-\SB{If we want to include [Eu/Fe], we could try to use the golden sample of 54068 stars from the VAC with [Eu/H] by \citet{Kane2026}. That would, however require an adjustment of all sample selections and be limited to giants. So I would avoid this if we already get something interesting out of this abundance sample.}
-
 \subsubsection{Activity Sample}
 \label{sec:sample_activity}
 
-With a third \textit{activity} sample, we aim to explore how well we can predict stellar activity. These features are typically estimated from sensitive chromospheric activity indicators such as the Ca H and K lines \SB{(REF)}, which are not covered by the GALAH wavelength range. We found a large\footnote{Overlaps with dedicated activity studies only yielded small overlaps with the studies by \citet[][83 stars]{BoroSaikia2018}, \citet[][51]{Brown2022}, \citet[][40]{GomesDaSilva2021}, and \citet[][1]{LorenzoOliveira2018}.} overlap with the study of G and K-type dwarf stars by \citet{Zhang2024} using $\log R'_\mathrm{HK}$ indices from LAMOST spectra \citep{Zhao2012}. Although their sample is restricted to stars between $4800 < T_\mathrm{eff}~/~\mathrm{K} < 6250$ as well as $\log(g~/~\mathrm{cm\,s^{-2}) > 3.8}$, it offers a significant overlap with our GALAH DR4 spectra of 34\,672 entries (including repeat observations with different activities), and 226 spectra of our \textit{baseline} sample from Sec.~\ref{sec:sample_baseline}, which we will use as \textit{activity} sample (see Fig.~\ref{fig:labels_m4_teff_logg_logrhk}). It samples activity values of $\log R'_\mathrm{HK}$ between -5.0 and -3.9, which covers exactly the region for which \citet{Spina2020} found strong correlations of activity with equivalent widths and resulting abundance estimates.
+With a third \textit{activity} sample, we aim to explore how well we can predict stellar activity. These features are typically estimated from sensitive chromospheric activity indicators such as the Ca H and K lines \SB{(REF)}, which are not covered by the GALAH wavelength range. We found a large\footnote{Overlaps with dedicated activity studies only yielded small overlaps with the studies by \citet[][83 stars]{BoroSaikia2018}, \citet[][51]{Brown2022}, \citet[][40]{GomesDaSilva2021}, and \citet[][1]{LorenzoOliveira2018}.} overlap with the study of G and K-type dwarf stars by \citet{Zhang2024} using $\log R'_\mathrm{HK}$ indices from LAMOST spectra \citep{Zhao2012}. Although their sample is restricted to stars between $4800 < T_\mathrm{eff}~/~\mathrm{K} < 6250$ as well as $\log(g~/~\mathrm{cm\,s^{-2}) > 3.8}$, it offers a significant overlap with our GALAH DR4 spectra of 34\,672 entries (including repeat observations with different activities), and 226 spectra of our \textit{baseline} sample from Sec.~\ref{sec:sample_baseline}, which we will use as \textit{activity} sample (see Fig.~\ref{fig:labels_m4_teff_logg_logrhk}). It samples activity values of $\log R'_\mathrm{HK}$ between -5.0 and -3.9, which covers exactly the region for which \citet{Spina2020} found strong correlations of activity with equivalent widths and resulting abundance estimates.\footnote{\SB{We could also imagine additional information, such as X-ray luminosity (e.g. Hyades), or TESS' $S_\mathrm{PH}$ excess variability as suggested by B. Montet?}}
 
 \begin{figure}
     \centering
@@ -252,13 +250,19 @@ With a third \textit{activity} sample, we aim to explore how well we can predict
     \label{fig:labels_m4_teff_logg_logrhk}
 \end{figure}
 
-\SB{We could also imagine additional information, such as X-ray luminosity (e.g. Hyades), or TESS' $S_\mathrm{PH}$ excess variability as suggested by B. Montet?}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analysis} \label{sec:analysis}
 
-To investigate where we might be able to extract how much information from the residual spectra, we first investigate the typical residuals and their significance across the GALAH wavelength range (Sec.~\ref{sec:analysis_significance}). In a second step, we aim to model the residuals with a data-driven approach as a function of a variety of labels. For this purpose, we briefly introduce the data-driven code of \text{The Cannon} (Sec.~\ref{sec:analysis_cannon}). With this fitting code, we aim to extract correlations of residuals and labels that have actually been included in the fitting process with synthesis spectra (Sec.~\ref{sec:analysis_cannon_fitted_labels}). We then move on extract correlations of residuals that have already been identified in prior work, such as interstellar medium residuals (Sec.~\ref{sec:analysis_cannon_exinction_labels}), before trying to identify and validate correlations of residuals with labels that are informative (such as activity indicators), but not (yet) included or identified in GALAH analyses (Sec.~\ref{sec:analysis_cannon_activity_labels}).
+To investigate where we might be able to extract how much information from the residual spectra, we first investigate the typical residuals and their significance across the GALAH wavelength range (Sec.~\ref{sec:analysis_audit}). In a second step, we aim to model the residuals with a data-driven approach as a function of a variety of labels (Sec.~\ref{sec:analysis_cannon}).
+
+\subsection{A systematic audit of spectrum residuals}
+\label{sec:analysis_audit}
+
+In this systematic audit of spectrum residuals, we first establish an algorithm to identify significant residuals (Sec.~\ref{sec:analysis_significance}). In a second step, we are then collecting a diverse range of information on atomic absorption lines and other potential influences on the observations to judge the potential causes of each residual (Sec.~\ref{sec:analysis_possible_causes}).
+
+\subsubsection{How significant are the residuals and where?}
+\label{sec:analysis_significance}
 
 \begin{figure*}
     % \centering
@@ -277,9 +281,6 @@ To investigate where we might be able to extract how much information from the r
     \caption{Cumulative distribution functions of residual significance. We show both the median residual significance (black) as well as the 16th (orange) and 84th percentiles (red). And inset shows the cumulative distribution of absolute residuals.}
     \label{fig:cdf_significance_residual_flux_percentiles_m1}
 \end{figure}
-
-\subsection{How significant are the residuals and where?}
-\label{sec:analysis_significance}
 
 Two things are important to consider: How significant is a residual with respect to the underlying noise? What is the sign of a significant residual?
 
@@ -312,14 +313,15 @@ To describe:
     \item \SB{FOR ALL THESE: CHECK HOW MUCH SIGNIFICANCE REMAINS WITH 3SIGMA - FIG.~\ref{fig:percentage_residuals_1_and_2_sigma}!!! POSSIBLY THE LATTER IS A MORE RELIABLE FIGURE?}
 \end{itemize}
 
-Especially to discern the residuals once-off pixels from residual lines, we need to analyse them systematically. For this purpose, we use find\_peaks with a specific minimum width (above 1 pixel)!
+\subsubsection{Identifying possible causes of residuals}
+\label{sec:analysis_possible_causes}
 
-Throw find\_peaks at the median significance plot. Test the following:
-- 1sigma floor
-- different minimum widths
+What is causing the individual residuals? -> We have identified their positions, now we are interested in identifying their potential causes.
+
+-> To this end, we are using the Solar and Arcturus atlases by \citet{Hinkle2000} and them together with their telluric line measurements \SB{and maybe also the DR4 sky line detections?} on top of the logarithmic significance of GALAH DR4. In addition to each significant peak (dashed red line) we also annotate the element species identified by \citet{Hinkle2000} in the top with dashed black lines indicating their line centres. These figures, with an example shown in Fig.~\ref{fig:example_significant_residual_regions}, then allow an informed assessment and classification of each significant residual.
+In addition, we selected those 2622 entries of the GALAH DR4 linelist, which had references to their oscillator strengths ($\log gf$) and an initial estimated intrinsic central line depth (without applying any instrumental or rotational broadening) of $\texttt{DEPTH} > 0.85$ \citep[see also Sec.~4.2 by][]{Heiter2021}. While not complete, this yields a reasonably complete selection of the included lines that are actually visible in the Solar and Arcturus spectrum.
 
 Zoom into different regions of the spectrum to confirm we actually identified the significant peaks and also do not select hot pixels!
--> To this end, we are using the Solar and Arcturus atlases by \citet{Hinkle2000} and them together with their telluric line measurements \SB{and maybe also the DR4 sky line detections?} on top of the logarithmic significance of GALAH DR4. In addition to each significant peak (dashed red line) we also annotate the element species identified by \citet{Hinkle2000} in the top with dashed black lines indicating their line centres. These figures, with an example shown in Fig.~\ref{fig:example_significant_residual_regions}, then allow an informed assessment and classification of each significant residual.
 
 \begin{figure}
     \centering
@@ -330,10 +332,14 @@ Zoom into different regions of the spectrum to confirm we actually identified th
 
 The resulting list will be out list that we aim to classify with different classes at the very end. Figure out how we can use find\_peaks results to create the axvspan beginning and the end.
 
-
-
 \subsection{Modelling Residuals with \textsc{The Cannon}}
 \label{sec:analysis_cannon}
+
+Equipped with a detailed picture of potential causes of residuals, including several atomic absorption features as well as non-stellar features, we are now turning to the data-driven extraction of these information.
+
+In this work, we use the data-driven code of \text{The Cannon}, which we briefly describe in Sec.~\ref{sec:analysis_cannon}. With this fitting code, we aim to extract correlations of residuals and labels that have actually been included in the fitting process with synthesis spectra (Sec.~\ref{sec:analysis_cannon_fitted_labels}). We then move on extract correlations of residuals that have already been identified in prior work, such as interstellar medium residuals (Sec.~\ref{sec:analysis_cannon_exinction_labels}), before trying to identify and validate correlations of residuals with labels that are informative (such as activity indicators), but not (yet) included or identified in GALAH analyses (Sec.~\ref{sec:analysis_cannon_activity_labels}).
+
+\subsubsection{\textsc{The Cannon} - our data-driven analysis code}
 
 We use \textsc{The Cannon} \citep{Ness2015}, in particular an updated version v0.9.0 maintained in a public repository\footnote{\url{https://github.com/ANU-RSAA/AnniesLasso} maintained by Marc White from ANU RSAA/AITC's Software Group.} of the code by \citet{Casey2016}.
 
@@ -361,31 +367,30 @@ as well as an assessment of the linear coefficients of the different models (Fig
 
 - Plot linear coefficients of different models in same panel with different colors (could even colorcode the model text in latex)!
 
-\subsection{Correlations of residuals with actually fitted properties}
+\subsubsection{Correlations of residuals with already fitted properties}
 \label{sec:analysis_cannon_fitted_labels}
 
-\subsubsection{Model 1: Correlations of residuals with stellar parameters}
+\textbf{Model 1}: Correlations of residuals with stellar parameters
 -> Use Baseline Sample
 -> interpret Teff (correlation with continuum shape)
 -> interpret logg
 -> interpret FeH (yes: several absorption features not modelled well, which of course as a whole still hold information)
 
-\subsubsection{Model 2: Correlations of residuals with stellar parameters and abundances}
+\textbf{Model 2}: Correlations of residuals with stellar parameters and abundances
 -> Use Abundance Sample
 -> interesting correlations with continuum shapes.
 -> any strong enough features?
 
 \SB{ACTUALLY: SHOULD WE LIMIT THE TRAINING SPECTRA TO THOSE PIXELS (EVEN FOR THE CANNON) ABOVE 3 SIGMA? THAT SHOULD GET RID OF THE UNDERLYING NOISE AND MIGHT AMPLIFY RESULTS? To do that, we could set their values to 0, and enhance the noise to $ \sigma{f_\mathrm{new}} = \sqrt{f_\lambda^2 + \sigma_\mathrm{f}^2}$}
 
-\subsection{Correlations of residuals with interstellar properties}
+\subsubsection{Correlations of residuals with interstellar properties}
 \label{sec:analysis_cannon_exinction_labels}
 
-\subsubsection{Model 3: Correlations of residuals with stellar parameters and extinction}
+\textbf{Model 3}: Correlations of residuals with stellar parameters and extinction
 -> Use Baseline Sample
 -> YES: Recovering the usual DIBs at 5780, 5797, and 6613 \citep{Ho2017, Buder2018, Vogrincic2023}; less clear for interstellar KI. The imperfect match with ISM KI is not necessarily surprising, given the overlap with the stellar KI (which would have been modelled with a stronger stellar KI synthesis), which would have ISM KI only remain as a residual left and right of the stellar KI.
 
 \SB{We could also try to fit the residuals with barycentric velocity corrections (that should sense for sky and telluric lines)! The broad features in Fig.~\ref{fig:residual_statistics} bottom (or better Fig.~\ref{fig:percentage_residuals_1_and_2_sigma}) correspond exactly to the skylines as shown in Fig.~\ref{fig:example_skyline}}
-
 
 \begin{figure}
     \centering
@@ -394,10 +399,10 @@ as well as an assessment of the linear coefficients of the different models (Fig
     \label{fig:example_skyline}
 \end{figure}
 
-\subsection{Correlations of residuals with complementary properties}
+\subsubsection{Correlations of residuals with complementary properties}
 \label{sec:analysis_cannon_activity_labels}
 
-\subsubsection{Model 4: Correlations of residuals with stellar parameters and stellar activity}
+\textbf{Model 4}: Correlations of residuals with stellar parameters and stellar activity
 -> Use Activity Sample
 -> LOOK AT 7800AA!!!
 -> in particular Fig.~\ref{fig:recovery_comparison2}
