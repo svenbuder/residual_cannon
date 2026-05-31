@@ -318,8 +318,15 @@ Throw find\_peaks at the median significance plot. Test the following:
 - 1sigma floor
 - different minimum widths
 
-zoom into different regions of the spectrum to confirm we actually identified the significant peaks and also do not select hot pixels!
+Zoom into different regions of the spectrum to confirm we actually identified the significant peaks and also do not select hot pixels!
+-> To this end, we are using the Solar and Arcturus atlases by \citet{Hinkle2000} and them together with their telluric line measurements \SB{and maybe also the DR4 sky line detections?} on top of the logarithmic significance of GALAH DR4. In addition to each significant peak (dashed red line) we also annotate the element species identified by \citet{Hinkle2000} in the top with dashed black lines indicating their line centres. These figures, with an example shown in Fig.~\ref{fig:example_significant_residual_regions}, then allow an informed assessment and classification of each significant residual.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{significant_residual_regions/residual_region_6697.png}
+    \caption{Example of a significant residual in comparison to the higher resolution observations of the Sun and Arcturus by \citet{Hinkle2000}.}
+    \label{fig:example_significant_residual_regions}
+\end{figure}
 
 The resulting list will be out list that we aim to classify with different classes at the very end. Figure out how we can use find\_peaks results to create the axvspan beginning and the end.
 
