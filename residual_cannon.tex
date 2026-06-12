@@ -329,24 +329,30 @@ In Fig.~\ref{fig:example_significant_residual_regions}, we also compare each res
     \input{tex_text/tabular_peak_information.tex}
 \end{table*}
 
+
+
 \SB{TBD: Based on these diagnostics, we assign each peak a primary plausible class, together with more detailed notes in the catalogue. We use the following classes:}
 \begin{enumerate}
-
-\item \SB{TBD: \textbf{Missing or underestimated stellar opacity:} narrow, stellar-rest-frame residuals for which the observed spectra are systematically deeper than the synthesis. These features may correspond to missing lines, underestimated blends, or line-list entries with oscillator strengths that are too low.}
-
-\item \SB{TBD: \textbf{Overestimated stellar opacity:} narrow residuals for which the observed spectra are systematically shallower than the synthesis near a modelled feature. These may indicate oscillator strengths that are too high, blends that are too strong, or lines that are predicted by the model but are weak or absent in the observed spectra.}
-
-\item \SB{TBD: \textbf{Line-formation or activity-sensitive residual:} residuals associated with features whose mismatch is unlikely to be solved by a simple line-list adjustment alone, such as Balmer-line cores, activity-sensitive regions, or features affected by broadening, chromospheric structure, or limitations of the atmospheric modelling.}
-
-\item \SB{TBD: \textbf{Interstellar absorption:} residuals associated with known diffuse interstellar bands or interstellar alkali absorption, where the observed spectra are deeper than the stellar synthesis because the absorption is not part of the stellar model.}
-
-\item \SB{TBD: \textbf{Telluric, sky, or reduction residual:} features coincident with telluric or sky diagnostics, or broad/mixed-sign residuals whose appearance in the stellar rest frame suggests an observed-frame contribution.}
-
-\item \SB{TBD: \textbf{Unidentified stellar or atomic candidate:} narrow, line-like features that appear to be real stellar-rest-frame residuals, including features visible in the Solar or Arcturus atlas, but for which we do not assign a secure species identification.}
-
-\item \SB{TBD: \textbf{Ambiguous or blended residual:} features for which multiple explanations remain plausible, for example because stellar lines, telluric structure, sky residuals, or blends overlap within the same residual region.}
-
+\item \textbf{logg too high}: \SB{How many times Fe lines?} \SB{How many times other lines?}
+\item \textbf{logg too low}: \SB{How many times Fe lines?} \SB{How many times other lines?}
+\item \textbf{unclear}:
+% \item \SB{TBD: \textbf{Missing or underestimated stellar opacity:} narrow, stellar-rest-frame residuals for which the observed spectra are systematically deeper than the synthesis. These features may correspond to missing lines, underestimated blends, or line-list entries with oscillator strengths that are too low.}
+% \item \SB{TBD: \textbf{Overestimated stellar opacity:} narrow residuals for which the observed spectra are systematically shallower than the synthesis near a modelled feature. These may indicate oscillator strengths that are too high, blends that are too strong, or lines that are predicted by the model but are weak or absent in the observed spectra.}
+% \item \SB{TBD: \textbf{Line-formation or activity-sensitive residual:} residuals associated with features whose mismatch is unlikely to be solved by a simple line-list adjustment alone, such as Balmer-line cores, activity-sensitive regions, or features affected by broadening, chromospheric structure, or limitations of the atmospheric modelling.}
+% \item \SB{TBD: \textbf{Interstellar absorption:} residuals associated with known diffuse interstellar bands or interstellar alkali absorption, where the observed spectra are deeper than the stellar synthesis because the absorption is not part of the stellar model.}
+% \item \SB{TBD: \textbf{Telluric, sky, or reduction residual:} features coincident with telluric or sky diagnostics, or broad/mixed-sign residuals whose appearance in the stellar rest frame suggests an observed-frame contribution.}
+% \item \SB{TBD: \textbf{Unidentified stellar or atomic candidate:} narrow, line-like features that appear to be real stellar-rest-frame residuals, including features visible in the Solar or Arcturus atlas, but for which we do not assign a secure species identification.}
+% \item \SB{TBD: \textbf{Ambiguous or blended residual:} features for which multiple explanations remain plausible, for example because stellar lines, telluric structure, sky residuals, or blends overlap within the same residual region.}
 \end{enumerate}
+
+Unclear lines:\\
+4730.99: unidentified in \citet{Hinkle2000}; algorithm wrongly picks up closest FeI line, which is only a blend of this line.\\
+4796.26, 4799.85, 4805.00, 4812.36, ...\\
+-> These can be read out from the peak-inspection table comments!\\
+
+Na5688.19 is one of the few Na lines -> the low loggf value always led to quite high solar abundances (+0.171 in DR4).
+Mg5711.05 is one of the few Mg lines -> the low loggf value always led to quite high solar abundances (+0.085 in DR4).
+
 
 \SB{TBD: These classes are intended as a plausibility ranking rather than a definitive identification. In several cases, the sign of the residual provides a direct indication of the direction in which the model would need to change. For example, a line that is consistently too shallow in the synthesis is classified as missing or underestimated stellar opacity.\footnote{\SB{This includes the Si~{\sc i} feature near the Rb region shown in Fig.~\ref{fig:example_significant_residual_regions}: the observed absorption is stronger than the synthesis, so the model opacity is underestimated. A plausible explanation is that the adopted oscillator strength is too low, with the current value of $\log gf=-2.215$ producing too little absorption compared to a value closer to $\log gf\approx -0.75$.}} Such cases are particularly useful because they do not merely flag a problematic wavelength; they indicate the direction in which the line data should be revised.}
 
