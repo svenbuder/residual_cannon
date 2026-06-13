@@ -407,14 +407,6 @@ in the bottom of each figure. In all cases, we use the more robust estimation of
 
 These performance indicators, in particular a higher ratio $R$, establish whether the residuals contain predictive information. The wavelength-dependent linear coefficients (Figs.~\ref{fig:cannon_linear_coefficients_joint} and \ref{fig:cannon_linear_coefficients_model5}) are then used to identify where that information resides and to compare the learned residual sensitivity with known spectral lines and the residual catalogue from Sec.~\ref{sec:analysis_peak_catalogue}. For each wavelength pixel, we show the median coefficient across the five folds together with its full fold-to-fold range. Because each fold contains 80\% of the sample, the internal label scaling and resulting coefficients differ only slightly. The narrow envelopes for basically all linear coefficients therefore demonstrate that the learned wavelength dependence is robust to the choice of training subset; they are not interpreted as formal coefficient uncertainties.
 
-\begin{figure*}
-    \centering
-    % \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_joint.pdf}
-    \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_joint_kfold.png}
-    \caption{Linear coefficients of different models}
-    \label{fig:cannon_linear_coefficients_joint}
-\end{figure*}
-
 \begin{figure}
     \centering
     \includegraphics[width=0.49\linewidth]{figures/recovery_model1_teff_kfold.png}
@@ -425,29 +417,93 @@ These performance indicators, in particular a higher ratio $R$, establish whethe
     \includegraphics[width=0.49\linewidth]{figures/recovery_model2_mg_fe_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model2_mn_fe_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model2_ba_fe_kfold.png}
-    \caption{Distributions of differences between input and recovered labels as a function of input label for the eight different labels used in models 1-3. Recovery for of the \textit{baseline} sample with model 1 ($T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$) is shown in black density, with the additional $A_\mathrm{K_S}$ used for model 3 in orange, and when additionally recovering [Na/Fe], [Mg/Fe], [Mn/Fe], and [Ba/Fe] with model 2 in red. For a more informed comparison, we enforce each panel to have equal aspect ratio (so more circular distribution indicates less reliable recovery) and provide both the 16/50/84th percentile of the input distribution in the axis label and the recovery difference as 16/50/84th percentiles, with larger distribution percentiles over recovery percentiles indicating better performance. \SB{We could overplot the results of M1* on top of M1 for Teff/logg/FeH.}}
+    % \caption{Distributions of differences between input and recovered labels as a function of input label for the eight different labels used in models 1-3. Recovery for of the \textit{baseline} sample with model 1 ($T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$) is shown in black density, with the additional $A_\mathrm{K_S}$ used for model 3 in orange, and when additionally recovering [Na/Fe], [Mg/Fe], [Mn/Fe], and [Ba/Fe] with model 2 in red. For a more informed comparison, we enforce each panel to have equal aspect ratio (so more circular distribution indicates less reliable recovery) and provide both the 16/50/84th percentile of the input distribution in the axis label and the recovery difference as 16/50/84th percentiles, with larger distribution percentiles over recovery percentiles indicating better performance. \SB{We could overplot the results of M1* on top of M1?}}
+    \caption{Cross-validated recovery differences, $\Delta\ell=\ell_{\mathrm{Cannon}}-\ell_{\mathrm{reference}}$, as a function of the reference labels for Models~\textcolor{M1}{M1} (grey), \textcolor{M2}{M2} (blue), and \textcolor{M3}{M3} (orange). From top left to bottom right, the panels show $T_\mathrm{eff}$, $\log g$, $[\mathrm{Fe/H}]$, $A_{K_\mathrm{S}}$, $[\mathrm{Na/Fe}]$, $[\mathrm{Mg/Fe}]$, $[\mathrm{Mn/Fe}]$, and $[\mathrm{Ba/Fe}]$. Dashed lines mark $\Delta\ell=0$. Annotations give the 16th, 50th, and 84th percentiles of the label and recovery distributions and the label-recovery ratio $R_\ell$. The axes have equal scaling in label units, allowing the recovery scatter to be compared directly with the label spread. \SB{We could overplot the results of M1* on top of M1?}}
     \label{fig:recovery_comparison}
 \end{figure}
+
+\begin{figure*}
+    \centering
+    % \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_joint.pdf}
+    \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_joint_kfold.png}
+    \caption{Selected coefficients for Models~\textcolor{M1}{M1}, \textcolor{M2}{M2}, \textcolor{M3}{M3}, and \textcolor{M4}{M4}. Lines show the median coefficient across the five cross-validation folds, and shaded regions show the full fold-to-fold range. Because the labels are internally centred and scaled, the coefficients describe the local residual response near the centre of each training-label distribution.}
+    \label{fig:cannon_linear_coefficients_joint}
+\end{figure*}
 
 \subsection{Information about fitted stellar labels}
 \label{sec:analysis_cannon_fitted_labels}
 
+The GALAH synthesis was explicitly optimised using global stellar parameters and individual elemental abundances. As a reference scale, the median uncertainties reported by GALAH DR4 for stars in the \textit{abundance} sample are $70\,\mathrm{K}$ in $T_\mathrm{eff}$, $0.10\,\mathrm{dex}$ in $\log g$, and $0.060\,\mathrm{dex}$ in $[\mathrm{Fe/H}]$, which all include absolute uncertainties as well. For the elemental abundances, the corresponding median precision uncertainties are $0.035\,\mathrm{dex}$ for $[\mathrm{Na/Fe}]$, $0.029\,\mathrm{dex}$ for $[\mathrm{Mg/Fe}]$, $0.031\,\mathrm{dex}$ for $[\mathrm{Mn/Fe}]$, and $0.068\,\mathrm{dex}$ for $[\mathrm{Ba/Fe}]$.
+
+Recovering these labels from the residuals would therefore show that the remaining model-data mismatch still varies systematically across the label space used in the original fit. We first examine the global stellar parameters in Sec.~\ref{sec:analysis_cannon_fitted_stellar_parameters}, before testing for more specific information about elemental abundance patterns in Sec.~\ref{sec:analysis_cannon_fitted_abundances}.
+
 \subsubsection{Stellar parameters}
 \label{sec:analysis_cannon_fitted_stellar_parameters}
 
-\textbf{Model 1}: Correlations of residuals with stellar parameters
--> Use Baseline Sample
--> interpret Teff (correlation with continuum shape)
--> interpret logg
--> interpret FeH (yes: several absorption features not modelled well, which of course as a whole still hold information)
+Model \textcolor{M1}{M1} tests the recovery of $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ using the baseline sample, which spans the broadest stellar-parameter range considered here. Model \textcolor{M1}{M1*} repeats the same experiment using the more restricted abundance sample, which excludes the hottest stars and applies additional quality criteria. This comparison tests whether the predictive residual structure persists within a more homogeneous, higher-quality sample, although it does not isolate the effects of signal-to-noise ratio, quality selection, and stellar-type coverage individually.
+
+The cross-validated recovery results are combined in Fig.~\ref{fig:recovery_comparison} using model-specific colour maps; here, we focus on the grey-scale panels for Model~\textcolor{M1}{M1}. For this model, the robust recovery scales are $\sigma(\Delta T_\mathrm{eff})=150\,\mathrm{K}$, $\sigma(\Delta\log g)=0.19\,\mathrm{dex}$, and $\sigma(\Delta[\mathrm{Fe/H}])=0.086\,\mathrm{dex}$. These are substantially smaller than the corresponding label spreads of $660\,\mathrm{K}$, $0.94\,\mathrm{dex}$, and $0.286\,\mathrm{dex}$, yielding label-recovery ratios of $R_{T_\mathrm{eff}}=4.5$, $R_{\log g}=4.9$, and $R_{[\mathrm{Fe/H}]}=3.3$. The median biases are small: $-20\,\mathrm{K}$, $0.00\,\mathrm{dex}$, and $-0.006\,\mathrm{dex}$, respectively.
+
+The recovery is not uniform across the sampled label space. For $T_\mathrm{eff}$, the scatter and frequency of outliers increase among the comparatively sparse stars hotter than approximately $6500\,\mathrm{K}$. The $\log g$ recovery shows a mildly asymmetric trend among dwarfs near $\log g\sim4$ and increased scatter around the red clump near $\log g\sim2.5$. The metallicity recovery is strongest across the well-sampled central range and deteriorates towards the metal-poor edge, where few training stars are available. The quoted global recovery scales should therefore be interpreted as cross-validated interpolation performance within the baseline sample, rather than as uniform precision across its full parameter range.
+
+Model \textcolor{M1}{M1*} confirms that the residual information persists in the more restricted abundance sample. Its robust recovery scales are $80\,\mathrm{K}$ in $T_\mathrm{eff}$, $0.14\,\mathrm{dex}$ in $\log g$, and $0.059\,\mathrm{dex}$ in $[\mathrm{Fe/H}]$, compared with label spreads of $623\,\mathrm{K}$, $0.95\,\mathrm{dex}$, and $0.270\,\mathrm{dex}$. The corresponding ratios increase to $R_{T_\mathrm{eff}}=7.8$, $R_{\log g}=6.7$, and $R_{[\mathrm{Fe/H}]}=4.6$. The median biases remain negligible at $+1\,\mathrm{K}$, $0.00\,\mathrm{dex}$, and $-0.001\,\mathrm{dex}$. Model \textcolor{M1}{M1*} therefore performs better in both absolute terms and relative to the label coverage of its sample, although the combined sample-selection differences prevent us from attributing this improvement to any single factor. The complete recovery statistics are summarised in Tab.~\ref{tab:recovery_performance}.
+
+
+\begin{table*}
+    \centering
+    % \caption{Performance comparison of the common labels $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$ between the different residual models.}
+    \caption{Cross-validated recovery of $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ for the residual models. Columns give the median recovery difference and its 16th--50th and 50th--84th percentile intervals, calculated from the combined held-out predictions of the five folds. Model~\textcolor{M1}{M1*} applies Model~\textcolor{M1}{M1} to the \textit{abundance} rather than the \textit{baseline} sample.}
+    \label{tab:recovery_performance}
+    \begin{tabular}{cccccccccc}
+    \hline \hline
+    Model 
+    & \multicolumn{3}{c}{$\Delta T_\mathrm{eff}\,/\,\mathrm{K}$}
+    & \multicolumn{3}{c}{$\Delta\log g\,/\,\mathrm{dex}$}
+    & \multicolumn{3}{c}{$\Delta[\mathrm{Fe/H}]\,/\,\mathrm{dex}$} \\
+    & $P_{50}$ & $P_{16}-P_{50}$ & $P_{84}-P_{50}$
+    & $P_{50}$ & $P_{16}-P_{50}$ & $P_{84}-P_{50}$
+    & $P_{50}$ & $P_{16}-P_{50}$ & $P_{84}-P_{50}$ \\
+    \hline
+    \textcolor{M1}{M1} & $-20$  & $-130$  & $+160$  & $+0.00~~$ & $-0.19~~$ & $+0.19~~$ & $-0.006$  & $-0.084$  & $+0.089$  \\
+    \textcolor{M1}{M1*} & $+~~1$  & $-~~76$  & $+~~90$  & $+0.00~~$ & $-0.14~~$ & $+0.13~~$ & $-0.001$  & $-0.058$  & $+0.056$ \\
+    \textcolor{M2}{M2} & $+~~0$ & $-~~78$ & $+~~82$ & $-0.01~~$ & $-0.14~~$ & $+0.15~~$ & $-0.004$  & $-0.060$  & $+0.058$  \\
+    \textcolor{M3}{M3} & $-20$  & $-130$  & $+150$  & $+0.01~~$ & $-0.19~~$ & $+0.19~~$ & $-0.004$  & $-0.085$  & $+0.087$  \\
+    \textcolor{M4}{M4} & $+10$ & $-110$ & $+150$ & $-0.01~~$  & $-0.10~~$  & $+0.16~~$  & $+0.006$  & $-0.089$  & $+0.090$  \\
+    \textcolor{M5}{M5} & $-60$  & $-140$  & $+180$  & $-0.00~~$ & $-0.23~~$ & $+0.20~~$ & $-0.01~~$ & $-0.10~~$ & $+0.09~~$ \\
+    \textcolor{M6}{M6} & $+10$  & $-160$  & $+220$  & $+0.02~~$ & $-0.21~~$ & $+0.23~~$ & $+0.00~~$ & $-0.10~~$ & $+0.13~~$ \\    
+    \hline \hline
+    \multicolumn{10}{p{12cm}}{\footnotesize{Note: \textcolor{M1}{M1*} denotes training of model \textcolor{M1}{M1} on the \textit{abundance} sample, rather than the \textit{baseline} sample.}}
+    \end{tabular}
+\end{table*}
+
+The coefficient spectra panels in Fig.~\ref{fig:cannon_linear_coefficients_joint}, each showing the full range of coefficients across the five models of each cross-validation, identify the wavelength regions associated with this predictive information. Because the model is quadratic and the labels are internally centred and scaled, the plotted linear coefficients describe the local residual response near the centre of the training-set label distribution, conditional on the other labels. They should not be interpreted as global derivatives across the full parameter range; quadratic and cross terms may become important elsewhere in label space.
+
+The $T_\mathrm{eff}$ coefficient contains numerous narrow positive and negative features across all four wavelength arms, indicating that the temperature dependence is distributed across many residual spectral features. The strongest response occurs around $\mathrm{H}_\upalpha$, where the line-core and wing residuals vary in opposite directions with temperature. This demonstrates a systematic temperature dependence in the remaining $\mathrm{H}_\upalpha$ mismatch, but does not by itself distinguish between deficiencies in line formation, broadening, continuum normalisation, activity, or other modelling effects. A lower-amplitude, broader response is also visible across parts of the blue arm, potentially reflecting the combined influence of many weaker features.
+
+The $\log g$ coefficient is likewise dominated by structure around $\mathrm{H}_\upalpha$ and $\mathrm{H}_\upbeta$, together with narrower responses associated with individual metal-line residuals. These include regions near the modelled Fe~{\sc i} lines at 4870.97 and 4891.16\,\AA\ with too high $\log gf$ and the candidate missing Fe~{\sc i} line near 7780.56\,\AA. Parts of the blue-arm response have the opposite sign to the temperature coefficient, illustrating the partial covariance of the residual dependences on $T_\mathrm{eff}$ and $\log g$.
+
+The $[\mathrm{Fe/H}]$ coefficient contains many line-localised responses, consistent with metallicity information distributed across absorption features and blends that are not reproduced perfectly by the synthesis. Not every Fe-associated peak from Sec.~\ref{sec:analysis_peak_catalogue} appears prominently in the linear metallicity coefficient. Some features may instead vary non-linearly with metallicity, enter through cross terms with $T_\mathrm{eff}$ or $\log g$, or become informative only within a restricted region of label space.
+
+Three related diagnostics should be distinguished. The cross-validated recovery scales quantify predictive performance for unseen spectra, the inferred wavelength-dependent model scatter describes the typically small residual variation not captured by the fitted label model, and the fold-to-fold coefficient ranges measure the stability of the learned wavelength response against changes in the training subset. The coefficient envelopes in Fig.~\ref{fig:cannon_linear_coefficients_joint} are narrow for almost all linear terms, showing that the identified wavelength structure is highly reproducible across the five folds.
+
+\textbf{Key Takeaway:} Residual spectra retain substantial and reproducible information about $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$, even though these labels were already used to construct the best-fitting synthetic spectra. The information is distributed across numerous spectral features, with particularly strong parameter-dependent residual structure around the Balmer lines, demonstrating that not only the flux, but also the remaining model-data mismatch varies coherently across stellar-label space.
 
 \subsubsection{Element abundance patterns}
 \label{sec:analysis_cannon_fitted_abundances}
 
-\textbf{Model 2}: Correlations of residuals with stellar parameters and abundances
--> Use Abundance Sample
--> interesting correlations with continuum shapes.
--> any strong enough features?
+Model \textcolor{M2}{M2} extends Model \textcolor{M1}{M1*} by fitting the four abundance labels $[\mathrm{Na/Fe}]$, $[\mathrm{Mg/Fe}]$, $[\mathrm{Mn/Fe}]$, and $[\mathrm{Ba/Fe}]$ alongside $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$. Both models use the same abundance sample, allowing us to test whether the residual spectra retain more specific information about chemical abundance patterns without changing the underlying stellar sample. The recovery of the three global stellar labels remains nearly unchanged relative to Model \textcolor{M1}{M1*}, with robust scales of approximately $80\,\mathrm{K}$ in $T_\mathrm{eff}$, $0.15\,\mathrm{dex}$ in $\log g$, and $0.059\,\mathrm{dex}$ in $[\mathrm{Fe/H}]$ (Tab.~\ref{tab:recovery_performance}).
+
+The abundance recovery is shown by the blue-density panels in Fig.~\ref{fig:recovery_comparison}. The robust recovery scales $\sigma(\Delta[\mathrm{X/Fe}])$ are $0.084\,\mathrm{dex}$ for Na, $0.070\,\mathrm{dex}$ for Mg, $0.058\,\mathrm{dex}$ for Mn, and $0.14\,\mathrm{dex}$ for Ba. These values are larger than the corresponding median GALAH DR4 precision uncertainties by factors of approximately $1.9-2.4$.
+
+The abundance recovery must also be considered relative to the limited label spread of the sample. The robust spreads $\sigma(\mathrm{[X/Fe]})$ are $0.102\,\mathrm{dex}$ for Na, $0.117\,\mathrm{dex}$ for Mg, $0.092\,\mathrm{dex}$ for Mn, and $0.16\,\mathrm{dex}$ for Ba. The corresponding label-recovery ratios are therefore $R_{[\mathrm{Na/Fe}]}=1.2$, $R_{[\mathrm{Mg/Fe}]}=1.7$, $R_{[\mathrm{Mn/Fe}]}=1.6$, and $R_{[\mathrm{Ba/Fe}]}=1.1$. The residual spectra thus contain modest predictive information about Mg and Mn, whereas Na and Ba are recovered only marginally better than a constant prediction near the centre of their training-label distributions. The recovery also deteriorates towards sparsely sampled abundance extremes, where individual training folds contain relatively few chemically enhanced stars.
+
+The linear coefficients (blue in Fig.~\ref{fig:cannon_linear_coefficients_joint}) suggest that this abundance information is not carried primarily by clear residual signatures of the corresponding elements. In particular, the Mg and Ba coefficients retain broad, wave-like structure across the red arm, while several abundance coefficients respond strongly around the Balmer lines. The Mn and Ba coefficients also show structure near the diffuse interstellar bands around $5780,\text{\AA}$, $5797,\text{\AA}$, and $6613,\text{\AA}$. By contrast, no single set of element-specific absorption features clearly dominates the coefficient spectrum for each abundance.
+
+Because these coefficients describe conditional responses within a correlated, quadratic label model, such behaviour does not imply that the identified Balmer or interstellar features are directly sensitive to Na, Mg, Mn, or Ba. Instead, \textsc{The Cannon} can exploit residual structures associated with stellar populations, extinction, atmospheric parameters, or other properties that correlate with the abundance labels in the training sample. The abundance recovery therefore demonstrates that the residual spectra retain information about chemical abundance patterns, but not necessarily independent or directly attributable information about each individual element.
+
+As for the stellar-parameter coefficients, the fold-to-fold envelopes are narrow relative to the median abundance-coefficient structure. The learned correlations are therefore reproducible across the five training subsets, even where their physical origin is indirect or ambiguous.
+
+\textbf{Key Takeaway:} Residual spectra retain modest predictive information about elemental abundance patterns, with the strongest relative recovery for Mg and Mn. However, the abundance coefficients are not dominated by unambiguous element-specific residual features and instead include broad, Balmer-line, and interstellar-associated structure. The recovered abundance information therefore appears to arise at least partly through correlations with other stellar, interstellar, or observational properties.
 
 \subsection{Information about properties not fitted by the synthesis}
 \label{sec:analysis_cannon_unfitted_labels}
@@ -473,13 +529,14 @@ These performance indicators, in particular a higher ratio $R$, establish whethe
     \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logg_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model4_fe_h_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logRHK_kfold.png}
-    \caption{Same as Fig.~\ref{fig:recovery_comparison}, but only for model 4.}
+    % \caption{Same as Fig.~\ref{fig:recovery_comparison}, but only for model 4.}
+    \caption{Cross-validated recovery of $T_\mathrm{eff}$, $\log g$, $[\mathrm{Fe/H}]$, and $\log R'_\mathrm{HK}$ with Model~\textcolor{M4}{M4} for the \textit{activity} sample. Plotting conventions follow Fig.~\ref{fig:recovery_comparison}.}
     \label{fig:recovery_comparison2}
 \end{figure}
 
 \SB{Compare lines to activity indicators from \citet{Wise2018} and \citet{Lisogorskyi2019}! <- already in the jupyter notebook anyway!}
 
-\SB{inspect H$\alpha$, Ba~II 5853\,\AA, and peak regions around 6508, 6518, 6700, 7780, 7835, 7800, and 7855\,\AA.}
+\SB{inspect $\mathrm{H}_\upalpha$, Ba~II 5853\,\AA, and peak regions around 6508, 6518, 6700, 7780, 7835, 7800, and 7855\,\AA.}
 
 work by \citet{Abia2021} on Rb line and magnetic activity: depth decreases with stronger magnetic field due to Zeeman splitting!!!
 
@@ -492,7 +549,8 @@ Idea: Use \textbf{Model 1}, but use only the 6 percent of the pixels that were m
     \centering
     % \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_model5.pdf}
     \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_model5_kfold.png}
-    \caption{Linear coefficients for model \textcolor{M5}{M5}, which was only allowed to use the 793 pixels of the GALAH wavelength range that were neglected for fitting in GALAH DR4.}
+    % \caption{Linear coefficients for model \textcolor{M5}{M5}, which was only allowed to use the 793 pixels of the GALAH wavelength range that were neglected for fitting in GALAH DR4.}
+    \caption{Linear coefficient spectra for Model~\textcolor{M5}{M5}, using only the 793 wavelength pixels excluded from the GALAH DR4 optimisation. Lines show the median across the five folds, and shaded regions show the full fold-to-fold range.}
     \label{fig:cannon_linear_coefficients_model5}
 \end{figure*}
 
@@ -505,7 +563,8 @@ Idea: Use \textbf{Model 1}, but use only the 6 percent of the pixels that were m
     \includegraphics[width=0.49\linewidth]{figures/recovery_model6_logg_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model5_fe_h_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model6_fe_h_kfold.png}
-    \caption{Same as Fig.~\ref{fig:recovery_comparison}, but only for models \textcolor{M5}{M5} (left) and \textcolor{M6}{M6} (right).}
+    % \caption{Same as Fig.~\ref{fig:recovery_comparison}, but only for models \textcolor{M5}{M5} (left) and \textcolor{M6}{M6} (right).}
+    \caption{Cross-validated recovery of $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ using pixels excluded from the GALAH DR4 optimisation with Model~\textcolor{M5}{M5} (left; red) and pixels included in the optimisation with Model~\textcolor{M6}{M6} (right; pink). Plotting conventions follow Fig.~\ref{fig:recovery_comparison}.}
     \label{fig:recovery_comparison3}
 \end{figure}
 
@@ -594,28 +653,6 @@ For this purpose, it would be interesting to create an adjusted test for model 1
     \end{itemize}
 \end{itemize}
 
-\begin{table*}
-    \centering
-    \caption{Performance comparison of the common labels $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$ between the different residual models.}
-    \label{tab:recovery_performance}
-    \begin{tabular}{cccccccccc}
-    \hline \hline
-    Model & \multicolumn{3}{c}{$T_\mathrm{eff}~/~\mathrm{K}$} & \multicolumn{3}{c}{$\log (g~/~\mathrm{cm\,s^{-2}})$} & \multicolumn{3}{c}{$\mathrm{[Fe/H]}$}  \\
-    & 50 & 16-50 & 84-50 & 50 & 16-50 & 84-50 & 50 & 16-50 & 84-50 \\
-    \hline
-    \textcolor{M1}{M1} & $-20$  & $-130$  & $+160$  & $+0.00~~$ & $-0.19~~$ & $+0.19~~$ & $-0.006$  & $-0.084$  & $+0.089$  \\
-    \textcolor{M1}{M1*} & $+~~1$  & $-~~76$  & $+~~90$  & $+0.00~~$ & $-0.14~~$ & $+0.13~~$ & $-0.001$  & $-0.058$  & $+0.056$ \\
-    \textcolor{M2}{M2} & $+~~0$ & $-~~78$ & $+~~82$ & $-0.01~~$ & $-0.14~~$ & $+0.15~~$ & $-0.004$  & $-0.060$  & $+0.058$  \\
-    \textcolor{M3}{M3} & $-20$  & $-130$  & $+150$  & $+0.01~~$ & $-0.19~~$ & $+0.19~~$ & $-0.004$  & $-0.085$  & $+0.087$  \\
-    \textcolor{M4}{M4} & $+10$ & $-110$ & $+150$ & $-0.01~~$  & $-0.10~~$  & $+0.16~~$  & $+0.006$  & $-0.089$  & $+0.090$  \\
-    \textcolor{M5}{M5} & $-60$  & $-140$  & $+180$  & $-0.00~~$ & $-0.23~~$ & $+0.20~~$ & $-0.01~~$ & $-0.10~~$ & $+0.09~~$ \\
-    \textcolor{M6}{M6} & $+10$  & $-160$  & $+220$  & $+0.02~~$ & $-0.21~~$ & $+0.23~~$ & $+0.00~~$ & $-0.10~~$ & $+0.13~~$ \\    
-    \hline \hline
-    \multicolumn{10}{p{12cm}}{\footnotesize{Note: \textcolor{M1}{M1*} denotes training of model \textcolor{M1}{M1} on the \textit{abundance} sample, rather than the \textit{baseline} sample.}}
-    \end{tabular}
-    % \newline
-    % \footnotesize{Note: \textcolor{M1}{M1*} denotes training of model \textcolor{M1}{M1} on the \textit{abundance} sample, rather than the \textit{baseline} sample.}
-\end{table*}
 
 \subsection{To what extent do residuals retain information about extinction and activity?}
 \label{sec:discussion_unfitted_labels}
@@ -638,7 +675,7 @@ Discuss activity:
     \item On another note: the strong linear coefficient for logRHK is at \textbf{7798.0} with a stronger +- 0.5 range. That is just red / but slightly overlapping with the NiI line at 7797.5AA.
     \item note that \citet{Takeda2021} also found deviations for several stars in their spectra (green dots!)!
     \item Other strong linear coefficients appears to be at 5710.3 (no skyline), 5715.2 (no skyline), 6515.4 (no skyline), 6526.00 (no skyline), 6700.2AA (no skyline), \textbf{7782.8AA} (no skyline), 7834.2AA (no skyline), 7853.0AA (the last one at skyline)
-    \item whether activity-sensitive residuals are concentrated near H$\alpha$, Ba~II, Fe~I/Ni~I candidates, or other line cores; compare \citep{Spina2020} lines
+    \item whether activity-sensitive residuals are concentrated near $\mathrm{H}_\upalpha$, Ba~II, Fe~I/Ni~I candidates, or other line cores; compare \citep{Spina2020} lines
     \item whether adding $\log R'_\mathrm{HK}$ improves residual modelling in specific wavelength regions;
     \item whether activity signatures could bias precision abundance work if not modelled.
 \end{itemize}
@@ -793,7 +830,7 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{figures/cdf_significance_residual_flux_percentiles_m1.png}
+    \includegraphics[width=0.5\linewidth]{figures/cdf_significance_residual_flux_percentiles_m1.png}
     \caption{Cumulative distribution functions of residual significance. We show both the median residual significance (black) as well as the 16th (orange) and 84th percentiles (red). The inset shows the cumulative distribution of absolute residuals. \SB{Is this really adding anything to the story or could the two number 87.8\% below $1\sigma$ and $97.3\%$ below $2\sigma$ be all we need?}}
     \label{fig:cdf_significance_residual_flux_percentiles_m1}
 \end{figure}
