@@ -392,7 +392,7 @@ We train the model coefficients and scatter at each wavelength pixel using stars
 
 The models used in this section differ in their training sample, input labels, and wavelength coverage. They test whether residuals retain information about stellar parameters, abundance patterns, extinction, and activity, and whether that information is concentrated in pixels used or masked during the GALAH DR4 optimisation, as already listed in Tab.~\ref{tab:residual_models}.
 
-While we visualise the training and recovery performance using all spectra in each sample, we additionally verified the results through five-fold cross-validation. Using the \textsc{KFold} implementation of \textsc{sklearn}'s \textsc{model\_selection} \citep{scikit-learn}, we divided each sample into five reproducibly shuffled subsets. For each split, we trained the model on $80\,\mathrm{\%}$ of the spectra and evaluated it on the remaining $20\,\mathrm{\%}$, such that every spectrum was used for testing once.\footnote{\SB{DONE FOR 4 AND 6; DO FOR REST AND CONFIRM SIMILAR RESULTS!}}
+We analysed the robustness of our data-driven extraction through five-fold cross-validation. Using the \textsc{KFold} implementation of \textsc{sklearn}'s \textsc{model\_selection} \citep{scikit-learn}, we divided each sample into five reproducibly shuffled subsets. For each split, we trained the model on $80\,\mathrm{\%}$ of the spectra and evaluated it on the remaining $20\,\mathrm{\%}$, such that every spectrum was used for testing once.\footnote{\SB{Already switched the recovery figures to *kfold*, but still need to be validated/discussed. Also switch to some version of the coefficients (Figs.~\ref{fig:cannon_linear_coefficients_joint} and \ref{fig:cannon_linear_coefficients_model5} that combined the 5-fold. That might be interesting to analyse the coefficient change anyway! Use min/max and median!).}}
 
 We quantify the recovery of each label using
 \begin{equation}
@@ -420,22 +420,22 @@ These performance indicators, in particular a higher ratio $R$, establish whethe
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model1_teff.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model1_logg.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model1_fe_h.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model3_a_ks.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model2_na_fe.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model2_mg_fe.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model2_mn_fe.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model2_ba_fe.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model1_teff.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model1_logg.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model1_fe_h.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model3_a_ks.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_na_fe.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mg_fe.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mn_fe.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_ba_fe.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model1_teff_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model1_logg_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model1_fe_h_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model3_a_ks_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model2_na_fe_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model2_mg_fe_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model2_mn_fe_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model2_ba_fe_kfold.png}
+    % \includegraphics[width=0.245\linewidth]{figures/recovery_model1_teff_kfold.png}
+    % \includegraphics[width=0.245\linewidth]{figures/recovery_model1_logg_kfold.png}
+    % \includegraphics[width=0.245\linewidth]{figures/recovery_model1_fe_h_kfold.png}
+    % \includegraphics[width=0.245\linewidth]{figures/recovery_model3_a_ks_kfold.png}
+    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_na_fe_kfold.png}
+    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mg_fe_kfold.png}
+    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mn_fe_kfold.png}
+    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_ba_fe_kfold.png}
     \caption{Distributions of differences between input and recovered labels as a function of input label for the eight different labels used in models 1-3. Recovery for of the \textit{baseline} sample with model 1 ($T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$) is shown in black density, with the additional $A_\mathrm{K_S}$ used for model 3 in orange, and when additionally recovering [Na/Fe], [Mg/Fe], [Mn/Fe], and [Ba/Fe] with model 2 in red. For a more informed comparison, we enforce each panel to have equal aspect ratio (so more circular distribution indicates less reliable recovery) and provide both the 16/50/84th percentile of the input distribution in the axis label and the recovery difference as 16/50/84th percentiles, with larger distribution percentiles over recovery percentiles indicating better performance. \SB{We could overplot the results of M1* on top of M1 for Teff/logg/FeH.}}
     \label{fig:recovery_comparison}
 \end{figure}
@@ -480,10 +480,10 @@ These performance indicators, in particular a higher ratio $R$, establish whethe
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_teff.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logg.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_fe_h.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logRHK.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_teff_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logg_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_fe_h_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logRHK_kfold.png}
     \caption{Same as Fig.~\ref{fig:recovery_comparison}, but only for model 4.}
     \label{fig:recovery_comparison2}
 \end{figure}
@@ -509,13 +509,13 @@ Idea: Use \textbf{Model 1}, but use only the 6 percent of the pixels that were m
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model5_teff.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model6_teff.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model5_logg.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model6_logg.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model5_fe_h.png}
-    \includegraphics[width=0.49\linewidth]{figures/recovery_model6_fe_h.png}
-    \caption{Same as Fig.~\ref{fig:recovery_comparison}, but only for models \textcolor{M5}{M5}(left) and \textcolor{M6}{M6} (right).}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model5_teff_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model6_teff_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model5_logg_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model6_logg_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model5_fe_h_kfold.png}
+    \includegraphics[width=0.49\linewidth]{figures/recovery_model6_fe_h_kfold.png}
+    \caption{Same as Fig.~\ref{fig:recovery_comparison}, but only for models \textcolor{M5}{M5} (left) and \textcolor{M6}{M6} (right).}
     \label{fig:recovery_comparison3}
 \end{figure}
 
