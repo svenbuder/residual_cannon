@@ -374,9 +374,7 @@ For a star $n$ at pixel $\lambda$, we model each residual $\Delta f_{n\lambda}$ 
 \begin{equation}
 \Delta f_{n\lambda}
 =
-\boldsymbol{\theta}_{\lambda}^{\mathsf T}
-\boldsymbol{v}(\boldsymbol{\ell}_n)
-+ \epsilon_{n\lambda},
+\boldsymbol{v}(\boldsymbol{\ell}_n) \cdot \boldsymbol{\theta}_{\lambda} + \epsilon_{n\lambda},
 \label{eq:cannon_residual_model}
 \end{equation}
 where $\boldsymbol{\ell}_n$ contains the selected labels of star $n$, $\boldsymbol{v}(\boldsymbol{\ell}_n)$ is the corresponding design vector, and $\epsilon_{n\lambda}$ is the combined uncertainty of flux uncertainty $\sigma_{n\lambda}$ and additional wavelength-dependent model scatter $\sigma_{\mathrm{model},\lambda}$,
@@ -413,7 +411,8 @@ These performance indicators, in particular a higher ratio $R$, establish whethe
 
 \begin{figure*}
     \centering
-    \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_joint.pdf}
+    % \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_joint.pdf}
+    \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_joint_kfold.png}
     \caption{Linear coefficients of different models}
     \label{fig:cannon_linear_coefficients_joint}
 \end{figure*}
@@ -428,14 +427,6 @@ These performance indicators, in particular a higher ratio $R$, establish whethe
     \includegraphics[width=0.49\linewidth]{figures/recovery_model2_mg_fe_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model2_mn_fe_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model2_ba_fe_kfold.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model1_teff_kfold.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model1_logg_kfold.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model1_fe_h_kfold.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model3_a_ks_kfold.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_na_fe_kfold.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mg_fe_kfold.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_mn_fe_kfold.png}
-    % \includegraphics[width=0.245\linewidth]{figures/recovery_model2_ba_fe_kfold.png}
     \caption{Distributions of differences between input and recovered labels as a function of input label for the eight different labels used in models 1-3. Recovery for of the \textit{baseline} sample with model 1 ($T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$) is shown in black density, with the additional $A_\mathrm{K_S}$ used for model 3 in orange, and when additionally recovering [Na/Fe], [Mg/Fe], [Mn/Fe], and [Ba/Fe] with model 2 in red. For a more informed comparison, we enforce each panel to have equal aspect ratio (so more circular distribution indicates less reliable recovery) and provide both the 16/50/84th percentile of the input distribution in the axis label and the recovery difference as 16/50/84th percentiles, with larger distribution percentiles over recovery percentiles indicating better performance. \SB{We could overplot the results of M1* on top of M1 for Teff/logg/FeH.}}
     \label{fig:recovery_comparison}
 \end{figure}
@@ -501,7 +492,8 @@ Idea: Use \textbf{Model 1}, but use only the 6 percent of the pixels that were m
 
 \begin{figure*}
     \centering
-    \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_model5.pdf}
+    % \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_model5.pdf}
+    \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_model5_kfold.png}
     \caption{Linear coefficients for model \textcolor{M5}{M5}, which was only allowed to use the 793 pixels of the GALAH wavelength range that were neglected for fitting in GALAH DR4.}
     \label{fig:cannon_linear_coefficients_model5}
 \end{figure*}
@@ -575,7 +567,6 @@ Discussion of Sec.~\ref{sec:analysis_cannon_fitted_labels}:
         \item \citet{Bergemann2016} Balmer line bisector
     \end{itemize}
 \end{itemize}
-
 
 \SB{We have previously identified mismatches for UNIDENTIFIED lines. Can we single those out in the coefficient plots for Na, Mg, Mn, and Ba and see which of the coefficients corresponds most to them? Check that this actually works by looking at the SiI line at 7800 -> should show strongest correlation/coefficient with Mg!}
 
