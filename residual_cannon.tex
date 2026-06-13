@@ -377,20 +377,18 @@ For a star $n$ at pixel $\lambda$, we model each residual $\Delta f_{n\lambda}$ 
 \boldsymbol{v}(\boldsymbol{\ell}_n) \cdot \boldsymbol{\theta}_{\lambda} + \epsilon_{n\lambda},
 \label{eq:cannon_residual_model}
 \end{equation}
-where $\boldsymbol{\ell}_n$ contains the selected labels of star $n$, $\boldsymbol{v}(\boldsymbol{\ell}_n)$ is the corresponding design vector, and $\epsilon_{n\lambda}$ is the combined uncertainty of flux uncertainty $\sigma_{n\lambda}$ and additional wavelength-dependent model scatter $\sigma_{\mathrm{model},\lambda}$,
+where $\boldsymbol{\ell}_n$ contains the selected labels of star $n$, $\boldsymbol{v}(\boldsymbol{\ell}_n)$ is the corresponding design vector, and $\epsilon_{n\lambda}$ is a noise term drawn from a Gaussian distribution whose variance combines the observational flux uncertainty $\sigma_{n\lambda}$ and an additional wavelength-dependent model scatter $\sigma_{\mathrm{model},\lambda}$,
 \begin{equation}
 \epsilon_{n\lambda} \sim \mathcal{N}\left(0, \sigma_{n\lambda}^{2}+\sigma_{\mathrm{model},\lambda}^{2}\right).
 \end{equation}
 
-Throughout this work, we use a quadratic model, for which the design vector contains a constant term, the linear and quadratic terms of each label, and all pairwise cross terms. The wavelength-dependent coefficient vector $\boldsymbol{\theta}_{\lambda}$ therefore describes how the residual flux changes across label space.
-
-Before constructing the quadratic design vector, each label is centred and scaled using the training sample. This scaling improves the numerical conditioning of the fit and allows the relative amplitudes of the coefficient spectra to be compared more meaningfully.
+Throughout this work, we use a quadratic model, for which the design vector contains a constant term, the linear and quadratic terms of each label, and all pairwise cross terms. The wavelength-dependent coefficient vector $\boldsymbol{\theta}_{\lambda}$ therefore describes how the residual flux changes across label space. For numerical stability, \textsc{The Cannon} internally centres and scales the input labels before constructing the quadratic design vector.
 
 We train the model coefficients and scatter at each wavelength pixel using stars with known reference labels. When then fix them when inferred labels for new residual spectrum by maximising the likelihood, that is, by minimising the summed $\chi^2$ value across all pixel.
 
 The models used in this section differ in their training sample, input labels, and wavelength coverage. They test whether residuals retain information about stellar parameters, abundance patterns, extinction, and activity, and whether that information is concentrated in pixels used or masked during the GALAH DR4 optimisation, as already listed in Tab.~\ref{tab:residual_models}.
 
-We analysed the robustness of our data-driven extraction through five-fold cross-validation. Using the \textsc{KFold} implementation of \textsc{sklearn}'s \textsc{model\_selection} \citep{scikit-learn}, we divided each sample into five reproducibly shuffled subsets. For each split, we trained the model on $80\,\mathrm{\%}$ of the spectra and evaluated it on the remaining $20\,\mathrm{\%}$, such that every spectrum was used for testing once.\footnote{\SB{Already switched the recovery figures to *kfold*, but still need to be validated/discussed. Also switch to some version of the coefficients (Figs.~\ref{fig:cannon_linear_coefficients_joint} and \ref{fig:cannon_linear_coefficients_model5} that combined the 5-fold. That might be interesting to analyse the coefficient change anyway! Use min/max and median!).}}
+We analysed the robustness of our data-driven extraction through five-fold cross-validation. Using the \textsc{KFold} implementation of \textsc{sklearn}'s \textsc{model\_selection} \citep{scikit-learn}, we divided each sample into five reproducibly shuffled subsets. For each split, we trained the model on $80\,\mathrm{\%}$ of the spectra and evaluated it on the remaining $20\,\mathrm{\%}$, such that every spectrum was used for testing once.
 
 We quantify the recovery of each label using
 \begin{equation}
@@ -403,11 +401,11 @@ We quantify the recovery of each label using
 \end{equation}
 In Figs.~\ref{fig:recovery_comparison}, \ref{fig:recovery_comparison2}, and \ref{fig:recovery_comparison3}, we visualise the recovery performance for a selection\footnote{All remaining plots can be found in our \href{https://github.com/svenbuder/residual_cannon}{repository}.} of the relevant labels (see later subsections). For each, we report the median label and its 16th--84th percentile range $\ell$ in the top left, together with the median bias and the 16th--84th percentile range of $\Delta \ell$ in the top right. In addition to the percentiles, which allow us to identify asymmetries, and to better assess recovery performance with respect to the label range, we report both the range of a label (represented by the standard deviation $\sigma(\ell)$), as well as the standard deviation of their recovery, $\sigma{(\Delta \ell})$, together with their ratio
 \begin{equation}
-    R = \frac{\sigma(\ell)}{\sigma{(\Delta \ell})}
+    R_\ell = \frac{\sigma(\ell)}{\sigma{(\Delta \ell})}
 \end{equation}
 in the bottom of each figure. In all cases, we use the more robust estimation of standard deviation as half the distribution between 16th and 84th percentile.
 
-These performance indicators, in particular a higher ratio $R$, establish whether the residuals contain predictive information. The wavelength-dependent linear coefficients (Figs.~\ref{fig:cannon_linear_coefficients_joint} and \ref{fig:cannon_linear_coefficients_model5}) are then used to identify where that information resides and to compare the learned residual sensitivity with known spectral lines and the residual catalogue from Sec.~\ref{sec:analysis_peak_catalogue}.
+These performance indicators, in particular a higher ratio $R$, establish whether the residuals contain predictive information. The wavelength-dependent linear coefficients (Figs.~\ref{fig:cannon_linear_coefficients_joint} and \ref{fig:cannon_linear_coefficients_model5}) are then used to identify where that information resides and to compare the learned residual sensitivity with known spectral lines and the residual catalogue from Sec.~\ref{sec:analysis_peak_catalogue}. For each wavelength pixel, we show the median coefficient across the five folds together with its full fold-to-fold range. Because each fold contains 80\% of the sample, the internal label scaling and resulting coefficients differ only slightly. The narrow envelopes for basically all linear coefficients therefore demonstrate that the learned wavelength dependence is robust to the choice of training subset; they are not interpreted as formal coefficient uncertainties.
 
 \begin{figure*}
     \centering
