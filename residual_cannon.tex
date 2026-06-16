@@ -527,66 +527,9 @@ The K~{\sc i} response near $7699,\text{\AA}$ is also more complex than the isol
 \subsubsection{Chromospheric activity}
 \label{sec:analysis_cannon_activity_labels}
 
-Using Model~\textcolor{M4}{M4} to probe for correlations with the activity indicator $\log R'_\mathrm{HK}$.
+Model~\textcolor{M4}{M4} tests whether residual spectra retain information about chromospheric activity by fitting the activity indicator $\log R'_\mathrm{HK}$ alongside $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ for the 226 stars in the \textit{activity} sample. Extreme positive flux residuals, several of which arise from imperfectly subtracted sky emission, can strongly influence a model trained on such a small sample. We therefore cap continuum-normalised fluxes above 1.2 at this value and assign them an uncertainty of the original flux value, thereby strongly reducing their weight. As shown below, this treatment limits but does not eliminate correlations with sky-subtraction residuals.
 
-I am not sure if the subsection should start with or just mention this in passing: In the first implementation, I had allowed all fluxes and flux residuals to enter the model. As will be shown in this section, a lot of problematic features were picked up that have nothing to do with chromospheric activity. In particular: the small sample seemed to show a correlation of high activity with the inability to properly model/subtract the skylines. Because of that, several of the observed spectra had these features still in them, which in turn were picked up by \textsc{The Cannon}. This became especially apparent, when looking at the logRHK coefficients, which were (and even after minimising the flux above 1.2 by setting it to 1.2 and increasing its uncertainty to 100 percent) quite strongly correlating with remaining skylines.
-
-While the training and recovery on the "full" \textit{activity} sample of 226 stars (left panels of Fig.~\ref{fig:recovery_comparison2}) suggested a somewhat reasonable recovery with $\Delta \log R'_\mathrm{HK}$ showing a good recovery of $\sigma(\Delta \log R'_\mathrm{HK}) = 0.050$ for the distribution of $\sigma(\log R'_\mathrm{HK}) = 0.114$, so $R_{\log R'_\mathrm{HK}} = 2.3$. The k-fold cross-validation, on the other side (right panels of Fig.~\ref{fig:recovery_comparison2}) showed that the 181 spectra that were tested on did not sufficiently cover the 45 spectra that were excluded (or that the model was overfitted). The k-fold recovery certainly shows unreliable recovery of not only $\sigma(\Delta \log R'_\mathrm{HK}) = 0.11$, that is $R_{\log R'_\mathrm{HK}} = 1.0$, but also a problematic diagonal behaviour in the recovery plots, suggesting that \textsc{The Cannon} simply returns the mean value of the distribution.
-
-As before, we also turn to the linear coefficient
-
-- also look at quadratic coefficient! -> strongest positive behaviour at 4861 for Hbeta (emission for large logR)
-- strong linear negative coefficient countered by positive quadratic at 6515 and 6700, 7776, and 7783, 7855
-- strong positive behaviour in linear and quadratic coefficients at 6563 for Halpha (emission for large logR
-- strong negative quadratic coefficient countered by weak positive linear coefficient at 6601, 6712, 7753
-- strong positive quadratic coefficient for Li~{\sc i} line at 6708
-- strong positive linear and quadratic coefficient at 7798
-
--> several coefficients suspiciously $\sim 2\,\text{\AA}$ off from skyline positions?
-
-6515, 6601, 6700, 6712, 7753, 7776, 7783, 7855
-????, 6604, ????, ????, 7751, 7773, 7780, 7853
-several features match when shifted by +90 km/s!
--> most likely a problem with the sky reduction together with less reliable radial velocities for the active stars (see how broad the Balmer lines are)
-
-\citet{Wise2018} suggested 42 activity-sensitive lines within the HARPS wavelength range. Of these, four lines at 4827.46, 4861.33, 5707.00, and $6562.81\,\text{\AA}$ are within our wavelength range.
--> the two Balmer lines indeed correlate with the activity. But neither 4827.46 nor 5707.00 seem to have strong correlations with it. This can be best appreciated from the relevant panels of Fig.~\ref{fig:logRHK_windows}. There we plot spectra of the 15 stars with significant stellar activity of $\log R'_\mathrm{HK} > -4.4$ colored by exactly that values. In particular the 3 stars with significantly enhanced activity respond at the two Balmer lines and show a change in the Li~{\sc i} line at $6707.8\,\text{\AA}$. It should be maybe mentioned here or later in the discussion, that these three lines are indeed known activity and youth indicators \citep[e.g.][]{Zerjal2019}.
-
-We also looked into the lines listed by \citet{Lisogorskyi2019}, of which 32 are within the GALAH wavelength range. Of those, we find 
-
-\citet{Spina2020} noted impactful line changes above a threshold of $\log R'_\mathrm{HK} -5.0$.
-
-% technically also 4890.76, which is strong for GALAH (but also shows problematic response left of it), but not so much them
-
-For activity analysis:
-- At least point out potential to use Balmer lines. Use masking for Balmer line?
-- Also point out emission lines of [NI] and [SII] from Orion region? Not magnetic activity though!
-
-\SB{Try another Cannon on 1000 highest activity stars with good enough spectra? That would be the best way to check for other lines...}
-
-\begin{figure*}
-    \centering
-    \includegraphics[width=\linewidth]{figures/logRHK_windows.png}
-    \caption{Observed flux for the 15 stars with highest $\log R'_\mathrm{HK}$ of the \textit{activity} sample as well as linear and quadratic coefficients of $\log R'_\mathrm{HK}$ (thick and thin purple lines) for selected wavelength regions.}
-    \label{fig:logRHK_windows}
-\end{figure*}
-
-\textbf{Model 4}: Correlations of residuals with stellar parameters and stellar activity
--> Use Activity Sample
--> in particular Fig.~\ref{fig:recovery_comparison2}
-
-\SB{7798 region seems to actually be one outlier causing havoc here... interestingly the kfold recovers no correlation whereas the full set does - important insight here that these features are likely outliers causing issues for the whole fit! Balmer lines still sensitive! maybe switch to larger trainingset with logRHK for thousand stars? still mention/discuss the Wise2018 and Lisogorskyi2019 studies/lines?}
-
-Check that this is more than just residual signal from skylines (do logR'HK coefficients coincide with skylines?), just happening to be coinciding with large logR'HK spectra
-
-Looking at Zhang2024 sample with logR'HK:
-220220002701202 towards Orion nebula -> -2.2 -> Halpha and Hbeta in emission, but also the [NII] lines left (6548.050) and right (6583.450) of Halpha and the [SII] lines at 6716.440 and 6730.816. But usually, even the stars from Zhang with the highest values only show Halpha (and to some degree Hbeta) emission.
-% https://cloud.datacentral.org.au/teamdata/GALAH/public/GALAH_DR4/analysis_products_allstar/220220/220220002701202/220220002701202_allstar_fit_comparison.pdf
-% similar with 220220002701159
-% 190224002101205 only has Halpha emission...
-% 180625005301307 has filled Halpha because of binarity
-% 181223001601083 only has Halpha emission...
-% 150109001001058 only has Halpha emission...
+Figure~\ref{fig:recovery_comparison2} contrasts the in-sample fit obtained when Model~\textcolor{M4}{M4} is trained and evaluated on all 226 spectra with its out-of-sample performance from five-fold cross-validation. The in-sample fit yields a robust recovery scale of $\sigma(\Delta\log R'_\mathrm{HK})=0.053$, compared with a label spread of $\sigma(\log R'_\mathrm{HK})=0.114$, corresponding to $R_{\log R'_\mathrm{HK}}=2.2$. This apparent recovery does not persist out of sample: the cross-validated recovery scale increases to $0.11$, giving $R_{\log R'_\mathrm{HK}}=1.0$. The diagonal trend in $\Delta\log R'_\mathrm{HK}$ indicates that the out-of-sample predictions regress towards the centre of the activity distribution rather than recovering its full range.
 
 \begin{figure}
     \centering
@@ -598,23 +541,33 @@ Looking at Zhang2024 sample with logR'HK:
     \includegraphics[width=0.49\linewidth]{figures/recovery_model4_fe_h_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logRHK.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logRHK_kfold.png}
-    \caption{Recovery of $T_\mathrm{eff}$, $\log g$, $[\mathrm{Fe/H}]$, and $\log R'_\mathrm{HK}$ with Model~\textcolor{M4}{M4} for the \textit{activity} sample. Left panels show the recovery when trained and tested on all 226 spectra, whereas right the right panels show the cross-validated results (training five times on 181 spectra and testing on 45 unseen spectra). Plotting conventions follow Fig.~\ref{fig:recovery_comparison}.}
+    \caption{In-sample fit (left) and out-of-sample cross-validated recovery (right) of $T_\mathrm{eff}$, $\log g$, $[\mathrm{Fe/H}]$, and $\log R'_\mathrm{HK}$ with Model~\textcolor{M4}{M4} for the 226 stars in the \textit{activity} sample. The left panels show predictions from a model trained and evaluated on the complete sample and therefore do not provide an independent performance estimate. The right panels combine predictions for the left-out spectra from the five cross-validation folds. Plotting conventions follow Fig.~\ref{fig:recovery_comparison}.}
     \label{fig:recovery_comparison2}
 \end{figure}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\linewidth]{figures/logRHK_windows.png}
+    \caption{Observed flux for the 15 stars with highest $\log R'_\mathrm{HK}$ of the \textit{activity} sample as well as linear and quadratic coefficients of $\log R'_\mathrm{HK}$ (thick and thin purple lines) for selected wavelength regions.}
+    \label{fig:logRHK_windows}
+\end{figure*}
+
+The contrast between the two results shows that the strong in-sample performance is not a reliable estimate of predictive precision. With only approximately 80 percent of the 226 spectra available in each training fold, the quadratic model does not generalise reliably to the left-out stars. This may reflect the small sample, its restricted and uneven activity coverage, sensitivity to individual spectra, or correlations with unrelated residual features. The experiment therefore does not establish reliable star-by-star recovery of $\log R'_\mathrm{HK}$ from the residuals with the current sample and model configuration.
+
+The coefficient spectra nevertheless provide evidence that the residuals contain physically plausible activity-related structure. Figure~\ref{fig:logRHK_windows} examines selected regions in greater detail by showing the observed spectra of the 15 stars with the largest $\log R'_\mathrm{HK}$ values together with the linear and quadratic activity coefficients. The three most active stars show particularly clear changes around H$\upalpha$ and H$\upbeta$, supporting an activity-related origin for the Balmer-line coefficients. They also differ around the Li~{\sc i} line at $6707.8,\text{\AA}$. Because lithium is primarily associated with stellar youth \citep[see e.g.][]{Zerjal2019}, rather than being a direct tracer of chromospheric emission, this response is more plausibly interpreted as a correlation between youth and activity within the sample.
+
+Of the activity-sensitive lines identified by \citet{Wise2018} from HARPS spectra, four lie within the GALAH wavelength range: features near $4827.46$, $4861.33$, $5707.00$, and $6562.81\,\text{\AA}$ (see Fig.~\ref{fig:logRHK_windows}). The latter two Balmer lines, H$\upbeta$ and H$\upalpha$, show clear responses in the $\log R'_\mathrm{HK}$ coefficients, whereas the features near $4827.46$ and $5707.00\,\text{\AA}$ show no similarly prominent response. Among the 32 HARPS lines studied by \citet{Lisogorskyi2019} within our wavelength range (attached in Fig.~\ref{fig:logRHK_lines_Lisogorskyi2019}), we also identify coefficient structure near $4736.78$, $4859.75$, and $4890.76\,\text{\AA}$, in addition to the Balmer lines.
+
+Not all strong coefficient responses have a stellar origin. Model~\textcolor{M4}{M4} also responds to residual sky-emission features, including those near $7751.1$, $7794.7$, $7822.1$, and $7853.9,\text{\AA}$ (also shown in Fig.~\ref{fig:logRHK_windows}). Some of these responses vary substantially between the cross-validation folds, indicating that they are driven by a small number of influential spectra rather than by a stable relation with chromospheric activity. Their presence illustrates that a reproducible correlation between a residual feature and an activity label does not by itself establish a causal connection: activity can correlate accidentally with observing conditions, reduction artefacts, or sample selection.
+
+The activity coefficients must therefore be interpreted selectively and potentially masked/censored. Their agreement with established Balmer and metal-line activity diagnostics demonstrates that genuine activity-related information remains in the residual spectra, whereas their simultaneous response to sky residuals shows that the small training sample also permits unrelated correlations. A larger and more diverse activity sample\footnote{\SB{Should we try another Cannon model on 1000 highest activity stars with good enough spectra from the overlap with \citet{Zhang2024}? That would be the best way to increase the training set and hopefully robustness. In that case, we would also likely pick up correlated, yet activity-unrelated behaviour, e.g. gas emission in the Orion nebula (e.g. 220220002701202): [NII] lines left (6548.050) and right (6583.450) of Halpha and the [SII] lines at 6716.440 and 6730.816. But usually, even the stars from Zhang with the highest values only show Halpha (and to some degree Hbeta) emission.}}, combined with more comprehensive masking of contaminated wavelength regions, would be required for robust out-of-sample prediction of $\log R'_\mathrm{HK}$.
+
+\textbf{Key Takeaway:} The current activity model does not reliably recover $\log R'_\mathrm{HK}$ out of sample, despite its apparently precise in-sample fit. Its coefficients nevertheless recover several established activity-sensitive features, most clearly H$\upalpha$ and H$\upbeta$, while also responding to unrelated sky-subtraction residuals. The residual spectra therefore contain genuine chromospheric-activity information, but the small sample and contaminating correlations prevent its robust extraction with the present model.
 
 \subsection{Where in the spectrum does the information remain?}
 \label{sec:analysis_cannon_masked_pixels}
 
-Idea: Use \textbf{Model 1}, but use only the 6 percent of the pixels that were masked as unreliable in GALAH DR4 (new \textbf{Model 5} with 793 pixels), and 94 percent of the spectrum used for GALAH DR4 (new \textbf{Model 6} with 13134 pixels).
-
-\begin{figure*}
-    \centering
-    % \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_model5.pdf}
-    \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_model5_kfold.png}
-    \caption{Selected coefficients across wavelength for Model~\textcolor{M5}{M5}, using only the 793 wavelength pixels excluded from the GALAH DR4 optimisation. Lines show the median coefficient across the five cross-validation folds, and shaded regions show the full fold-to-fold range.}
-    \label{fig:cannon_linear_coefficients_model5}
-\end{figure*}
-
+The preceding models use all 13,927 available wavelength pixels. We now test how the residual information is distributed between pixels included in and excluded from the GALAH DR4 optimisation. Model~\textcolor{M5}{M5} uses only the 793 pixels excluded from the optimisation, corresponding to approximately 6 percent of the available spectrum, whereas Model~\textcolor{M6}{M6} uses the remaining 13,134 optimisation pixels. Both models fit $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ for the same 7087 spectra and use the same cross-validation folds as Model~\textcolor{M1}{M1}. Their performance can therefore be compared directly with the recovery obtained from the complete residual spectrum.
 
 \begin{figure}
     \centering
@@ -624,11 +577,30 @@ Idea: Use \textbf{Model 1}, but use only the 6 percent of the pixels that were m
     \includegraphics[width=0.49\linewidth]{figures/recovery_model6_logg_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model5_fe_h_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model6_fe_h_kfold.png}
-    \caption{Cross-validated recovery of $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ using pixels excluded from the GALAH DR4 optimisation with Model~\textcolor{M5}{M5} (left; red) and pixels included in the optimisation with Model~\textcolor{M6}{M6} (right; pink). Plotting conventions follow Fig.~\ref{fig:recovery_comparison}.}
+    \caption{Cross-validated recovery of $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ using the 793 pixels excluded from the GALAH DR4 optimisation with Model~\textcolor{M5}{M5} (left; red) and the 13,134 pixels included in the optimisation with Model~\textcolor{M6}{M6} (right; pink). Plotting conventions follow Fig.~\ref{fig:recovery_comparison}.}
     \label{fig:recovery_comparison3}
 \end{figure}
 
-\clearpage
+Figure~\ref{fig:recovery_comparison3} shows that both pixel subsets retain substantial stellar-parameter information. Model~\textcolor{M5}{M5}, despite using only 793 pixels, recovers $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ with robust scales of approximately $160,\mathrm{K}$, $0.22,\mathrm{dex}$, and $0.095,\mathrm{dex}$, respectively. These values are only moderately larger than the corresponding results of $150,\mathrm{K}$, $0.19,\mathrm{dex}$, and $0.086,\mathrm{dex}$ obtained by Model~\textcolor{M1}{M1} from the complete wavelength range.
+
+Model~\textcolor{M6}{M6}, which uses the 13,134 pixels included in the GALAH DR4 optimisation, yields recovery scales of approximately $190,\mathrm{K}$, $0.22,\mathrm{dex}$, and $0.12,\mathrm{dex}$. Relative to the label spreads of the baseline sample, the label-recovery ratios decrease from approximately $4.5$, $4.9$, and $3.3$ for Model~\textcolor{M1}{M1} to $4.1$, $4.4$, and $3.0$ for Model~\textcolor{M5}{M5}, and to $3.5$, $4.3$, and $2.5$ for Model~\textcolor{M6}{M6}. The complete-spectrum model therefore performs best, as expected, but the excluded pixels alone retain almost as much predictive information and outperform the much larger set of optimisation pixels for all three labels.
+
+This comparison is not equivalent to selecting two random wavelength subsets. The 793 pixels were excluded from the GALAH DR4 optimisation because they were considered less reliable for the stellar-label fit, often owing to poorer model--data agreement or contamination. They are consequently more likely to contain systematic residual structure. Conversely, the pixels retained for the optimisation are precisely those for which the synthesis was considered more reliable and was adjusted to match the observed spectra. The stronger recovery from Model~\textcolor{M5}{M5} is therefore consistent with stellar-label information being concentrated in wavelength regions where the synthesis leaves the largest systematic mismatches.
+
+\begin{figure*}
+    \centering
+    % \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_model5.pdf}
+    \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_model5_kfold.png}
+    \caption{Selected coefficients across wavelength for Model~\textcolor{M5}{M5}, using only the 793 wavelength pixels excluded from the GALAH DR4 optimisation. Lines show the median coefficient across the five cross-validation folds, and shaded regions show the full fold-to-fold range.}
+    \label{fig:cannon_linear_coefficients_model5}
+\end{figure*}
+
+The coefficient spectra in Fig.~\ref{fig:cannon_linear_coefficients_model5} support this interpretation. Many of the strongest narrow coefficient features identified by Model~\textcolor{M1}{M1} are also present when the model is restricted to the excluded pixels. These features therefore carry a substantial fraction of the residual information about $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$. A notable difference is that the broader responses around the Balmer lines are not fully represented by Model~\textcolor{M5}{M5}, because much of this extended wavelength structure lies outside the excluded-pixel mask. The narrow fold-to-fold ranges nevertheless show that the coefficient structure inferred from the 793 pixels is stable across the cross-validation splits.
+
+The comparison also highlights that the number of pixels alone is not a useful measure of the information remaining in a residual spectrum. Model~\textcolor{M5}{M5} uses approximately 17 times fewer pixels than Model~\textcolor{M6}{M6}, yet achieves comparable or better out-of-sample recovery. The pixels excluded from the original optimisation therefore contain a disproportionately large amount of label-dependent residual structure.
+
+\textbf{Key Takeaway:} The 6 percent of wavelength pixels excluded from the GALAH DR4 optimisation retain almost as much information about $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ as the complete residual spectrum, and more than the remaining 94 percent of optimisation pixels alone. Although these regions could not be used reliably by the stellar synthesis, their systematic residual structure can be exploited by a data-driven model, demonstrating that scientifically useful information remains concentrated in the parts of the spectrum that conventional analyses discard.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion} \label{sec:discussion}
@@ -736,9 +708,11 @@ Discuss activity:
     \item note that \citet{Takeda2021} also found deviations for several stars in their spectra (green dots!)!
     \item Other strong linear coefficients appears to be at 5710.3 (no skyline), 5715.2 (no skyline), 6515.4 (no skyline), 6526.00 (no skyline), 6700.2AA (no skyline), \textbf{7782.8AA} (no skyline), 7834.2AA (no skyline), 7853.0AA (the last one at skyline)
     \item whether activity-sensitive residuals are concentrated near $\mathrm{H}_\upalpha$, Ba~{\sc ii}, Fe~{\sc i}/Ni~{\sc i} candidates, or other line cores; compare \citep{Spina2020} lines
+    \item \citet{Spina2020} noted impactful line changes above a threshold of $\log R'_\mathrm{HK} -5.0$.
     \item whether adding $\log R'_\mathrm{HK}$ improves residual modelling in specific wavelength regions;
     \item whether activity signatures could bias precision abundance work if not modelled.
 \end{itemize}
+
 
 Is there a possible application here?
 \begin{itemize}
