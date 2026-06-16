@@ -529,6 +529,8 @@ The K~{\sc i} response near $7699,\text{\AA}$ is also more complex than the isol
 
 Using Model~\textcolor{M4}{M4} to probe for correlations with the activity indicator $\log R'_\mathrm{HK}$.
 
+I am not sure if the subsection should start with or just mention this in passing: In the first implementation, I had allowed all fluxes and flux residuals to enter the model. As will be shown in this section, a lot of problematic features were picked up that have nothing to do with chromospheric activity. In particular: the small sample seemed to show a correlation of high activity with the inability to properly model/subtract the skylines. Because of that, several of the observed spectra had these features still in them, which in turn were picked up by \textsc{The Cannon}. This became especially apparent, when looking at the logRHK coefficients, which were (and even after minimising the flux above 1.2 by setting it to 1.2 and increasing its uncertainty to 100 percent) quite strongly correlating with remaining skylines.
+
 While the training and recovery on the "full" \textit{activity} sample of 226 stars (left panels of Fig.~\ref{fig:recovery_comparison2}) suggested a somewhat reasonable recovery with $\Delta \log R'_\mathrm{HK}$ showing a good recovery of $\sigma(\Delta \log R'_\mathrm{HK}) = 0.050$ for the distribution of $\sigma(\log R'_\mathrm{HK}) = 0.114$, so $R_{\log R'_\mathrm{HK}} = 2.3$. The k-fold cross-validation, on the other side (right panels of Fig.~\ref{fig:recovery_comparison2}) showed that the 181 spectra that were tested on did not sufficiently cover the 45 spectra that were excluded (or that the model was overfitted). The k-fold recovery certainly shows unreliable recovery of not only $\sigma(\Delta \log R'_\mathrm{HK}) = 0.11$, that is $R_{\log R'_\mathrm{HK}} = 1.0$, but also a problematic diagonal behaviour in the recovery plots, suggesting that \textsc{The Cannon} simply returns the mean value of the distribution.
 
 As before, we also turn to the linear coefficient
@@ -548,14 +550,28 @@ several features match when shifted by +90 km/s!
 -> most likely a problem with the sky reduction together with less reliable radial velocities for the active stars (see how broad the Balmer lines are)
 
 \citet{Wise2018} suggested 42 activity-sensitive lines within the HARPS wavelength range. Of these, four lines at 4827.46, 4861.33, 5707.00, and $6562.81\,\text{\AA}$ are within our wavelength range.
+-> the two Balmer lines indeed correlate with the activity. But neither 4827.46 nor 5707.00 seem to have strong correlations with it. This can be best appreciated from the relevant panels of Fig.~\ref{fig:logRHK_windows}. There we plot spectra of the 15 stars with significant stellar activity of $\log R'_\mathrm{HK} > -4.4$ colored by exactly that values. In particular the 3 stars with significantly enhanced activity respond at the two Balmer lines and show a change in the Li~{\sc i} line at $6707.8\,\text{\AA}$. It should be maybe mentioned here or later in the discussion, that these three lines are indeed known activity and youth indicators \citep[e.g.][]{Zerjal2019}.
+
+We also looked into the lines listed by \citet{Lisogorskyi2019}, of which 32 are within the GALAH wavelength range. Of those, we find 
+
+\citet{Spina2020} noted impactful line changes above a threshold of $\log R'_\mathrm{HK} -5.0$.
+
+# 4736.78, 4859.75 (plotted with Hbeta), 4861.33, 6562.8
+# technically also 4890.76, which is strong for GALAH (but also shows problematic response left of it), but not so much them
+
+
+For activity analysis:
+- At least point out potential to use Balmer lines. Use masking for Balmer line?
+- Also point out emission lines of [NI] and [SII] from Orion region? Not magnetic activity though!
+
+\SB{Try another Cannon on 1000 highest activity stars with good enough spectra? That would be the best way to check for other lines...}
 
 \begin{figure*}
     \centering
-    \includegraphics[width=\linewidth]{'figures/logRHK_windows.png'}
+    \includegraphics[width=\linewidth]{figures/logRHK_windows.png}
     \caption{Observed flux for the 15 stars with highest $\log R'_\mathrm{HK}$ of the \textit{activity} sample as well as linear and quadratic coefficients of $\log R'_\mathrm{HK}$ (thick and thin purple lines) for selected wavelength regions.}
-    \label{fig:placeholder}
+    \label{fig:logRHK_windows}
 \end{figure*}
-
 
 \textbf{Model 4}: Correlations of residuals with stellar parameters and stellar activity
 -> Use Activity Sample
@@ -574,13 +590,6 @@ Looking at Zhang2024 sample with logR'HK:
 % 181223001601083 only has Halpha emission...
 % 150109001001058 only has Halpha emission...
 
-For activity analysis:
-- At least point out potential to use Balmer lines. Use masking for Balmer line?
-- Also point out emission lines of [NI] and [SII] from Orion region? Not magnetic activity though!
-
-
-\SB{Try another Cannon on 1000 highest activity stars with good enough spectra? That would be the best way to check for other lines...}
-
 \begin{figure}
     \centering
     \includegraphics[width=0.49\linewidth]{figures/recovery_model4_teff.png}
@@ -591,15 +600,9 @@ For activity analysis:
     \includegraphics[width=0.49\linewidth]{figures/recovery_model4_fe_h_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logRHK.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model4_logRHK_kfold.png}
-    \caption{Cross-validated recovery of $T_\mathrm{eff}$, $\log g$, $[\mathrm{Fe/H}]$, and $\log R'_\mathrm{HK}$ with Model~\textcolor{M4}{M4} for the \textit{activity} sample. Left panels show the training and test on all 226 spectra, whereas right the right panels show the cross-validated results (training five times on 181 spectra and testing on 45 unseen spectra). Plotting conventions follow Fig.~\ref{fig:recovery_comparison}.}
+    \caption{Recovery of $T_\mathrm{eff}$, $\log g$, $[\mathrm{Fe/H}]$, and $\log R'_\mathrm{HK}$ with Model~\textcolor{M4}{M4} for the \textit{activity} sample. Left panels show the recovery when trained and tested on all 226 spectra, whereas right the right panels show the cross-validated results (training five times on 181 spectra and testing on 45 unseen spectra). Plotting conventions follow Fig.~\ref{fig:recovery_comparison}.}
     \label{fig:recovery_comparison2}
 \end{figure}
-
-\SB{Compare lines to activity indicators from \citet{Wise2018} and \citet{Lisogorskyi2019}! <- already in the jupyter notebook anyway!}
-
-\SB{inspect $\mathrm{H}_\upalpha$, Ba~{\sc ii} 5853\,\AA, and peak regions around 6508, 6518, 6700, 7780, 7835, 7800, and 7855\,\AA.}
-
-work by \citet{Abia2021} on Rb line and magnetic activity: depth decreases with stronger magnetic field due to Zeeman splitting!!!
 
 \subsection{Where in the spectrum does the information remain?}
 \label{sec:analysis_cannon_masked_pixels}
@@ -893,6 +896,14 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
     \caption{Comparison of the broad residual structure in the fourth GALAH wavelength band with observed sky-emission features. The agreement in wavelength supports the identification of these features as residuals associated with imperfect sky subtraction.}
     \label{fig:skyline_confirmation}
 \end{figure*}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\linewidth]{figures/logRHK_lines_Lisogorskyi2019.png}
+    \caption{Observed flux for 32 lines listed as activity-sensitive by \citet{Lisogorskyi2019}. Flux is colored by $\log R'_\mathrm{HK}$ of the \textit{activity} and linear and quadratic coefficients of $\log R'_\mathrm{HK}$ are shown as thick and thin purple lines.}
+    \label{fig:logRHK_lines_Lisogorskyi2019}
+\end{figure*}
+
 
 \section{Material To Be Neglected}
 
