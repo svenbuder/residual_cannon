@@ -329,16 +329,27 @@ and another 19 less strong lines\footnote{4726.40, 4728.28, 4848.77, 4855.25, 48
 % \item \SB{TBD: \textbf{Ambiguous or blended residual:} features for which multiple explanations remain plausible, for example because stellar lines, telluric structure, sky residuals, or blends overlap within the same residual region.}
 \end{enumerate}
 
-\SB{So far: 110 out of 380 peaks automatically classified: 
-Interstellar (8), 
-Known missing (5), 
-Line-Formation (2), 
-Not Yet Classified (261), 
+\SB{We classify the 380 peaks into the following 9 categories:
+loggf too high (133), 
+loggf too low (107),
+Unknown Line (53), 
+Insignificant (36), 
+Unclear (17), 
 Skyline (10), 
-Unclear (12), 
-loggf too high (34), and
-loggf too low (48)
+Interstellar (9), 
+Known missing (9), and
+Line-Formation (6)
 peaks}
+
+\SB{Line-Formation: Balmer lines + 5671.94 and 5686.93 Sc I Hyper-Fine Structure + 7727.42 Ni I? V I 5743.4466 wavelength, HFS of Cu I at 5700.2, HFS of V I 5761.4198 -> discuss wavelength and HFS relative in relation to \citet{Jofre2017}!}
+
+\SB{Note issues with important Al~{\sc i} lines at 6696.79 being modelled too shallow for 20\% of spectra! as well as Li~{\sc i} 6707.76! the latter known from modelling issues in DR4. Maybe also Al affected?}
+
+\SB{Note issues with a lot of lines of Fe~{\sc i}, Ce~{\sc ii}, and Ca~{\sc i} lines! Something in those line lists does not seem to work right! Note in particular the offsets of Ca 7845.31}
+
+\SB{Some statistics on elements beyond Fe I would be good. Think about for example the Mn~{\sc i} line at 4748.15. It has a K07 loggf value and no HFS in the Gaia-ESO linelist! Also: Gd II at 4791.15?! Ti I, Cd I, or W I 4799.85, Mo I 4833.896, Mo I 5858.30, Pr II 4877.87, Sm I 4883.99 -> add reference to loggf values for credibility!}
+
+We classified several features around 6650 as insignificant because of the underlying wavy pattern of CCD3 in this region. We do want to not though, that this also affected the Eu~{\sc ii} 6645 blend with potentially too high $\log gf$ values for Co~{\sc i} 6645.21 and Fe~{\sc i} 6645.3649.
 
 These classes are intended as a plausibility ranking rather than a definitive identification. In several cases, the sign of the residual provides a direct indication of the direction in which the model would need to change. For example, a line that is consistently too shallow in the synthesis is classified as missing or underestimated stellar opacity. Such cases are particularly useful because they do not merely flag a problematic wavelength; they indicate the direction in which the line data should be revised.
 
