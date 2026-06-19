@@ -273,9 +273,9 @@ Finally, we quantify how often residuals occur with a preferred sign. For each w
 \begin{figure*}
 \centering
 \includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_7845.31.pdf}
-\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_5752.02.pdf}
+\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_7799.96.pdf}
 \includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_5700.27.pdf}
-\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_6650.13.pdf}
+\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_6651.02.pdf}
 \includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_7853.25.pdf}
 \includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_5779.64.pdf}
 \includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_4831.41.pdf}
@@ -318,7 +318,7 @@ Fe~{\sc i} accounts for the largest number of candidate line-strength mismatches
 
 The classifications represent the most plausible explanation supported by the available diagnostics rather than unique physical identifications. In particular, the categories \textit{$\log gf$ too high} and \textit{$\log gf$ too low} indicate the direction in which the synthesised line strength would need to change. The underlying cause could instead involve an unresolved blend, inaccurate abundance, incomplete hyperfine or isotopic structure, wavelength or broadening errors, or deficiencies in the adopted line-formation treatment. The \textit{Line profile}, \textit{Unknown line}, and \textit{Unclear} classes explicitly identify cases for which a simple adjustment of the oscillator strength would be insufficient or poorly justified.
 
-A complete version of Tab.~\ref{tab:tabular_peak_information}, including the classifications, supporting measurements, and inspection comments for all 380 regions, is provided as a machine-readable FITS table in the public repository. The corresponding diagnostic figure for every region is also provided in the repository.
+A complete version of Tab.~\ref{tab:tabular_peak_information}, including the classifications, supporting measurements, and inspection comments for all 380 regions, is provided as a machine-readable FITS table in the public repository\footnote{\url{https://github.com/svenbuder/residual_cannon/blob/main/data/galah_dr4_residual_peaks.fits}}. The corresponding diagnostic figure for every region is also provided in the repository.
 
 \textbf{Key Takeaway:} The significant residuals are not an unstructured collection of modelling failures. Most can be associated with a plausible and potentially actionable cause, with candidate stellar line-strength and line-profile mismatches accounting for $63\,\mathrm{\%}$ of the catalogue. The catalogue also identifies missing and unidentified absorption features, interstellar absorption, and residual sky emission, thereby providing a prioritised set of wavelength regions for improving the spectral modelling.
 
@@ -634,7 +634,7 @@ The 8 known missing and 38 unidentified features provide a second set of priorit
 
 \subsubsection{Non-stellar and reduction-related residuals}
 
-The classification map also shows that not all recurrent residuals belong to the stellar synthesis. The nine interstellar regions include established diffuse interstellar bands and interstellar K~{\sc i}. Their appearance in the stellar rest frame depends on the relative stellar and interstellar velocities, which can broaden the aggregate response or produce asymmetric residuals when an interstellar feature overlaps a fitted photospheric line.
+The classification map also shows that not all recurrent residuals belong to the stellar synthesis. The 3 interstellar regions include established diffuse interstellar bands and interstellar K~{\sc i}. Their appearance in the stellar rest frame depends on the relative stellar and interstellar velocities, which can broaden the aggregate response or produce asymmetric residuals when an interstellar feature overlaps a fitted photospheric line.
 
 The 13 skyline regions demonstrate an analogous effect for emission fixed in the observed frame. Imperfect sky subtraction leaves positive residual flux whose apparent position is shifted when the spectrum is transformed into the stellar rest frame. The strong activity-model response around $7798,\text{\AA}$ is associated with this skyline contamination rather than with the nearby Si~{\sc i}--Rb~{\sc i} blend. Its influence on Model~\textcolor{M4}{M4} illustrates how a small number of spectra can generate an apparent label correlation when observing conditions happen to correlate with the sampled activity distribution.
 
