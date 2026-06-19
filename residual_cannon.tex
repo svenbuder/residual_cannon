@@ -89,6 +89,7 @@ GALAH is particularly well suited to such an audit because it provides observed 
 We approach the residual spectrum in two steps with the data that we will introduce in Sec.~\ref{sec:data}. First, we perform a systematic audit of the residuals (Sec.~\ref{sec:analysis_audit}): we quantify their significance, sign, wavelength localisation, and recurrence across the GALAH wavelength range, and compare the strongest residual features to plausible stellar, interstellar, telluric, sky, instrumental, and line-list origins. Second (Sec.~\ref{sec:analysis_cannon}), we use a data-driven model to test how much information can be extracted from the residual spectra alone. This separates the question of where the synthesis and the observations disagree from the question of what information those disagreements retain.
 
 % Four questions that structure the paper.
+\SB{Limit to 2 questions for the two parts?}
 Under the broader question of what information stellar spectrum residuals still contain, this work addresses four specific questions, which will later be discussed in Sec.~\ref{sec:discussion}:
 \begin{enumerate}[leftmargin=2em,labelwidth=0em]
     \item How significant, systematic, and repeatable are the remaining residuals relative to the observational uncertainties, and how do they separate into over-predicted and under-predicted spectral features?    
@@ -293,12 +294,6 @@ We identify residual peaks from the median residual-significance spectrum of the
 
 With this procedure, we identify \input{tex_text/number_significant_peaks_ccd1}, \input{tex_text/number_significant_peaks_ccd2}, \input{tex_text/number_significant_peaks_ccd3}, and \input{tex_text/number_significant_peaks_ccd4} residual peaks in CCDs 1-4, respectively, for a total of \input{tex_text/number_significant_peaks} candidate residual features. We emphasise that the exact number depends on the chosen threshold, width, and separation parameters. However, the goal is not to define a unique mathematical peak decomposition, but to construct a reproducible and interpretable catalogue of the most significant residual regions.
 
-For the inspection of each residual peak, we combine several diagnostics in one figure. Several examples of these figures are shown in Fig.~\ref{fig:example_significant_residual_regions} for residuals with different causes.
-
-In the Fig.~\ref{fig:example_significant_residual_regions}, we use the residual morphology from Fig.~\ref{fig:residual_statistics}: the peak logarithmic significance (yellow region), whether the residual is predominantly positive, predominantly negative, or mixed in sign (red and blue regions). Predominantly negative residuals, where the observations are deeper than the synthesis, point towards missing or underestimated opacity, omitted blends, or line-formation effects that make real absorption stronger than predicted. Predominantly positive residuals, where the observations are shallower than the synthesis, point towards overestimated opacity, lines that are too strong in the model, line-core filling, or reduction and continuum-normalisation effects. Mixed-sign residuals suggest either label-dependent modelling errors, imperfect line data that affect different stars differently, or observational effects that vary across spectra. Broad residuals, except for intrinsically broad stellar features such as the Balmer lines, are treated with particular caution because observed-frame telluric, sky, or reduction residuals can be broadened or smeared when spectra are shifted into the stellar rest frame.
-
-In Fig.~\ref{fig:example_significant_residual_regions}, we also compare each residual peak to external spectral diagnostics. We use the Solar and Arcturus atlases of \citet{Hinkle2000}, together with their line identifications and telluric measurements, to assess whether a residual peak coincides with known stellar (black) or telluric (purple) absorption. We also compare the peaks to the GALAH DR4 line list (blue vertical lines), selecting atomic line entries with an estimated intrinsic central line depth of $\texttt{DEPTH} > 0.85$ \citep[see also Sec.~4.2 of][]{Heiter2021}. This selection is not a complete list of all possible contributors, but it captures many of the lines expected to be visible in high-quality Solar and Arcturus spectra. Finally, for features that are broad, mixed-sign, or located in known problematic wavelength regions, we compare against sky-line calibration observations (dark blue regions) where available.
-
 \begin{table*}
     % \centering
     \caption{Example entries from the significant-residual catalogue, selected to illustrate the principal residual classifications in Fig.~\ref{fig:example_significant_residual_regions}. The complete machine-readable catalogue is available in the public repository.}
@@ -306,56 +301,54 @@ In Fig.~\ref{fig:example_significant_residual_regions}, we also compare each res
     \input{tex_text/tabular_peak_information.tex}
 \end{table*}
 
-\SB{We develop and visually confirm the performance of several automatic, quantity-based classification algorithms (using columns from Tab.~\ref{tab:tabular_peak_information}) to classify peaks into the following classes (ACTUALLY RESORT TO BE MORE HIERARCHICAL, starting with Balmer, then sky, then ISM, then ...):}
-\begin{enumerate}
-\item \textbf{loggf too high}: Lines with consistently identified species between Hinkle+2000 and GALAH DR4 within $0.05\,\text{\AA}$ and typically shallower observations. \SB{How many times Fe lines?} \SB{How many times other lines?}
-\item \textbf{loggf too low}: Lines with consistently identified species between Hinkle+2000 and GALAH DR4 within $0.05\,\text{\AA}$ and typically deeper observations. \SB{How many times Fe lines?} \SB{How many times other lines?}
-\item \textbf{line-formation}: The two Balmer lines + any other features with potentially chromospheric activity (compare to \citet{Wise2018} and \citet{Lisogorskyi2019}?)
-\item \textbf{known missing}: \SB{So far 3 Fe~{\sc i} and 2 Cr~{\sc i} lines.}
-\item \textbf{hallucinated}: \SB{Actually no observed line.}
-\item \textbf{interstellar}: \SB{based K~{\sc i} 7699 and diffuse interstellar bands as catalogued by \citet{Vogrincic2023} (selecting on those with minimum equivalent widths of $0.01\,\text{\AA}$ or change with $E(B-V)$ above $0.025\,\text{\AA}\mathrm{\,mag^{-1}}$ and widths above 6 pixels, leaving us with 4728.18, 5747.81, 5780.85, 5797.48, 5809.29, 6592.65, 6613.41, and 7698.75.}
-\item \textbf{skyline}: Using \textsc{scipy}'s \textsc{find\_peaks} on normalsied $f_\mathrm{sky}$ (Fig.~\ref{fig:skyline_confirmation}) with minimum height of 2. 12 strong lines (visible even at $E(B-V) \sim 0\,\mathrm{mag}$ and with significant increase of absorption): 4762.57, 5705.21, 5747.62, 5780.59, 5784.78, 5797.19, 6493.11, 6496.67, 6530.17, 6589.97, 6613.66, and $7698.9643\,\text{\AA}$
-and another 19 less strong lines\footnote{4726.40, 4728.28, 4848.77, 4855.25, 4859.89, 4866.65, 5735.22, 5741.28, 5753.17, 5776.03, 5809.42, 5843.54, 5849.91, 6516.33, 6526.11, 6535.89, 6570.83, 6592.53, 6699.33}
-% Check the following: 6553, 6569, 6578, 7713, 7714, 7719, 7723, 7727, 7748, 7751, 7759, 7781, 7794, 7808, 7822, 7841, 7853, 7861, 7870, and $7871\,\text{\AA}$
+\SB{CONTINUE HERE!}
 
-\item \textbf{unidentified}: \SB{Clearly an absorption line observed, but not synthesised or identified in Hinkle+2000 or DR4 linelist.}
-\item \textbf{unclear}: 4730.99 4796.26, 4799.85, 4805.00, 4812.36, (read out from peak-inspection table comments). E.g. 4730.99 is unidentified in \citet{Hinkle2000}; algorithm wrongly picks up closest Fe~{\sc i} line, which is only a blend of this line
-% \item \SB{TBD: \textbf{Missing or underestimated stellar opacity:} narrow, stellar-rest-frame residuals for which the observed spectra are systematically deeper than the synthesis. These features may correspond to missing lines, underestimated blends, or line-list entries with oscillator strengths that are too low.}
-% \item \SB{TBD: \textbf{Overestimated stellar opacity:} narrow residuals for which the observed spectra are systematically shallower than the synthesis near a modelled feature. These may indicate oscillator strengths that are too high, blends that are too strong, or lines that are predicted by the model but are weak or absent in the observed spectra.}
-% \item \SB{TBD: \textbf{Line-formation or activity-sensitive residual:} residuals associated with features whose mismatch is unlikely to be solved by a simple line-list adjustment alone, such as Balmer-line cores, activity-sensitive regions, or features affected by broadening, chromospheric structure, or limitations of the atmospheric modelling.}
-% \item \SB{TBD: \textbf{Interstellar absorption:} residuals associated with known diffuse interstellar bands or interstellar alkali absorption, where the observed spectra are deeper than the stellar synthesis because the absorption is not part of the stellar model.}
-% \item \SB{TBD: \textbf{Telluric, sky, or reduction residual:} features coincident with telluric or sky diagnostics, or broad/mixed-sign residuals whose appearance in the stellar rest frame suggests an observed-frame contribution.}
-% \item \SB{TBD: \textbf{Unidentified stellar or atomic candidate:} narrow, line-like features that appear to be real stellar-rest-frame residuals, including features visible in the Solar or Arcturus atlas, but for which we do not assign a secure species identification.}
-% \item \SB{TBD: \textbf{Ambiguous or blended residual:} features for which multiple explanations remain plausible, for example because stellar lines, telluric structure, sky residuals, or blends overlap within the same residual region.}
-\end{enumerate}
+For the inspection of each residual peak, we combine several diagnostics in one figure. Several examples of these figures are shown in Fig.~\ref{fig:example_significant_residual_regions} for residuals with different causes.
 
-\SB{We classify the 380 peaks into the following 9 categories:
-loggf too high (130), 
-loggf too low (98), 
-Insignificant (53), 
-Unknown line (39), 
-Unclear (18), 
-Skyline (13), 
-Line formation (12), 
-Interstellar (9), and 
-Known missing (8)
-peaks}
+In the Fig.~\ref{fig:example_significant_residual_regions}, we use the residual morphology from Fig.~\ref{fig:residual_statistics}: the peak logarithmic significance (yellow region), whether the residual is predominantly positive, predominantly negative, or mixed in sign (red and blue regions). Predominantly negative residuals, where the observations are deeper than the synthesis, point towards missing or underestimated opacity, omitted blends, or line-formation effects that make real absorption stronger than predicted. Predominantly positive residuals, where the observations are shallower than the synthesis, point towards overestimated opacity, lines that are too strong in the model, line-core filling, or reduction and continuum-normalisation effects. Mixed-sign residuals suggest either label-dependent modelling errors, imperfect line data that affect different stars differently, or observational effects that vary across spectra. Broad residuals, except for intrinsically broad stellar features such as the Balmer lines, are treated with particular caution because observed-frame telluric, sky, or reduction residuals can be broadened or smeared when spectra are shifted into the stellar rest frame.
 
-\SB{Line-Formation: Balmer lines + 5671.94 and 5686.93 Sc I Hyper-Fine Structure + 7727.42 Ni I? V I 5743.4466 wavelength, HFS of Cu I at 5700.2, HFS of V I 5761.4198 -> discuss wavelength and HFS relative in relation to \citet{Jofre2017}!}
+In Fig.~\ref{fig:example_significant_residual_regions}, we also compare each residual peak to external spectral diagnostics. We use the Solar and Arcturus atlases of \citet{Hinkle2000}, together with their line identifications and telluric measurements, to assess whether a residual peak coincides with known stellar (black) or telluric (purple) absorption. We also compare the peaks to the GALAH DR4 line list (blue vertical lines), selecting atomic line entries with an estimated intrinsic central line depth of $\texttt{DEPTH} > 0.1$ for the actual line comparison and $\texttt{DEPTH} > 0.85$ for line visualisation \citep[see also Sec.~4.2 of][]{Heiter2021}. This selection is not a complete list of all possible contributors, but it captures many of the lines expected to be visible in high-quality Solar and Arcturus spectra. Finally, for features that are broad, mixed-sign, or located in known problematic wavelength regions, we compare against sky-line calibration observations (dark blue regions) where available.
+
+We assigned each residual region a preliminary classification using a deterministic decision tree based on its wavelength, width, recurrence, residual direction, and proximity to features in the \citet{Hinkle2000} stellar atlas, the GALAH DR4 line list, the catalogue of diffuse interstellar bands (DIBs) by \citet{Vogrincic2023}, and the sky-emission spectrum. Broad features coincident with known DIBs or interstellar K~{\sc i} were classified as \textit{Interstellar}, while features coincident with sky emission were classified as \textit{Skyline}. Regions with significant residuals in fewer than $5\,\mathrm{\%}$ of the spectra were labelled \textit{Insignificant}.
+
+For the remaining regions, we searched for stellar lines within one detector pixel of the residual peak. Where the \citet{Hinkle2000} atlas and GALAH DR4 identified the same transition, residuals that were predominantly shallower or deeper than the synthesis were classified as candidate \textit{$\log gf$ too high} or \textit{$\log gf$ too low}, respectively. Features present in the \citet{Hinkle2000} atlas but absent from the DR4 line list were classified as \textit{Known missing}, while features without a counterpart in either source were classified as \textit{Unknown line}. We then visually inspected all 380 regions. The automatic classification was confirmed for 312 regions ($82,\mathrm{\%}$), while 68 classifications ($18,\mathrm{\%}$) were revised. Most changes involved blended or mismatched line identifications, Balmer and hyperfine-structure residuals, the broader undulating pattern in CCD3, ambiguous skyline coincidences, or cases in which the residual morphology indicated a line-formation problem rather than a simple line-strength mismatch.
+
+The final catalogue contains 239 peaks ($63\,\mathrm{\%}$ of the catalogue) for which we suspect issues with the line data, that is, either \textit{$\log gf$ too high} (129 peaks), \textit{$\log gf$ too low} (98 peaks), or \textit{Line formation} issues (12 peaks), for example because of wavelength, hyper-fine structure, or 3D non-LTE effects.
+We believe that 52 peaks ($14\,\mathrm{\%}$ of the catalogue) are actually \textit{Insignificant}. For 24 peaks ($6\,\mathrm{\%}$ of the catalogue), we believe that either \textit{Skyline} (13 peaks) or \textit{Interstellar} (9 peaks) are the cause.
+Most interesting are the 66 peaks ($17\,\mathrm{\%}$) of lines which remain an \textit{Unknown line} (39 peaks) to us, are \textit{Known missing} (8 peaks), or the specific reason for the residual is \textit{Unclear} (19 peaks) due to several possible causes.
+
+For the 9 classifications, I have selected the following example cases:
+
+Fig.~\ref{fig:example_significant_residual_regions}A: \textit{$\log gf$ too high} Fe~{\sc i} 7845.31
+Fig.~\ref{fig:example_significant_residual_regions}B: \textit{$\log gf$ too low} Fe~{\sc i} 5752.02
+Fig.~\ref{fig:example_significant_residual_regions}C: \textit{Line formation} Cu~{\sc i} 5700.27 with hyper-fine structure
+Fig.~\ref{fig:example_significant_residual_regions}D: \textit{Insignificant}, for example 6650.13 because of the wavy pattern in CCD3.
+Fig.~\ref{fig:example_significant_residual_regions}E: \textit{Skyline} 7853.25
+Fig.~\ref{fig:example_significant_residual_regions}F: \textit{Interstellar} 5779.64
+Fig.~\ref{fig:example_significant_residual_regions}G: \textit{Unknown line} 4831.41
+Fig.~\ref{fig:example_significant_residual_regions}H: \textit{Known missing} Fe~{\sc i} 5714.17
+Fig.~\ref{fig:example_significant_residual_regions}I: \textit{Unclear} 4799.85
+
+Some additional numbers might be interesting: 
+41 of the 129 peaks with \textit{$\log gf$ too high} were Fe~{\sc i} lines, followed by Si~{\sc i} (13), Ti~{\sc i} (11), Ce~{\sc ii} (11), Cr~{\sc i} (9), V~{\sc i} (8), Ca~{\sc i} (8), and Ni~{\sc i} (6). In particular, the significance of residuals in Ce~{\sc ii} and Ca~{\sc i} (as shown in Fig.~\ref{fig:example_significant_residual_regions}A) should be noted.
+
+Of the ones with \textit{$\log gf$ too low}, 36 were Fe~{\sc i}, Ti~{\sc i} (10), Ce~{\sc ii} (9), and Cr~{\sc i} (5).
+
+The known missing lines were Cr~{\sc i} (4), Fe~{\sc i} (3), and Si~{\sc i} (1).
+
+Of the 19 unclear cases, 3 peaks were unclear for each of Mg~{\sc i}, Fe~{\sc i}, and Ni~{\sc i}.
+
+For the line formation ones, it is of course the Balmer lines, but also several lines with potential issues regarding hyper-fine structure splitting (Sc~{\sc i} 5671.94, Sc~{\sc i}  5686.93, Ni~{\sc i} 7727.42, V~{\sc i} 5761.4198, Cu~{\sc i} 5700.2 or the wavelength for V~{\sc i} 5743.4466. discuss wavelength and HFS relative in relation to \citet{Jofre2017}!
 
 \SB{Note issues with important Al~{\sc i} lines at 6696.79 being modelled too shallow for 20\% of spectra! as well as Li~{\sc i} 6707.76! the latter known from modelling issues in DR4. Maybe also Al affected?}
 
-\SB{Note issues with a lot of lines of Fe~{\sc i}, Ce~{\sc ii}, and Ca~{\sc i} lines! Something in those line lists does not seem to work right! Note in particular the offsets of Ca 7845.31}
-
-\SB{Some statistics on elements beyond Fe I would be good. Think about for example the Mn~{\sc i} line at 4748.15. It has a K07 loggf value and no HFS in the Gaia-ESO linelist! Also: Gd II at 4791.15?! Ti I, Cd I, or W I 4799.85, Mo I 4833.896, Mo I 5858.30, Pr II 4877.87, Sm I 4883.99 -> add reference to loggf values for credibility!}
+\SB{Several examples of residuals of rarer elements should also be mentioned, such as the clearly visible Mn~{\sc i} line at 4748.15, Gd~{\sc ii} at 4791.15?! Ti~{\sc i}, Cd~{\sc i}, or W~{\sc i} 4799.85, Mo~{\sc i} 4833.896, Mo~{\sc i} 5858.30, Pr~{\sc ii} 4877.87, Sm~{\sc i} 4883.99.}
 
 We classified several features around 6650 as insignificant because of the underlying wavy pattern of CCD3 in this region. We do want to not though, that this also affected the Eu~{\sc ii} 6645 blend with potentially too high $\log gf$ values for Co~{\sc i} 6645.21 and Fe~{\sc i} 6645.3649.
 
 These classes are intended as a plausibility ranking rather than a definitive identification. In several cases, the sign of the residual provides a direct indication of the direction in which the model would need to change. For example, a line that is consistently too shallow in the synthesis is classified as missing or underestimated stellar opacity. Such cases are particularly useful because they do not merely flag a problematic wavelength; they indicate the direction in which the line data should be revised.
 
 A full version of Tab.~\ref{tab:tabular_peak_information} with extensive comments is provided as \href{https://github.com/svenbuder/residual_cannon/blob/main/data/peak_inspection_table.fits}{FITS file} in our public repository, together with all diagnostic figures of the \input{tex_text/number_significant_peaks} peaks in a repository \href{https://github.com/svenbuder/residual_cannon/blob/main/residual_inspection}{subdirectory}.
-
-\SB{MORE TEXT HERE TO FOLLOW!}
 
 \textbf{Key Takeaway:} The residual peak catalogue shows that the significant GALAH residuals are not an unstructured collection of failures. Many can be associated with specific, actionable causes: missing or inaccurate stellar opacity, line-formation limitations, interstellar absorption, or observed-frame telluric, sky, and reduction residuals. The catalogue therefore turns the residual spectrum from a quality-control diagnostic into a prioritised list of spectral regions where improved line data, additional labels, or more realistic modelling are likely to recover currently unused information.
 
