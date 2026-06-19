@@ -26,8 +26,8 @@
 \definecolor{M2}{HTML}{1F77B4} % C0
 \definecolor{M3}{HTML}{FF7F0E} % C1
 \definecolor{M4}{HTML}{9467BD} % C4
-\definecolor{textcolor{M5}{M5}}{HTML}{D62728} % C3
-\definecolor{textcolor{M6}{M6}}{HTML}{E377C2} % C6
+\definecolor{M5}{HTML}{D62728} % C3
+\definecolor{M6}{HTML}{E377C2} % C6
 
 %%%%% COMMANDS %%%%%
 \newcommand{\SB}[1]{{\textcolor{purple}{SB: #1}}}
@@ -156,7 +156,7 @@ The distribution of this sample in the Kiel diagram is shown in Fig.~\ref{fig:la
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{figures/labels_m1_teff_logg_feh.png}
-    \caption{Distribution of the \textit{baseline} sample used for Models~\textcolor{M1}{M1}, \textcolor{M3}{M3}, textcolor{M6}{M6}, and textcolor{M6}{M6} in the $T_\mathrm{eff}$--$\log g$ plane, colour-coded by $[\mathrm{Fe/H}]$. The sample spans a broad range of stellar parameters and evolutionary stages.}
+    \caption{Distribution of the \textit{baseline} sample used for Models~\textcolor{M1}{M1}, \textcolor{M3}{M3}, \textcolor{M6}{M6}, and \textcolor{M6}{M6} in the $T_\mathrm{eff}$--$\log g$ plane, colour-coded by $[\mathrm{Fe/H}]$. The sample spans a broad range of stellar parameters and evolutionary stages.}
     \label{fig:labels_m1_teff_logg_feh}
 \end{figure}
 
@@ -196,11 +196,11 @@ Model & $N_\lambda$ & $N_\star$ & $T/g/\mathrm{Fe}$ & $\mathrm{[X/Fe]}$ & $A_\ma
 \textcolor{M2}{M2} & 13927 & 3826 & $\times$ & $\times$ & -- & -- \\
 \textcolor{M3}{M3} & 13927 & 7087 & $\times$ & -- & $\times$ & -- \\
 \textcolor{M4}{M4} & 13927 &  226 & $\times$ & -- &  --  & $\times$ \\
-textcolor{M6}{M6} &   793 & 7087 & $\times$ & -- & -- & -- \\
-textcolor{M6}{M6} & 13134 & 7087 & $\times$ & -- & -- & -- \\
+\textcolor{M6}{M6} &   793 & 7087 & $\times$ & -- & -- & -- \\
+\textcolor{M6}{M6} & 13134 & 7087 & $\times$ & -- & -- & -- \\
 \hline\hline
 \end{tabular} \newline
-\footnotesize{Note: Each model uses a certain number of pixels ($N_\lambda$) for a total of $N_\star$ spectra with input labels $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$ (abbreviated as $T/g/\mathrm{Fe}$). $\mathrm{[X/Fe]}$ denotes the additional use of abundances of elements Na, Mg, Mn, and Ba. Crosses indicate labels included in each model. Model textcolor{M6}{M6} used only the pixels that have been masked in GALAH DR4, while textcolor{M6}{M6} used only pixels that have been used for fitting in GALAH DR4.}
+\footnotesize{Note: Each model uses a certain number of pixels ($N_\lambda$) for a total of $N_\star$ spectra with input labels $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$ (abbreviated as $T/g/\mathrm{Fe}$). $\mathrm{[X/Fe]}$ denotes the additional use of abundances of elements Na, Mg, Mn, and Ba. Crosses indicate labels included in each model. Model \textcolor{M6}{M6} used only the pixels that have been masked in GALAH DR4, while \textcolor{M6}{M6} used only pixels that have been used for fitting in GALAH DR4.}
 \end{table}
 
 To test which labels are associated with systematic residual structure, we construct a sequence of data-driven residual models using different subsets of the GALAH DR4 labels. The input for the first of our models (listed in Table~\ref{tab:residual_models}), is a baseline set of spectra with stellar parameters $T_\mathrm{eff}$, $\log g$, and $\mathrm{[Fe/H]}$. We use this to probe for both residual correlations with the main stellar parameters and extinction, approximated via $A_\mathrm{K_S}$, as we will explain in Sec.~\ref{sec:analysis_cannon}.
@@ -436,8 +436,8 @@ Model \textcolor{M1}{M1*} confirms that the residual information persists in the
     \textcolor{M2}{M2} & $+~~0$ & $-~~78$ & $+~~82$ & $-0.01~~$ & $-0.14~~$ & $+0.15~~$ & $-0.004$  & $-0.060$  & $+0.058$  \\
     \textcolor{M3}{M3} & $-20$  & $-130$  & $+150$  & $+0.01~~$ & $-0.19~~$ & $+0.19~~$ & $-0.004$  & $-0.085$  & $+0.087$  \\
     \textcolor{M4}{M4} & $+10$ & $-110$ & $+150$ & $-0.01~~$  & $-0.10~~$  & $+0.16~~$  & $+0.006$  & $-0.089$  & $+0.090$  \\
-    textcolor{M6}{M6} & $-60$  & $-140$  & $+180$  & $-0.00~~$ & $-0.23~~$ & $+0.20~~$ & $-0.01~~$ & $-0.10~~$ & $+0.09~~$ \\
-    textcolor{M6}{M6} & $+10$  & $-160$  & $+220$  & $+0.02~~$ & $-0.21~~$ & $+0.23~~$ & $+0.00~~$ & $-0.10~~$ & $+0.13~~$ \\    
+    \textcolor{M6}{M6} & $-60$  & $-140$  & $+180$  & $-0.00~~$ & $-0.23~~$ & $+0.20~~$ & $-0.01~~$ & $-0.10~~$ & $+0.09~~$ \\
+    \textcolor{M6}{M6} & $+10$  & $-160$  & $+220$  & $+0.02~~$ & $-0.21~~$ & $+0.23~~$ & $+0.00~~$ & $-0.10~~$ & $+0.13~~$ \\    
     \hline \hline
     \multicolumn{10}{p{12cm}}{\footnotesize{Note: \textcolor{M1}{M1*} denotes training of model \textcolor{M1}{M1} on the \textit{abundance} sample, rather than the \textit{baseline} sample.}}
     \end{tabular}
@@ -542,7 +542,7 @@ Not all strong coefficient responses have a stellar origin. Model~\textcolor{M4}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model6_logg_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model5_fe_h_kfold.png}
     \includegraphics[width=0.49\linewidth]{figures/recovery_model6_fe_h_kfold.png}
-    \caption{Cross-validated recovery of $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ using the 793 pixels excluded from the GALAH DR4 optimisation with Model~textcolor{M6}{M6} (left; red) and the 13134 pixels included in the optimisation with Model~textcolor{M6}{M6} (right; pink). Plotting conventions follow Fig.~\ref{fig:recovery_comparison}.}
+    \caption{Cross-validated recovery of $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ using the 793 pixels excluded from the GALAH DR4 optimisation with Model~\textcolor{M6}{M6} (left; red) and the 13134 pixels included in the optimisation with Model~\textcolor{M6}{M6} (right; pink). Plotting conventions follow Fig.~\ref{fig:recovery_comparison}.}
     \label{fig:recovery_comparison3}
 \end{figure}
 
@@ -555,7 +555,7 @@ combined with more comprehensive masking of contaminated wavelength regions, wou
 \begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{figures/cannon_linear_coefficients_model5_kfold.png}
-    \caption{Selected coefficients across wavelength for Model~textcolor{M6}{M6}, using only the 793 wavelength pixels excluded from the GALAH DR4 optimisation. Lines show the median coefficient across the five cross-validation folds, and shaded regions show the full fold-to-fold range.}
+    \caption{Selected coefficients across wavelength for Model~\textcolor{M6}{M6}, using only the 793 wavelength pixels excluded from the GALAH DR4 optimisation. Lines show the median coefficient across the five cross-validation folds, and shaded regions show the full fold-to-fold range.}
     \label{fig:cannon_linear_coefficients_model5}
 \end{figure*}
 
@@ -563,17 +563,17 @@ combined with more comprehensive masking of contaminated wavelength regions, wou
 \subsection{Where is the residual information concentrated?}
 \label{sec:analysis_cannon_masked_pixels}
 
-The preceding models of our data-driven analyses use all 13927 available wavelength pixels. To determine where the remaining label-dependent information is concentrated, we divide the spectrum into the 793 pixels excluded from the GALAH DR4 optimisation and the 13134 pixels retained for the fit. Model~textcolor{M6}{M6} uses only the excluded pixels, corresponding to approximately $6\,\mathrm{\%}$ of the wavelength range, while Model~textcolor{M6}{M6} uses the remaining $94\,\mathrm{\%}$. Both models fit $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ for the same 7087 spectra and use the same cross-validation folds as Model~\textcolor{M1}{M1}.
+The preceding models of our data-driven analyses use all 13927 available wavelength pixels. To determine where the remaining label-dependent information is concentrated, we divide the spectrum into the 793 pixels excluded from the GALAH DR4 optimisation and the 13134 pixels retained for the fit. Model~\textcolor{M6}{M6} uses only the excluded pixels, corresponding to approximately $6\,\mathrm{\%}$ of the wavelength range, while Model~\textcolor{M6}{M6} uses the remaining $94\,\mathrm{\%}$. Both models fit $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ for the same 7087 spectra and use the same cross-validation folds as Model~\textcolor{M1}{M1}.
 
-Figure~\ref{fig:recovery_comparison3} shows that both pixel subsets retain substantial stellar parameter information. Model~textcolor{M6}{M6}, despite using only 793 pixels, recovers $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ with robust scales of approximately $160\,\mathrm{K}$, $0.22\,\mathrm{dex}$, and $0.095\,\mathrm{dex}$, respectively. These values are only moderately larger than the corresponding results of $150\,\mathrm{K}$, $0.19\,\mathrm{dex}$, and $0.086\,\mathrm{dex}$ obtained by Model~\textcolor{M1}{M1} from the complete wavelength range.
+Figure~\ref{fig:recovery_comparison3} shows that both pixel subsets retain substantial stellar parameter information. Model~\textcolor{M6}{M6}, despite using only 793 pixels, recovers $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ with robust scales of approximately $160\,\mathrm{K}$, $0.22\,\mathrm{dex}$, and $0.095\,\mathrm{dex}$, respectively. These values are only moderately larger than the corresponding results of $150\,\mathrm{K}$, $0.19\,\mathrm{dex}$, and $0.086\,\mathrm{dex}$ obtained by Model~\textcolor{M1}{M1} from the complete wavelength range.
 
-Model~textcolor{M6}{M6}, which uses the 13134 pixels included in the GALAH DR4 optimisation, yields recovery scales of approximately $190\,\mathrm{K}$, $0.22\,\mathrm{dex}$, and $0.12\,\mathrm{dex}$. Relative to the label spreads of the baseline sample, the label-recovery ratios decrease from approximately $4.5$, $4.9$, and $3.3$ for Model~\textcolor{M1}{M1} to $4.1$, $4.4$, and $3.0$ for Model~textcolor{M6}{M6}, and to $3.5$, $4.3$, and $2.5$ for Model~textcolor{M6}{M6}. The complete-spectrum model therefore performs best, as expected, but the excluded pixels alone retain almost as much predictive information and outperform the much larger set of optimisation pixels for all three labels.
+Model~\textcolor{M6}{M6}, which uses the 13134 pixels included in the GALAH DR4 optimisation, yields recovery scales of approximately $190\,\mathrm{K}$, $0.22\,\mathrm{dex}$, and $0.12\,\mathrm{dex}$. Relative to the label spreads of the baseline sample, the label-recovery ratios decrease from approximately $4.5$, $4.9$, and $3.3$ for Model~\textcolor{M1}{M1} to $4.1$, $4.4$, and $3.0$ for Model~\textcolor{M6}{M6}, and to $3.5$, $4.3$, and $2.5$ for Model~\textcolor{M6}{M6}. The complete-spectrum model therefore performs best, as expected, but the excluded pixels alone retain almost as much predictive information and outperform the much larger set of optimisation pixels for all three labels.
 
-This comparison is not equivalent to selecting two random wavelength subsets. The 793 pixels were excluded from the GALAH DR4 optimisation because they were considered less reliable for the stellar-label fit, often owing to poorer model--data agreement or contamination. They are consequently more likely to contain systematic residual structure. Conversely, the pixels retained for the optimisation are precisely those for which the synthesis was considered more reliable and was adjusted to match the observed spectra. The stronger recovery from Model~textcolor{M6}{M6} is therefore consistent with stellar-label information being concentrated in wavelength regions where the synthesis leaves the largest systematic mismatches.
+This comparison is not equivalent to selecting two random wavelength subsets. The 793 pixels were excluded from the GALAH DR4 optimisation because they were considered less reliable for the stellar-label fit, often owing to poorer model--data agreement or contamination. They are consequently more likely to contain systematic residual structure. Conversely, the pixels retained for the optimisation are precisely those for which the synthesis was considered more reliable and was adjusted to match the observed spectra. The stronger recovery from Model~\textcolor{M6}{M6} is therefore consistent with stellar-label information being concentrated in wavelength regions where the synthesis leaves the largest systematic mismatches.
 
-The coefficient spectra in Fig.~\ref{fig:cannon_linear_coefficients_model5} support this interpretation. Many of the strongest narrow coefficient features identified by Model~\textcolor{M1}{M1} are also present when the model is restricted to the excluded pixels. These features therefore carry a substantial fraction of the residual information about $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$. A notable difference is that the broader responses around the Balmer lines are not fully represented by Model~textcolor{M6}{M6}, because much of this extended wavelength structure lies outside the excluded-pixel mask. The narrow fold-to-fold ranges nevertheless show that the coefficient structure inferred from the 793 pixels is stable across the cross-validation splits.
+The coefficient spectra in Fig.~\ref{fig:cannon_linear_coefficients_model5} support this interpretation. Many of the strongest narrow coefficient features identified by Model~\textcolor{M1}{M1} are also present when the model is restricted to the excluded pixels. These features therefore carry a substantial fraction of the residual information about $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$. A notable difference is that the broader responses around the Balmer lines are not fully represented by Model~\textcolor{M6}{M6}, because much of this extended wavelength structure lies outside the excluded-pixel mask. The narrow fold-to-fold ranges nevertheless show that the coefficient structure inferred from the 793 pixels is stable across the cross-validation splits.
 
-The comparison also highlights that the number of pixels alone is not a useful measure of the information remaining in a residual spectrum. Model~textcolor{M6}{M6} uses approximately 17 times fewer pixels than Model~textcolor{M6}{M6}, yet achieves comparable or better out-of-sample recovery. The pixels excluded from the original optimisation therefore contain a disproportionately large amount of label-dependent residual structure.
+The comparison also highlights that the number of pixels alone is not a useful measure of the information remaining in a residual spectrum. Model~\textcolor{M6}{M6} uses approximately 17 times fewer pixels than Model~\textcolor{M6}{M6}, yet achieves comparable or better out-of-sample recovery. The pixels excluded from the original optimisation therefore contain a disproportionately large amount of label-dependent residual structure.
 
 \textbf{Key Takeaway:} The 6 percent of wavelength pixels excluded from the GALAH DR4 optimisation retain almost as much information about $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ as the complete residual spectrum, and more than the remaining 94 percent of optimisation pixels alone. Although these regions could not be used reliably by the stellar synthesis, their systematic residual structure can be exploited by a data-driven model, demonstrating that scientifically useful information remains concentrated in the parts of the spectrum that conventional analyses discard.
 
@@ -639,7 +639,7 @@ The broad undulating pattern in CCD3 provides a further caution. It produces app
 \subsection{Residual information is predictive, but not always directly attributable}
 \label{sec:discussion_predictive_information}
 
-The data-driven experiments establish that residual spectra contain predictive information, but they also show that the physical interpretation of this information depends strongly on the label, sample, and validation strategy. Tab.~\ref{tab:recovery_performance} summarises the recovery of the global stellar parameters across the residual models. Comparisons should be made primarily between models using the same stellar sample: Models~\textcolor{M1}{M1}, \textcolor{M3}{M3}, textcolor{M6}{M6}, and textcolor{M6}{M6} use the \textit{baseline} sample, Models~\textcolor{M1}{M1*} and \textcolor{M2}{M2} use the \textit{abundance} sample, and Model~\textcolor{M4}{M4} uses the substantially smaller \textit{activity} sample.
+The data-driven experiments establish that residual spectra contain predictive information, but they also show that the physical interpretation of this information depends strongly on the label, sample, and validation strategy. Tab.~\ref{tab:recovery_performance} summarises the recovery of the global stellar parameters across the residual models. Comparisons should be made primarily between models using the same stellar sample: Models~\textcolor{M1}{M1}, \textcolor{M3}{M3}, \textcolor{M6}{M6}, and \textcolor{M6}{M6} use the \textit{baseline} sample, Models~\textcolor{M1}{M1*} and \textcolor{M2}{M2} use the \textit{abundance} sample, and Model~\textcolor{M4}{M4} uses the substantially smaller \textit{activity} sample.
 
 \subsubsection{Information about fitted stellar labels}
 
@@ -695,7 +695,7 @@ Analysing all spectra in the stellar rest frame favours the identification of st
 
 The data-driven models are also limited by their samples and quadratic label form. Their recovery statistics describe interpolation within the sampled label distributions and should not be extrapolated to sparsely represented stars. This limitation is most evident for hot and metal-poor stars, abundance-enhanced extremes, and the small activity sample. Correlations between labels further mean that a stable coefficient need not trace a direct physical response. Larger, more uniformly distributed samples and validation across distinct stellar populations will be needed to establish which residual relations are transferable.
 
-The textcolor{M5}{M5}--textcolor{M6}{M6} comparison deliberately contrasts pixels selected by their role in the GALAH optimisation and is therefore not a random-pixel experiment. Its conclusion is that the excluded pixels contain disproportionate residual information, not that any arbitrary set of 793 pixels would outperform the remaining spectrum. Future tests using matched random subsets or controlling for residual amplitude could quantify how much of the gain arises from deliberate selection of poorly modelled regions.
+The \textcolor{M5}{M5}--\textcolor{M6}{M6} comparison deliberately contrasts pixels selected by their role in the GALAH optimisation and is therefore not a random-pixel experiment. Its conclusion is that the excluded pixels contain disproportionate residual information, not that any arbitrary set of 793 pixels would outperform the remaining spectrum. Future tests using matched random subsets or controlling for residual amplitude could quantify how much of the gain arises from deliberate selection of poorly modelled regions.
 
 The immediate priorities are therefore to validate the highest-significance line-strength and line-profile candidates, correct important blends such as the Si~{\sc i}--Rb~{\sc i} region near $7800\,\text{\AA}$, separate stellar and observed-frame residual components, and construct larger samples for activity and other unfitted labels. More broadly, applying the same audit to other surveys and instruments would reveal which residuals are common limitations of stellar modelling and which arise from survey-specific line lists, wavelength coverage, or reduction procedures.
 
@@ -1029,10 +1029,10 @@ A full version of Tab.~\ref{tab:tabular_peak_information} with extensive comment
 
 % For this purpose, it would be interesting to create an adjusted test for model 1:
 % \begin{itemize}
-%     \item Model textcolor{M6}{M6}: Using only the 6 percent of the spectrum that were masked in DR4: DAMN! see Fig.~\ref{fig:cannon_linear_coefficients_model5} and Fig.~\ref{fig:recovery_comparison3}!
-%     \item Model textcolor{M6}{M6}: Using only the 94 percent that was also used in GALAH DR4
+%     \item Model \textcolor{M6}{M6}: Using only the 6 percent of the spectrum that were masked in DR4: DAMN! see Fig.~\ref{fig:cannon_linear_coefficients_model5} and Fig.~\ref{fig:recovery_comparison3}!
+%     \item Model \textcolor{M6}{M6}: Using only the 94 percent that was also used in GALAH DR4
 %     \item Compare the performance of these against Model 1: How much in unfitted region and how much in residuals within fitted region? Is the label information more likely embedded in the fitted region or neglected region?
-%     \item Specifically for textcolor{M6}{M6}: Discuss the linear coefficients in significantly more detail:
+%     \item Specifically for \textcolor{M6}{M6}: Discuss the linear coefficients in significantly more detail:
 %     \begin{itemize}
 %         \item in $T_\mathrm{eff}$: Balmer line cores do not seem to be most striking information here! Are the clear negative cases ionised (XII) lines and the clear positive cases (neutral XI)?
 %         \item in $\log g$: clearly, there seems to be more information in the cores of the Balmer lines here for this label. But also some lines here and there.. Again: ionised vs. neutral lines?
