@@ -205,7 +205,7 @@ We construct the residual models listed in Tab.~\ref{tab:residual_models} from d
 
 Because elements with similar nucleosynthetic origins exhibit correlated abundance patterns \citep[e.g.][]{Kobayashi2020}, we use Mg, Mn, Na, and Ba as representatives of core-collapse-supernova, Type-Ia-supernova, odd-$Z$, and asymptotic-giant-branch enrichment, respectively. We require unflagged abundances for all four elements, $v\sin i<15\,\mathrm{km\,s^{-1}}$, and $T_\mathrm{eff}<6500\,\mathrm{K}$. The rotation cut concentrates absorption into fewer pixels and increases sensitivity to weak residual correlations. These criteria leave 3826 spectra in the \textit{abundance} sample, shown in Fig.~\ref{fig:labels_m2_teff_logg_feh_xfe}; excluded hot stars and fast rotators are shown in grey.
 
-We do not include a separate r-process label. Eu is not modelled sufficiently reliably in GALAH DR4, Sm is detected too infrequently, and adding Nd would reduce the sample from 3826 to 2663 spectra while providing a pattern similar to the selected neutron-capture label.\footnote{\SB{If we want to include [Eu/Fe], we could try to use the golden sample of 54068 stars from the VAC with [Eu/H] by \citet{Kane2026}. That would, however require an adjustment of all sample selections and be limited to giants. So I would avoid this if we already get something interesting out of this abundance sample.}}
+We do not include a separate r-process label. Eu is not modelled sufficiently reliably in GALAH DR4, Sm is detected too infrequently, and adding Nd would reduce the sample from 3826 to 2663 spectra while providing a pattern similar to the selected neutron-capture label.\SB{\footnote{If we want to include [Eu/Fe], we could try to use the golden sample of 54068 stars from the VAC with [Eu/H] by \citet{Kane2026}. That would, however require an adjustment of all sample selections and be limited to giants. So I would avoid this if we already get something interesting out of this abundance sample.}}
 
 \begin{figure}
     \centering
@@ -233,7 +233,7 @@ We do not include a separate r-process label. Eu is not modelled sufficiently re
 \subsubsection{Activity Sample}
 \label{sec:sample_activity}
 
-To test whether residual spectra retain chromospheric information, we use the photosphere-corrected activity index $\log R'_\mathrm{HK}$, based on excess emission in the Ca~{\sc ii} H and K cores \citep[e.g.][]{Wilson1978,Noyes1984}. Although these lines lie outside the GALAH wavelength range, the LAMOST catalogue of \citet{Zhang2024} overlaps with 34\,672 GALAH DR4 entries\footnote{Overlaps with dedicated activity studies only yielded 83 stars from \citet{BoroSaikia2018}, 51 from \citet{Brown2022}, 40 from \citet{GomesDaSilva2021}, and one from \citet{LorenzoOliveira2018}.} and with 226 spectra in our \textit{baseline} sample. These G- and K-type dwarfs span $4800<T_\mathrm{eff}/\mathrm{K}<6250$, $\log(g/\mathrm{cm\,s^{-2}})>3.8$, and $-5.0<\log R'_\mathrm{HK}<-3.9$, covering the range in which \citet{Spina2020} found activity-dependent equivalent widths and abundances. To limit the influence of extreme positive sky-subtraction residuals, we cap continuum-normalised fluxes at 1.2 and assign the original flux value as their uncertainty before calculating $\Delta f$.\footnote{\SB{We could also imagine additional information, such as X-ray luminosity (e.g. Hyades), or TESS' $S_\mathrm{PH}$ excess variability as suggested by B. Montet?}}
+To test whether residual spectra retain chromospheric information, we use the photosphere-corrected activity index $\log R'_\mathrm{HK}$, based on excess emission in the Ca~{\sc ii} H and K cores \citep[e.g.][]{Wilson1978,Noyes1984}. Although these lines lie outside the GALAH wavelength range, the LAMOST catalogue of \citet{Zhang2024} overlaps with 34\,672 GALAH DR4 entries\footnote{Overlaps with dedicated activity studies only yielded 83 stars from \citet{BoroSaikia2018}, 51 from \citet{Brown2022}, 40 from \citet{GomesDaSilva2021}, and one from \citet{LorenzoOliveira2018}.} and with 226 spectra in our \textit{baseline} sample. These G- and K-type dwarfs span $4800<T_\mathrm{eff}/\mathrm{K}<6250$, $\log(g/\mathrm{cm\,s^{-2}})>3.8$, and $-5.0<\log R'_\mathrm{HK}<-3.9$, covering the range in which \citet{Spina2020} found activity-dependent equivalent widths and abundances. To limit the influence of extreme positive sky-subtraction residuals, we cap continuum-normalised fluxes at 1.2 and assign the original flux value as their uncertainty before calculating $\Delta f$.\SB{\footnote{We could also imagine additional information, such as X-ray luminosity (e.g. Hyades), or TESS' $S_\mathrm{PH}$ excess variability as suggested by B. Montet?}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -259,15 +259,15 @@ Finally, we quantify how often residuals occur with a preferred sign. For each w
 
 \begin{figure*}
 \centering
-\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_7845.31.pdf}
-\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_7799.96.pdf}
-\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_5700.27.pdf}
-\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_6651.02.pdf}
-\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_7853.25.pdf}
-\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_5779.64.pdf}
-\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_4831.41.pdf}
-\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_5714.17.pdf}
-\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_4799.85.pdf}
+\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_7845.31.png}
+\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_7799.96.png}
+\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_5700.27.png}
+\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_6651.02.png}
+\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_7853.25.png}
+\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_5779.64.png}
+\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_4831.41.png}
+\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_5714.17.png}
+\includegraphics[width=0.33\linewidth]{residual_inspection/residual_region_4799.85.png}
 \caption{Representative significant residual regions and their adopted classifications. Panels A--I illustrate, respectively, candidate \textit{$\log gf$ too high}, \textit{$\log gf$ too low}, \textit{Line profile}, \textit{Insignificant}, \textit{Skyline}, \textit{Interstellar}, \textit{Unknown line}, \textit{Known missing}, and \textit{Unclear} classifications. Each panel combines the GALAH residual statistics with relevant external diagnostics, including the Solar and Arcturus atlases, GALAH line-list entries, telluric absorption, and sky-emission measurements.}
 \label{fig:example_significant_residual_regions}
 \end{figure*}
@@ -277,9 +277,9 @@ Finally, we quantify how often residuals occur with a preferred sign. For each w
 
 We convert the wavelength-localised, recurrent residual structure into a reproducible catalogue of candidate regions. The catalogue supports inspection, classification, and future model improvement rather than providing a unique mathematical or physical decomposition.
 
-We identify residual peaks from the median residual-significance spectrum of the \textit{baseline} sample. We use the median rather than the maximum significance so that the selection is driven by residuals recurring across many stars rather than by individual outliers. The search is performed independently in each GALAH wavelength arm using the \textsc{find\_peaks} function of \textsc{scipy} \citep{Scipy}. As motivated in Sec.~\ref{sec:analysis_significance}, we adopt the \input{tex_text/tuned_threshold}th percentile of the median residual-significance distribution in each arm as an arm-dependent reference level. We additionally require a minimum peak width of \input{tex_text/tuned_peak_width.tex} pixels and a minimum separation of \input{tex_text/tuned_peak_distance.tex} pixels. These criteria suppress isolated single-pixel artefacts and reduce the subdivision of broad residual structures into multiple closely spaced detections. The resulting peak positions are shown as red dashed lines in the middle panels of Fig.~\ref{fig:residual_statistics}.
+We identify residual peaks from the median residual-significance spectrum of the \textit{baseline} sample. We use the median rather than the maximum significance so that the selection is driven by residuals recurring across many stars rather than by individual outliers. The search is performed independently in each GALAH wavelength arm using the \textsc{find\_peaks} function of \textsc{scipy} \citep{Scipy}. As motivated in Sec.~\ref{sec:analysis_significance}, we adopt the 75th percentile of the median residual-significance distribution in each arm as an arm-dependent reference level. We additionally require a minimum peak width of 3 pixels and a minimum separation of 6 pixels. These criteria suppress isolated single-pixel artefacts and reduce the subdivision of broad residual structures into multiple closely spaced detections. The resulting peak positions are shown as red dashed lines in the middle panels of Fig.~\ref{fig:residual_statistics}.
 
-The adopted criteria identify \input{tex_text/number_significant_peaks_ccd1}, \input{tex_text/number_significant_peaks_ccd2}, \input{tex_text/number_significant_peaks_ccd3}, and \input{tex_text/number_significant_peaks_ccd4} regions in CCDs 1--4, respectively, for a total of 380. Their exact number necessarily depends on the threshold, width, and separation parameters.
+The adopted criteria identify \input{tex_text/number_significant_peaks_ccd1.tex}, \input{tex_text/number_significant_peaks_ccd2.tex}, \input{tex_text/number_significant_peaks_ccd3.tex}, and \input{tex_text/number_significant_peaks_ccd4.tex} regions in CCDs 1--4, respectively, for a total of 380. Their exact number necessarily depends on the threshold, width, and separation parameters.
 
 For each region, an inspection figure combines the median logarithmic significance with the fractions of spectra showing significantly deeper or shallower observed flux. Mixed signs can indicate label-dependent behaviour or varying observational conditions, while broad regions are treated cautiously because observed-frame telluric, sky, and reduction features are smeared in the stellar rest frame.
 
@@ -400,7 +400,7 @@ Model \textcolor{M1}{M1*} confirms that the residual information persists in the
 
 \begin{table*}
     \centering
-    \caption{Cross-validated recovery of $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ for the residual models. Columns give the median recovery difference and its 16th--50th and 50th--84th percentile intervals, calculated from the combined left-out predictions of the five folds.}   
+    \caption{Cross-validated recovery of $T_\mathrm{eff}$, $\log g$, and $[\mathrm{Fe/H}]$ for the residual models. Columns give the median recovery difference and its 16th--50th and 50th--84th percentile intervals, calculated from the combined left-out predictions of the five folds. \textcolor{M1}{M1*} denotes training of model \textcolor{M1}{M1} on the \textit{abundance} sample, rather than the \textit{baseline} sample.}   
     \label{tab:recovery_performance}
     \begin{tabular}{cccccccccc}
     \hline \hline
@@ -408,7 +408,7 @@ Model \textcolor{M1}{M1*} confirms that the residual information persists in the
     & \multicolumn{3}{c}{$\Delta T_\mathrm{eff}\,/\,\mathrm{K}$}
     & \multicolumn{3}{c}{$\Delta\log g\,/\,\mathrm{dex}$}
     & \multicolumn{3}{c}{$\Delta[\mathrm{Fe/H}]\,/\,\mathrm{dex}$} \\
-    & $P_{50}$ & $P_{16}-P_{50}$ & $P_{84}-P_{50}$
+    & $P_{50}$ & $P_{16}-P_{50}$ & $P_{a84}-P_{50}$
     & $P_{50}$ & $P_{16}-P_{50}$ & $P_{84}-P_{50}$
     & $P_{50}$ & $P_{16}-P_{50}$ & $P_{84}-P_{50}$ \\
     \hline
@@ -420,7 +420,6 @@ Model \textcolor{M1}{M1*} confirms that the residual information persists in the
     \textcolor{M5}{M5} & $-60$  & $-140$  & $+180$  & $-0.00~~$ & $-0.23~~$ & $+0.20~~$ & $-0.01~~$ & $-0.10~~$ & $+0.09~~$ \\
     \textcolor{M6}{M6} & $+10$  & $-160$  & $+220$  & $+0.02~~$ & $-0.21~~$ & $+0.23~~$ & $+0.00~~$ & $-0.10~~$ & $+0.13~~$ \\    
     \hline \hline
-    \multicolumn{10}{p{12cm}}{\footnotesize{Note: \textcolor{M1}{M1*} denotes training of model \textcolor{M1}{M1} on the \textit{abundance} sample, rather than the \textit{baseline} sample.}}
     \end{tabular}
 \end{table*}
 
@@ -519,7 +518,7 @@ Not all strong coefficient responses have a stellar origin. Model~\textcolor{M4}
     \label{fig:recovery_comparison3}
 \end{figure}
 
-The coefficients nevertheless recover plausible Balmer and metal-line responses while also tracing unstable sky-emission residuals. The current model therefore demonstrates that activity-related information is present, but not that $\log R'_\mathrm{HK}$ can be recovered reliably. A larger, more diverse sample\footnote{\SB{Should we try a Model with more overlap from \citet{Zhang2024}? That would likely include objects in the Orion nebula with gas emission lines (e.g. 220220002701202 with [NII] at 6548.050 and 6583.450 as well as [SII] at 6716.440 and 6730.816).}} and more comprehensive masking of contaminated regions are required for robust out-of-sample prediction.
+The coefficients nevertheless recover plausible Balmer and metal-line responses while also tracing unstable sky-emission residuals. The current model therefore demonstrates that activity-related information is present, but not that $\log R'_\mathrm{HK}$ can be recovered reliably. A larger, more diverse sample\SB{\footnote{Should we try a Model with more overlap from \citet{Zhang2024}? That would likely include objects in the Orion nebula with gas emission lines (e.g. 220220002701202 with [NII] at 6548.050 and 6583.450 as well as [SII] at 6716.440 and 6730.816).}} and more comprehensive masking of contaminated regions are required for robust out-of-sample prediction.
 
 \begin{figure*}
     \centering
