@@ -1,3 +1,6 @@
+actual_*
+*.key
+comments/
 residual_cannon*.pdf
 arXiv_v1/
 .DS_Store
