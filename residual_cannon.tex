@@ -90,7 +90,7 @@ GALAH is particularly well suited to such an audit because it provides observed 
 % Paper structure and scientific questions.
 Using the GALAH data and samples introduced in Sec.~\ref{sec:data}, we address the broader question of what information remains in stellar-spectrum residuals through two complementary analyses. We first audit the significance, sign, recurrence, and plausible origins of the residual structure (Sec.~\ref{sec:analysis_audit}), and then use data-driven models to determine which fitted and unfitted properties can still be recovered from the residual spectra alone (Sec.~\ref{sec:analysis_cannon}). These analyses address four specific questions, discussed further in Sec.~\ref{sec:discussion}:
 
-\begin{enumerate}[leftmargin=2em,labelwidth=0em]
+\begin{enumerate}[leftmargin=1.3em,labelwidth=0em]
     \item How significant, systematic, and recurrent are the remaining residuals relative to the observational uncertainties, and how do they separate into features that are over-predicted or under-predicted by the synthesis?
     \item Which residual features can be associated with plausible stellar, interstellar, sky, instrumental, reduction, or line data origins, and which of these provide actionable targets for improving the spectral modelling?
     \item To what extent do residual spectra retain information about properties already included in the synthesis fit, such as stellar parameters and elemental abundance patterns, as well as properties not explicitly fitted, such as interstellar extinction and chromospheric activity?
@@ -166,7 +166,7 @@ After requiring finite interpolated fluxes and uncertainties across the common w
 
 \begin{table}
 \centering
-\caption{Overview of the wavelength pixels, samples, and labels used by the residual models. See Secs.~\ref{sec:data_samples} and \ref{sec:analysis_cannon} for details on the samples and models, respectively.}
+\caption{Overview of the wavelength pixels, samples, and labels used by the residual models. See Secs.~\ref{sec:data_samples} and \ref{sec:analysis_cannon} for details on samples/models.}
 \label{tab:residual_models}
 \begin{tabular}{lccccccccccc}
 \hline\hline
@@ -199,7 +199,7 @@ The distribution of this sample in the Kiel diagram is shown in Fig.~\ref{fig:la
     % \includegraphics[width=0.325\textwidth]{figures/labels_m2_teff_logg_percent_3sigma_residuals_xfe.png}
     % \includegraphics[width=0.325\textwidth]{figures/labels_m4_teff_logg_logrhk.png}
     \includegraphics[width=\textwidth]{figures/labels_samples_and_models.png}
-    \caption{Stellar-label distributions of the three analysis samples. \textit{Left:} the 7087-star \textit{baseline} sample used for Models~\textcolor{M1}{M1}, \textcolor{M3}{M3}, \textcolor{M5}{M5}, and \textcolor{M6}{M6}, shown in the $T_\mathrm{eff}$--$\log g$ plane and colour-coded by $[\mathrm{Fe/H}]$. \textit{Middle:} the 3826-star \textit{abundance} sample used for Models~\textcolor{M1}{M1*} and \textcolor{M2}{M2}, colour-coded by the percentage of pixels with residual significance above $3\sigma$; excluded hot stars and fast rotators are shown as grey crosses, and the inset shows the selected stars in the $[\mathrm{Mg/Fe}]$--$[\mathrm{Fe/H}]$ plane. \textit{Right:} the 226-star \textit{activity} sample used for Model~\textcolor{M4}{M4}, colour-coded by the activity indicator $\log R'*\mathrm{HK}$ from \citet{Zhang2024}; the inset shows its $\log R'*\mathrm{HK}$ distribution.}
+    \caption{Stellar-label distributions of the three analysis samples in the $T_\mathrm{eff}$--$\log g$ plane. \textit{Left:} the 7087-star \textit{baseline} sample used for Models~\textcolor{M1}{M1}, \textcolor{M3}{M3}, \textcolor{M5}{M5}, and \textcolor{M6}{M6}, colour-coded by $[\mathrm{Fe/H}]$. \textit{Middle:} the 3826-star \textit{abundance} sample used for Models~\textcolor{M1}{M1*} and \textcolor{M2}{M2}, coloured by the percentage of pixels with residual significance above $3\sigma$; excluded hot stars and fast rotators are shown as grey crosses, and the inset shows the selected stars in the $[\mathrm{Mg/Fe}]$--$[\mathrm{Fe/H}]$ plane. \textit{Right:} the 226-star \textit{activity} sample used for Model~\textcolor{M4}{M4}, coloured by the activity indicator $\log R'_\mathrm{HK}$ from \citet{Zhang2024} with the $\log R'_\mathrm{HK}$ distribution in an inset.}
     \label{fig:labels_samples_and_models}
 \end{figure*}
 
@@ -597,7 +597,7 @@ The Li~{\sc i} feature near $6707.8\,\text{\AA}$ shows the structured mismatch p
 
 The catalogue additionally contains candidate residual associations with Mn~{\sc i} at $4748.15\,\text{\AA}$, Gd~{\sc ii} near $4791.15\,\text{\AA}$, possible Ti~{\sc i}, Cd~{\sc i}, or W~{\sc i} contributors near $4799.85\,\text{\AA}$, Mo~{\sc i} at $4833.896$ and $5858.30\,\text{\AA}$, Pr~{\sc ii} at $4877.87\,\text{\AA}$, and Sm~{\sc i} at $4883.99\,\text{\AA}$. Several of these regions are blended or ambiguous and should therefore be treated as candidate associations of rare elements with potential for further investigation rather than secure new line identifications.
 
-The 13 \textit{Line profile} cases cannot be explained adequately through a scalar change in line strength. They include the Balmer lines and several asymmetric, split, or wing-dominated residuals associated with possible hyperfine structure, inaccurate component wavelengths, or imperfect broadening. Candidate examples for hyperfine structure issues, similar to that of Mn~{\sc i} by \citet{Jofre2017}, involve Cu~{\sc i} 5700.2, V~{\sc i} 5761.4, as well as Sc~{\sc i} 5671.9 and 5686.9. These cases require improved component patterns or line-formation calculations rather than a simple adjustment of $\log gf$.
+The 13 \textit{Line profile} cases cannot be explained adequately through a scalar change in line strength. They include the Balmer lines and several asymmetric, split, or wing-dominated residuals associated with possible neglected or inaccurate hyperfine or isotopic structure, isotope shifts, component wavelengths, or imperfect broadening.~{\sc i} by \citet{Jofre2017}, involve Cu~{\sc i} 5700.2, V~{\sc i} 5761.4, as well as Sc~{\sc i} 5671.9 and 5686.9. These cases require improved component patterns or line-formation calculations rather than a simple adjustment of $\log gf$.
 
 The Balmer residuals are the clearest large-scale example. Both $\mathrm{H}\upalpha$ and $\mathrm{H}\upbeta$ show broad residual structure whose amplitude and sign vary with stellar parameters, and both appear among the strongest activity-sensitive coefficients. Their behaviour could reflect several combined effects, including broadening, continuum normalisation, atmospheric structure, departures from LTE, and chromospheric filling. The current analysis establishes that their residual profiles vary systematically, but does not isolate the contribution of each physical mechanism.
 
@@ -660,8 +660,12 @@ The present audit uses a restricted GALAH sample and therefore does not capture 
 The peak catalogue also depends on the adopted significance threshold, minimum width, and peak separation. These choices define a reproducible set of prominent residual regions, but not a unique decomposition of every mismatch. Broad structures can contain several local causes. The classification map should therefore be interpreted as an overview of the dominant catalogue features rather than a complete partition of the residual spectrum.
 
 The adopted classifications remain plausibility assessments. The residual sign often determines whether more or less modelled opacity is required, but does not uniquely distinguish oscillator strengths, abundances, blends, broadening, or atmospheric structure. The Solar and Arcturus atlases also represent only two regions of stellar-label space. Confirmation of individual line-data corrections will require targeted synthesis tests, additional benchmark stars, and laboratory information where available.
+ 
+The data-driven models are limited by their training samples, label distributions, and quadratic form. Their performance describes interpolation within the sampled label space and should not be extrapolated to sparsely represented stars. Importantly, successful out-of-sample recovery demonstrates that predictive information is present, whereas failed recovery does not demonstrate its absence: information may remain in the residuals but be inaccessible to the adopted quadratic \textsc{The Cannon} model, the available training sample, or the particular set of labels. Label covariance also permits indirect prediction, while small samples can produce strong correlations with observational artefacts, as demonstrated by the activity model.
 
-The data-driven models are limited by their training samples, label distributions, and quadratic form. Their performance describes interpolation within the sampled label space and should not be extrapolated to sparsely represented stars. Label covariance also permits indirect prediction, while small samples can produce strong correlations with individual observational artefacts, as demonstrated by the activity model.
+As an exploratory test of how the adopted data-driven model affects these conclusions, we repeated the analysis using the observed continuum-normalised flux $f_{\lambda\,\mathrm{obs}}$ instead of the residual flux $\Delta f_\lambda$, while retaining the same labels, samples, wavelength coverage, and cross-validation procedure\footnote{The replica of all analyses figures with the observed instead of residual fluxes can be found via their prefix \texttt{actual\_*} in the \href{https://github.com/svenbuder/residual_cannon}{repository}.}. The observed spectra improve the recovery of some labels: the recovery scales ($\sigma(\Delta \ell)$) decrease from $150$ to $68\,\mathrm{K}$ for $T_\mathrm{eff}$, from $0.086$ to $0.054\,\mathrm{dex}$ for $[\mathrm{Fe/H}]$, and from $0.070$ to $0.059\,\mathrm{dex}$ for $[\mathrm{Mg/Fe}]$. For several other labels the performance is similar, with residual- versus observed-flux recovery scales of $0.14$ versus $0.13\,\mathrm{dex}$ for $[\mathrm{Ba/Fe}]$, $0.058$ versus $0.059\,\mathrm{dex}$ for $[\mathrm{Mn/Fe}]$, $0.084$ versus $0.082\,\mathrm{dex}$ for $[\mathrm{Na/Fe}]$, and $0.11$ versus $0.10$ for $\log R'_\mathrm{HK}$. Unexpectedly, the observed spectra perform worse for $\log g$ ($0.24$ versus $0.19\,\mathrm{dex}$) and $A_{K_\mathrm{S}}$ ($0.059$ versus $0.039\,\mathrm{mag}$).
+
+These mixed results emphasise that the recovery precision of a particular \textsc{The Cannon} model is not a direct measure of the total information contained in its input spectra. The physical synthesis may remove dominant and highly non-linear spectral variation, leaving residual correlations that are easier for the adopted quadratic model to represent, while limited coverage of label space can further restrict what either model can learn, particularly for sparsely sampled abundance extremes. Conversely, poor recovery from the residuals does not demonstrate that information about a label is absent. A full comparison of otherwise identical models trained on the observed, synthetic, and residual spectra, and of more flexible data-driven architectures, would be required to separate information content from model accessibility; such an analysis is beyond the scope of the present residual-focused study.
 
 Immediate priorities include validating the highest-significance line-strength and line-profile candidates, correcting important blends such as the Si~{\sc i}--Rb~{\sc i} region near $7800\,\text{\AA}$, separating stellar, interstellar, and observed-frame residual components, and constructing larger and more representative activity samples. Applying the same framework to independent surveys would further distinguish limitations common to stellar synthesis from those specific to the GALAH line list, instrument, or reduction.
 
@@ -691,7 +695,7 @@ Residual spectra are therefore not merely quality-control products: they identif
 
 We acknowledge the traditional owners of the land on which the ANU stands, the Ngunnawal and Ngambri people. We pay our respects to elders past, and present and are proud to continue their tradition of surveying the night sky and its mysteries to better understand our Universe.
 
-SB acknowledges support from the Australian Research Council under grant number DE240100150. SB acknowledges the use of GitHub Copilot within VSCode to assist with code completion and OpenAI's ChatGPT (GPT-5.5 Thinking) to assist with brainstorming, critical review of analysis choices and interpretations, manuscript organisation, and refinement of scientific writing.
+SB acknowledges support from the Australian Research Council under grant number DE240100150. SB acknowledges the use of GitHub Copilot within VSCode to assist with code completion and OpenAI's ChatGPT (GPT-5.5 Thinking) for brainstorming, critical feedback on analysis choices and interpretations, manuscript organisation, and language refinement. All AI-generated suggestions, including code, were critically reviewed, revised where necessary, and validated by the authors before use. All scientific analyses, interpretations, and conclusions presented in this work are those of the authors.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -716,7 +720,14 @@ All code to reproduce the analysis and figures can be publicly accessed via \url
 
 \section{Supplementary residual diagnostics}
 
-This appendix presents three supporting diagnostics referenced in the main text. Fig.~\ref{fig:percentage_residuals_1_and_2_sigma} shows the signed recurrence of residuals at the lower $1\sigma$ and $2\sigma$ thresholds (compared to $3\sigma$ from Fig.~\ref{fig:residual_statistics} bottom), Fig.~\ref{fig:skyline_confirmation} compares the broad fourth-arm residual structure with observed sky emission, and Fig.~\ref{fig:logRHK_lines_Lisogorskyi2019} shows the residual activity response for lines from \citet{Lisogorskyi2019}.
+This appendix presents three supporting diagnostics referenced in the main text. Fig.~\ref{fig:skyline_confirmation} compares the broad fourth-arm residual structure with observed sky emission, Fig.~\ref{fig:percentage_residuals_1_and_2_sigma} shows the signed recurrence of residuals at the lower $1\sigma$ and $2\sigma$ thresholds (compared to $3\sigma$ from Fig.~\ref{fig:residual_statistics} bottom), and Fig.~\ref{fig:logRHK_lines_Lisogorskyi2019} shows the residual activity response for lines from \citet{Lisogorskyi2019}.
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\linewidth]{figures/skyline_confirmation.pdf}
+    \caption{Comparison of the broad residual structure in the fourth GALAH wavelength band with observed sky-emission features. The agreement in wavelength supports the identification of these features as residuals associated with imperfect sky subtraction.}
+    \label{fig:skyline_confirmation}
+\end{figure*}
 
 \begin{figure*}
     \centering
@@ -726,12 +737,6 @@ This appendix presents three supporting diagnostics referenced in the main text.
     \label{fig:percentage_residuals_1_and_2_sigma}
 \end{figure*}
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=\linewidth]{figures/skyline_confirmation.pdf}
-    \caption{Comparison of the broad residual structure in the fourth GALAH wavelength band with observed sky-emission features. The agreement in wavelength supports the identification of these features as residuals associated with imperfect sky subtraction.}
-    \label{fig:skyline_confirmation}
-\end{figure*}
 
 \begin{figure*}
     \centering
