@@ -2,7 +2,7 @@
 
 **An audit of the information remaining in 7087 GALAH spectra after subtracting their best-fitting stellar models.**
 
-Authors: Sven Buder (ANU), Tomasz Różánski (ANU), David W. Hogg (CCA, MPIA, NYU)
+Authors: Sven Buder (ANU), Tomasz Różánski (ANU)
 
 > **Manuscript to be submitted to *The Open Journal of Astrophysics***
 
@@ -10,7 +10,7 @@ Quicklinks: [Residual-peak catalogue](data/peak_inspection_table.fits) · [Indiv
 
 ## Abstract
 
-What if we could model 100% of a stellar spectrum? Modern surveys infer stellar properties by comparing observed spectra with synthetic models, yet even the best fits leave structured residuals. We analyse 7087 GALAH spectra and ask what information remains after subtracting each best-fitting model. Across 99 million residual pixels, 4.6 million exceed $3\sigma$, far above the 0.3 million expected from Gaussian noise. We map the amplitude, significance, sign, and recurrence of these residuals and identify 380 significant regions. Comparison with stellar atlases, line lists, diffuse interstellar bands, and sky diagnostics links most regions to plausible causes: 63% are candidate line-strength or line-profile mismatches, while others trace missing or unidentified lines, interstellar absorption, sky emission, or broader reduction structure. We then train data-driven models on the residual spectra themselves. Residual-only models recover $T_\mathrm{eff}$ to $80-150\mathrm{K}$ and $[\mathrm{Fe/H}]$ to $0.059-0.086\mathrm{dex}$, depending on sample quality, and retain weaker, partly indirect information about elemental abundances. Extinction-related coefficients recover the strongest known interstellar features, whereas chromospheric activity leaves plausible Balmer-line signatures but is not recovered robustly out of sample. Most strikingly, the 6% of pixels excluded from the GALAH optimisation recover stellar labels almost as well as the full residual spectrum and better than the remaining 94% alone. Residuals are therefore not merely imperfections to discard: they map missing line data, incomplete physics, unfitted astrophysical components, and observational systematics. Reading between the lines turns one spectroscopist's trash into another one's treasure, and provides a practical route toward extracting more of the information already present in stellar spectra.
+What if we could model 100\,\% of a stellar spectrum? Modern surveys infer stellar properties by comparing observed spectra with synthetic models, yet even the best fits leave structured residuals. We analyse 7087 GALAH survey spectra and ask what information remains after subtracting each best-fitting model. Across 13927 wavelength pixels, an average of 4.5\,\% residuals exceed $3\sigma$, far above 0.3\,\% expected from Gaussian noise. We map the amplitude, significance, sign, and recurrence of these residuals and identify 380 significant regions. Comparison with stellar atlases, line lists, diffuse interstellar bands, and sky diagnostics links most regions to plausible causes: 62\,\% are candidate line-strength or line-profile mismatches, while others trace missing or unidentified lines, interstellar absorption, sky emission, or broader reduction structure. We then train data-driven models on the residual spectra themselves. Residual-only models recover $T_\mathrm{eff}$ to $80-150\,\mathrm{K}$ and $[\mathrm{Fe/H}]$ to $0.059-0.086\,\mathrm{dex}$, depending on sample quality, and retain weaker, partly indirect information about elemental abundances. Extinction-related coefficients recover the strongest known interstellar features, whereas chromospheric activity leaves plausible Balmer-line signatures but is not recovered robustly out of sample. Most strikingly, the residual flux in 6\,\% of wavelength pixels that were synthesised but excluded from the GALAH DR4 optimisation recovers stellar labels almost as well as the full residual spectrum and better than the remaining 94\,\% alone. Residuals are therefore not merely imperfections to discard: they map missing line data, incomplete physics, unfitted astrophysical components, and observational systematics. Reading between the lines turns one spectroscopist's trash into another one's treasure, and provides a practical route towards extracting more of the information already present in stellar spectra.
 
 ## Main results
 
@@ -303,8 +303,7 @@ The paper is currently in preparation. Please use the following placeholder unti
 ```bibtex
 @ARTICLE{Buder2026ResidualCannon,
     author        = {{Buder}, Sven and
-                     {R{\'o}{\.z}{\'a}{\'n}ski}, Tomasz and
-                     {Hogg}, David W.},
+                     {R{\'o}{\.z}{\'a}{\'n}ski}, Tomasz},
     title         = "{Reading Between the Lines: How Much Information Remains After Fitting a Stellar Spectrum?}",
     journal       = {The Open Journal of Astrophysics},
     year          = {2026},
