@@ -302,18 +302,18 @@ The paper is currently in preparation. Please use the following placeholder unti
 
 ```bibtex
 @ARTICLE{Buder2026ResidualCannon,
-    author        = {{Buder}, Sven and
-                     {R{\'o}{\.z}{\'a}{\'n}ski}, Tomasz},
-    title         = "{Reading Between the Lines: How Much Information Remains After Fitting a Stellar Spectrum?}",
-    journal       = {The Open Journal of Astrophysics},
-    year          = {2026},
-    volume        = {TBD},
-    number        = {TBD},
-    pages         = {TBD},
-    doi           = {TBD},
-    eprint        = {TBD},
-    archivePrefix = {arXiv},
-    primaryClass  = {astro-ph.SR}
+       author = {{Buder}, Sven and {R{\'o}{\.z}{\'a}nski}, Tomasz},
+        title = "{Reading Between the Lines: How Much Information Remains After Fitting a Stellar Spectrum?}",
+      journal = {arXiv e-prints},
+     keywords = {Solar and Stellar Astrophysics, Astrophysics of Galaxies, Instrumentation and Methods for Astrophysics},
+         year = 2026,
+        month = oct,
+          eid = {arXiv:2610.25583},
+        pages = {arXiv:2610.25583},
+archivePrefix = {arXiv},
+       eprint = {2610.25583},
+ primaryClass = {astro-ph.SR},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2026arXiv261025583B}
 }
 
 ```
