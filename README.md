@@ -4,7 +4,7 @@
 
 Authors: Sven Buder (ANU), Tomasz Różánski (ANU)
 
-> **Manuscript to be submitted to *The Open Journal of Astrophysics***
+> **Manuscript submitted to *The Open Journal of Astrophysics***
 
 Quicklinks: [Residual-peak catalogue](data/peak_inspection_table.fits) · [Individual peak diagnostics](residual_inspection/) · [Paper figures](figures/)
 
